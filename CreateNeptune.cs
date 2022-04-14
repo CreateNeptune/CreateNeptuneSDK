@@ -608,6 +608,33 @@ namespace CreateNeptune
                 // guarantee correct end value
                 tmpComponent.text = textInFront + endValue.ToString() + textAtEnd;
             }
+            else if (objectWithTextComponent.GetComponent<TextMeshProUGUI>() != null)
+            {
+                TextMeshProUGUI tmpComponent = objectWithTextComponent.GetComponent<TextMeshProUGUI>();
+
+                while (counter <= animationTime)
+                {
+                    if (timeUnscaled)
+                    {
+                        counter += Time.unscaledDeltaTime;
+                    }
+                    else
+                    {
+                        counter += Time.deltaTime;
+                    }
+
+                    percentComplete = counter / animationTime;
+
+                    floatValue = Mathf.Round(percentComplete * (endValue - startValue) + startValue);
+                    displayValue = (int)floatValue;
+                    tmpComponent.text = textInFront + displayValue.ToString() + textAtEnd;
+
+                    yield return null;
+                }
+
+                // guarantee correct end value
+                tmpComponent.text = textInFront + endValue.ToString() + textAtEnd;
+            }
 
             if (deactivateAtEnd)
             {
