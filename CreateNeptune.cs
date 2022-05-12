@@ -854,13 +854,14 @@ namespace CreateNeptune
         }
 
         // Create a GameObject pool of a certain size.
-        public static void CreateObjectPool(List<GameObject> gameObjectList, GameObject gameObject, int poolSize, int physicsLayer)
+        public static void CreateObjectPool(List<GameObject> gameObjectList, GameObject gameObject, int poolSize, Transform parent, int physicsLayer)
         {
             for (int i = 0; i < poolSize; i++)
             {
                 GameObject newGO = Instantiate(gameObject);
                 newGO.layer = physicsLayer;
                 newGO.SetActive(false);
+                newGO.transform.parent = parent;
                 gameObjectList.Add(newGO);
             }
         }
