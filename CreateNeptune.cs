@@ -1095,6 +1095,11 @@ namespace CreateNeptune
             }
         }
 
+        public static bool IsLayerInMask(int layer, LayerMask layerMask)
+        {
+            return ((1 << layer) & layerMask) > 0;
+        }
+
         // Array of player names: we can keep adding to this, but keeping a minimum of 2000 names.
         // If don't have enough here, will autogenerate one.
         private static readonly string[] fakePlayerNames = {"Jamesman","PDPWario","phil4684","jvitale9","supadupaparatrpa","ryanf33","kcfagan1","themanjs2",
