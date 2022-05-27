@@ -1266,7 +1266,7 @@ namespace CreateNeptune
     /// <summary>
     /// <para>Base class for singletons.</para>
     /// <para>
-    /// OnAwake must be implemented and is called when the
+    /// OnSuccessfulAwake can be implemented and is called when the
     /// first instance of this singleton is set.
     /// </para>
     /// <para>Example of declaring a child of this is included in the source code comments</para>
