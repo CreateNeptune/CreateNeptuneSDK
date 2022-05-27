@@ -174,7 +174,7 @@ namespace CreateNeptune
                 {
                     easedTime = counter / animationTime;
                 }
-                
+
                 moveObjectT.anchoredPosition = Vector2.Lerp(startPosition, endPosition, easedTime);
 
                 yield return null;
@@ -313,6 +313,55 @@ namespace CreateNeptune
             else if (objectToFade.GetComponent<Text>() != null)
             {
                 Text objectToFadeImage = objectToFade.GetComponent<Text>();
+
+                // Get current color.
+                Color currentColor = objectToFadeImage.color;
+
+                while (counter <= timeToFade)
+                {
+                    objectToFadeImage.color = new Color(currentColor.r, currentColor.g, currentColor.b,
+                        startAlpha + (endAlpha - startAlpha) * counter / timeToFade);
+                    if (timeUnscaled)
+                    {
+                        counter += Time.unscaledDeltaTime;
+                    }
+                    else
+                    {
+                        counter += Time.deltaTime;
+                    }
+
+                    yield return null;
+                }
+
+                // guarantee end alpha
+                objectToFadeImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, endAlpha);
+            }
+            else if (objectToFade.GetComponent<CanvasGroup>() != null)
+            {
+                CanvasGroup objectToFadeImage = objectToFade.GetComponent<CanvasGroup>();
+
+                while (counter <= timeToFade)
+                {
+                    objectToFadeImage.alpha =
+                        startAlpha + (endAlpha - startAlpha) * counter / timeToFade;
+                    if (timeUnscaled)
+                    {
+                        counter += Time.unscaledDeltaTime;
+                    }
+                    else
+                    {
+                        counter += Time.deltaTime;
+                    }
+
+                    yield return null;
+                }
+
+                // guarantee end alpha
+                objectToFadeImage.alpha = endAlpha;
+            }
+            else if (objectToFade.GetComponent<RawImage>() != null)
+            {
+                RawImage objectToFadeImage = objectToFade.GetComponent<RawImage>();
 
                 // Get current color.
                 Color currentColor = objectToFadeImage.color;
@@ -1095,10 +1144,22 @@ namespace CreateNeptune
             }
         }
 
+        public static string MakeCapitalized(string originalString)
+        {
+            if (originalString.Length == 0)
+                return "";
+            else if (originalString.Length == 1)
+                return char.ToUpper(originalString[0]).ToString();
+            else
+                return char.ToUpper(originalString[0]) + originalString.Substring(1);
+        }
+
+
         public static bool IsLayerInMask(int layer, LayerMask layerMask)
         {
             return ((1 << layer) & layerMask) > 0;
         }
+
 
         // Array of player names: we can keep adding to this, but keeping a minimum of 2000 names.
         // If don't have enough here, will autogenerate one.
