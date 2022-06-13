@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using CreateNeptune;
 
 public class InputManager : Singleton<InputManager>
@@ -45,7 +46,7 @@ public class InputManager : Singleton<InputManager>
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            if (Time.time - tapTimer < tapThresholdTime)
+            if (Time.time - tapTimer < tapThresholdTime && !EventSystem.current.IsPointerOverGameObject())
             {
                 SendTapEvent(Input.mousePosition);
             }
@@ -93,7 +94,7 @@ public class InputManager : Singleton<InputManager>
                     }
                 case TouchPhase.Ended:
                     {
-                        if (Time.time - tapTimer < tapThresholdTime)
+                        if (Time.time - tapTimer < tapThresholdTime && !EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId))
                         {
                             SendTapEvent(Input.touches[0].position);
                         }
