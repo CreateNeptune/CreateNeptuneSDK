@@ -9,6 +9,7 @@
   "changelogUrl": "",
   "licensesUrl": "",
   "dependencies": {
+    "com.createneptune.sdk": "https://github.com/wristshot0/CreateNeptuneSDK.git?path=/Packages/com.createneptune.sdk"
  },
   "author": {
     "name": "CreateNeptune",
