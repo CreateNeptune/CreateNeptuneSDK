@@ -12,3 +12,6 @@ Follow the same instructions as installation. You do not have to remove the old 
 ## Troubleshooting
 ### Not logged in
 You must log in since this is a private repo. To do so, use something like the [GitHub CLI](https://docs.github.com/en/get-started/getting-started-with-git/caching-your-github-credentials-in-git).
+
+## Editing this Repo
+Feel free to make all neccessary edits to this repo, just please notify the team when you do. The files to edit are in /Packages/com.createneptune.sdk
