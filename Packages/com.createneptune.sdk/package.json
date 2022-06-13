@@ -1,0 +1,17 @@
+{
+  "name": "com.createneptune.sdk",
+  "version": "1.0.0",
+  "displayName": "CreateNeptune SDK",
+  "description": "Everything you need to get going",
+  "unity": "2019.1",
+  "unityRelease": "0b5",
+  "documentationUrl": "",
+  "changelogUrl": "",
+  "licensesUrl": "",
+  "dependencies": {
+ },
+  "author": {
+    "name": "CreateNeptune",
+    "email": "ben@createneptune.com"
+  }
+}
