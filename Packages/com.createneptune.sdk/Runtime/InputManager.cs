@@ -47,7 +47,7 @@ namespace CreateNeptune
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                if (Time.time - tapTimer < tapThresholdTime && !EventSystem.current.IsPointerOverGameObject())
+                if (Time.time - tapTimer < tapThresholdTime && (EventSystem.current == null || !EventSystem.current.IsPointerOverGameObject()))
                 {
                     SendTapEvent(Input.mousePosition);
                 }
@@ -95,7 +95,7 @@ namespace CreateNeptune
                         }
                     case TouchPhase.Ended:
                         {
-                            if (Time.time - tapTimer < tapThresholdTime && !EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId))
+                            if (Time.time - tapTimer < tapThresholdTime && (EventSystem.current == null || !EventSystem.current.IsPointerOverGameObject()))
                             {
                                 SendTapEvent(Input.touches[0].position);
                             }
@@ -135,35 +135,5 @@ namespace CreateNeptune
                 deltaDragDistance = Vector2.Distance(lastEndPosition, endScreenPosition)
             });
         }
-    }
-
-    public class TapEvent : UnityEvent<TapEventContext>
-    {
-        public static TapEvent Instance = new TapEvent();
-    }
-
-    public struct TapEventContext
-    {
-        public Vector2 position;
-        public RaycastHit[] hits;
-    }
-
-    public class DragEvent : UnityEvent<DragEventContext>
-    {
-        public static DragEvent Instance = new DragEvent();
-    }
-
-    public enum DragState
-    {
-        Dragging, Ended
-    }
-
-    public struct DragEventContext
-    {
-        public DragState state;
-        public Vector2 startPosition;
-        public Vector2 endPosition;
-        public float dragDistance;
-        public float deltaDragDistance;
     }
 }

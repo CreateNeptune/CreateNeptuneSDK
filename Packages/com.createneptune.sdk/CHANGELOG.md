@@ -18,3 +18,8 @@
 ### 1.1.1
 
 -added root namespace to asmdef
+
+### 1.1.2
+
+-fixed bug with InputManager not behaving correctly when there is no EventSystem active
+-separated InputManagerEvents into their own scripts
