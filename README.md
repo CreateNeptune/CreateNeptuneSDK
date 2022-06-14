@@ -7,7 +7,7 @@
 4. Paste the url ``https://github.com/wristshot0/CreateNeptuneSDK.git?path=/Packages/com.createneptune.sdk`` for the main sdk. For the addressables sdk paste, ``https://github.com/wristshot0/CreateNeptuneSDK.git?path=/Packages/com.createneptune.addressablessdk``.
 
 ## How to Update
-Follow the same instructions as installation. You do not have to remove the old version and it will go faster if you don't.
+In newer versions of Unity, there should be an Update button at the bottom left of the package manager when viewing the package. Otherwise, follow the same instructions as installation. You do not have to remove the old version and it will go faster if you don't.
 
 ## Troubleshooting
 ### Not logged in
