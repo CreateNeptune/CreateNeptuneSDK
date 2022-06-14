@@ -9,3 +9,8 @@
 ### 1.0.2
 
 -test
+
+### 1.1.0
+
+-separated CreateNeptune.cs into Singleton.cs, CNExtensions.cs, and MPAction.cs
+-added Preloader.cs and CNCanvas.cs
