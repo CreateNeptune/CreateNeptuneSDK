@@ -23,3 +23,7 @@
 
 -fixed bug with InputManager not behaving correctly when there is no EventSystem active
 -separated InputManagerEvents into their own scripts
+
+### 1.1.3
+
+-changed Vector2 to Vector3 in MPAction scaling function
