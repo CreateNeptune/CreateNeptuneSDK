@@ -4,7 +4,7 @@
 1. Open Unity Package Manager
 2. Click the + in the top left.
 3. Select "Add package from git URL..."
-4. Paste the url ``https://github.com/wristshot0/CreateNeptuneSDK.git?path=/Packages/com.createneptune.sdk``
+4. Paste the url ``https://github.com/wristshot0/CreateNeptuneSDK.git?path=/Packages/com.createneptune.sdk`` for the main sdk. For the addressables sdk paste, ``https://github.com/wristshot0/CreateNeptuneSDK.git?path=/Packages/com.createneptune.addressablessdk``.
 
 ## How to Update
 Follow the same instructions as installation. You do not have to remove the old version and it will go faster if you don't.
