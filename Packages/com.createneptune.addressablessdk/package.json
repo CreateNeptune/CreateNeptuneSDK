@@ -1,0 +1,19 @@
+{
+  "name": "com.createneptune.addressablessdk",
+  "version": "1.0.0",
+  "displayName": "CreateNeptune Addressables SDK",
+  "description": "Everything you need to get going with addressables",
+  "unity": "2019.1",
+  "unityRelease": "0b5",
+  "documentationUrl": "",
+  "changelogUrl": "",
+  "licensesUrl": "",
+  "author": {
+    "name": "CreateNeptune",
+    "email": "ben@createneptune.com"
+  },
+  "type": "library",
+  "dependencies": {
+    "com.unity.addressables": "1.19.19"
+  }
+}
