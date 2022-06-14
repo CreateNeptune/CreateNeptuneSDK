@@ -14,3 +14,7 @@
 
 -separated CreateNeptune.cs into Singleton.cs, CNExtensions.cs, and MPAction.cs
 -added Preloader.cs and CNCanvas.cs
+
+### 1.1.1
+
+-added root namespace to asmdef
