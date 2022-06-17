@@ -24,6 +24,8 @@ namespace CreateNeptune {
 
         public static T Instance;
 
+        [SerializeField] private bool shouldDestroyOnLoad = false;
+
         private void Awake()
         {
             if (this is T self)
@@ -31,7 +33,10 @@ namespace CreateNeptune {
                 if (Instance == null)
                 {
                     Instance = self;
-                    DontDestroyOnLoad(gameObject);
+
+                    if(!shouldDestroyOnLoad)
+                        DontDestroyOnLoad(gameObject);
+
                     OnSuccessfulAwake();
                 }
                 else if (Instance != self)
