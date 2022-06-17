@@ -188,7 +188,7 @@ namespace CreateNeptune
         }
 
         // ***WARNING: THIS CAUSES PERFORMANCE ISSUES ON ANDROID DEVICES IF USED EXCESSIVELY OR ON LARGE OR TRANSPARENT OBJECTS. BEWARE!***
-        public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector2 startScale, Vector2 endScale,
+        public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 startScale, Vector3 endScale,
             string easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
         {
             float counter = 0f;
@@ -217,7 +217,7 @@ namespace CreateNeptune
                     easedTime = counter / animationTime;
 
                 if (scaleObjectT != null)
-                    scaleObjectT.localScale = Vector2.Lerp(startScale, endScale, easedTime);
+                    scaleObjectT.localScale = Vector3.Lerp(startScale, endScale, easedTime);
 
                 yield return null;
             }
