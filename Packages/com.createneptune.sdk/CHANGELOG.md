@@ -27,5 +27,8 @@
 ### 1.1.3
 
 -added toggle for DDOL on Singleton
+-changed Vector2 to Vector3 in MPAction scaling function
 
--changed Vector2 to Vector3 in MPAction scaling function 
+### 1.1.4
+
+-made OnEnable() and OnDisable() virtual in CNCanvas.cs 

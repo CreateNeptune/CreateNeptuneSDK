@@ -11,7 +11,7 @@ namespace CreateNeptune
         //you must assign this in Awake() on the child class
         protected UnityEvent ToggleEvent;
 
-        protected void OnEnable()
+        protected virtual void OnEnable()
         {
             ToggleEvent?.AddListener(OnToggle);
             if (ToggleEvent == null)
@@ -20,7 +20,7 @@ namespace CreateNeptune
             }
         }
 
-        protected void OnDisable()
+        protected virtual void OnDisable()
         {
             ToggleEvent?.RemoveListener(OnToggle);
         }
