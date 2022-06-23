@@ -31,4 +31,8 @@
 
 ### 1.1.4
 
--made OnEnable() and OnDisable() virtual in CNCanvas.cs 
+-made OnEnable() and OnDisable() virtual in CNCanvas.cs
+
+### 1.1.5
+
+-changed how drag events are sent from InputManager.cs

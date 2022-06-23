@@ -51,7 +51,7 @@ namespace CreateNeptune
                 {
                     SendTapEvent(Input.mousePosition);
                 }
-                else if (Vector2.Distance(Input.mousePosition, touchStartPosition) > dragDistanceThreshold)
+                if (Vector2.Distance(Input.mousePosition, touchStartPosition) > dragDistanceThreshold)
                 {
                     SendDragEvent(DragState.Ended, touchStartPosition, Input.mousePosition, lastTouchPosition);
                 }
@@ -99,7 +99,7 @@ namespace CreateNeptune
                             {
                                 SendTapEvent(Input.touches[0].position);
                             }
-                            else if (Vector2.Distance(Input.touches[0].position, touchStartPosition) > dragDistanceThreshold)
+                            if (Vector2.Distance(Input.touches[0].position, touchStartPosition) > dragDistanceThreshold)
                             {
                                 SendDragEvent(DragState.Ended, touchStartPosition, Input.touches[0].position, lastTouchPosition);
                             }
