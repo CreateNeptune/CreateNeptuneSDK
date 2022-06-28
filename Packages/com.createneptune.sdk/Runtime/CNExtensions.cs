@@ -349,7 +349,7 @@ namespace CreateNeptune
                 }
             }
 
-            return -1
+            return -1;
         }
 
         public static string FabricateName(string yourPlayerName)
