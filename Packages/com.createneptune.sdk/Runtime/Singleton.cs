@@ -1,6 +1,7 @@
 using UnityEngine;
 
-namespace CreateNeptune { 
+namespace CreateNeptune
+{
     /// <summary>
     /// <para>Base class for singletons.</para>
     /// <para>
@@ -34,7 +35,7 @@ namespace CreateNeptune {
                 {
                     Instance = self;
 
-                    if(!shouldDestroyOnLoad)
+                    if (!shouldDestroyOnLoad)
                         DontDestroyOnLoad(gameObject);
 
                     OnSuccessfulAwake();
@@ -59,5 +60,23 @@ namespace CreateNeptune {
         {
 
         }
+
+        protected virtual void OnDestroy()
+        {
+            if (this is T self)
+            {
+                if (Instance == self)
+                {
+                    Instance = null;
+                }
+            }
+        }
+    }
+
+    //use this when you want to pass on a second type defining the singleton
+    public abstract class Singleton<T0, T1> : Singleton<T0>
+        where T0 : class
+        where T1 : class
+    {
     }
 }

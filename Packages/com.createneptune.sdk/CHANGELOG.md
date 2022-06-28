@@ -36,3 +36,8 @@
 ### 1.1.5
 
 -changed how drag events are sent from InputManager.cs
+
+### 1.1.6
+
+-added OnDestroy() method to ensure singleton consistency in Singleton.cs
+-added Singleton<T0, T1> extension class to Singleton.cs
