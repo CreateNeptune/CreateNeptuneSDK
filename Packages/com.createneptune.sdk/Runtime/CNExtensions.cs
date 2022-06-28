@@ -339,7 +339,7 @@ namespace CreateNeptune
             return newList;
         }
 
-        public static int FindIndexOfItemInArray<T>(T[] array, T item)
+        public static int FindIndexOfItemInArray<T>(T[] array, T item) where T : class
         {
             for (int i = 0; i < array.Length; i++)
             {
