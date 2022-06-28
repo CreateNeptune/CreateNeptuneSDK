@@ -339,6 +339,19 @@ namespace CreateNeptune
             return newList;
         }
 
+        public static int FindIndexOfItemInArray<T>(T[] array, T item)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] == item)
+                {
+                    return i;
+                }
+            }
+
+            return -1
+        }
+
         public static string FabricateName(string yourPlayerName)
         {
             string fabricatedName;

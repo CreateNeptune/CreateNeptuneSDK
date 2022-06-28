@@ -41,3 +41,7 @@
 
 -added OnDestroy() method to ensure singleton consistency in Singleton.cs
 -added Singleton<T0, T1> extension class to Singleton.cs
+
+### 1.1.7
+
+-added FindItemIndexInArray<T>() to CNExtensions.cs
