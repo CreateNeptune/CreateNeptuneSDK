@@ -45,3 +45,7 @@
 ### 1.1.7
 
 -added FindItemIndexInArray<T>() to CNExtensions.cs
+
+### 1.1.8
+
+-changed object pooling code to use SetParent() in CNExtensions.cs

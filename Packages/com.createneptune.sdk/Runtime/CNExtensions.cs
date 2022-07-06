@@ -156,7 +156,7 @@ namespace CreateNeptune
                 GameObject newGO = Instantiate(gameObject);
                 newGO.layer = physicsLayer;
                 newGO.SetActive(false);
-                newGO.transform.parent = parent;
+                newGO.transform.SetParent(parent);
                 gameObjectList.Add(newGO);
             }
         }
@@ -190,6 +190,7 @@ namespace CreateNeptune
             // Otherwise instantiate a new object.
             GameObject newObject = Instantiate(gameObject);
             newObject.layer = physicsLayer;
+            newObject.transform.SetParent(t);
             newObject.SetActive(false);
             objectPool.Add(newObject);
 
