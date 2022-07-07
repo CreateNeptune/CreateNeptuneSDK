@@ -49,3 +49,7 @@
 ### 1.1.8
 
 -changed object pooling code to use SetParent() in CNExtensions.cs
+
+### 1.1.9
+
+-added CheckFlag to CNExtensions.cs

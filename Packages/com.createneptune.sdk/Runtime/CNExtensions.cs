@@ -8,6 +8,17 @@ namespace CreateNeptune
 
     public class CNExtensions : MonoBehaviour
     {
+        /// <summary>
+        /// Checks to see if check is in the given flag
+        /// </summary>
+        /// <param name="flag">The flag to check</param>
+        /// <param name="check">The mask we use to check. SHOULD BE A SINGLE BIT MASK</param>
+        /// <returns>If flag passes the check</returns>
+        public static bool CheckForFlag(int flag, int check)
+        {
+            return (flag & check) != 0;
+        }
+
         public static IEnumerator CameraShake(float shakeDuration, float magnitude)
         {
             Transform camT = Camera.main.transform;
