@@ -8,9 +8,15 @@ namespace CreateNeptune
     using UnityEngine.UI;
     using TMPro;
 
-    public class MPAction : MonoBehaviour
+    public static class MPAction
     {
-        public static IEnumerator RotateObject(GameObject rotateObject, bool local, float animationTime, Vector3 startRotation, Vector3 endRotation, string easeType, bool timeUnscaled)
+        public enum EaseType
+        {
+            easein, easeout, easeineaseout, linear
+        }
+
+        public static IEnumerator RotateObject(GameObject rotateObject, bool local, float animationTime, Vector3 startRotation,
+            Vector3 endRotation, EaseType easeType, bool timeUnscaled)
         {
             float counter = 0f;
             float easedTime;
@@ -29,15 +35,15 @@ namespace CreateNeptune
                     counter += Time.deltaTime;
                 }
 
-                if (easeType == "easein")
+                if (easeType == EaseType.easein)
                 {
                     easedTime = 1f - Mathf.Cos((counter / animationTime) * Mathf.PI * 0.5f);
                 }
-                else if (easeType == "easeout")
+                else if (easeType == EaseType.easeout)
                 {
                     easedTime = Mathf.Sin((counter / animationTime) * Mathf.PI * 0.5f);
                 }
-                else if (easeType == "easeineaseout")
+                else if (easeType == EaseType.easeineaseout)
                 {
                     easedTime = (counter / animationTime) * (counter / animationTime) * (3.0f - 2.0f * (counter / animationTime));
                 }
@@ -62,7 +68,7 @@ namespace CreateNeptune
         }
 
         public static IEnumerator MoveObject(GameObject moveObject, bool localPosition, float animationTime, Vector3 startPosition, Vector3 endPosition,
-            string easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
+            EaseType easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
         {
             float counter = 0f;
             float easedTime;
@@ -86,15 +92,15 @@ namespace CreateNeptune
                     counter += Time.deltaTime;
                 }
 
-                if (easeType == "easein")
+                if (easeType == EaseType.easein)
                 {
                     easedTime = 1f - Mathf.Cos((counter / animationTime) * Mathf.PI * 0.5f);
                 }
-                else if (easeType == "easeout")
+                else if (easeType == EaseType.easeout)
                 {
                     easedTime = Mathf.Sin((counter / animationTime) * Mathf.PI * 0.5f);
                 }
-                else if (easeType == "easeineaseout")
+                else if (easeType == EaseType.easeineaseout)
                 {
                     easedTime = (counter / animationTime) * (counter / animationTime) * (3.0f - 2.0f * (counter / animationTime));
                 }
@@ -132,7 +138,7 @@ namespace CreateNeptune
         }
 
         public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 startPosition, Vector2 endPosition,
-            string easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
+            EaseType easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
         {
             float counter = 0f;
             float easedTime;
@@ -156,15 +162,15 @@ namespace CreateNeptune
                     counter += Time.deltaTime;
                 }
 
-                if (easeType == "easein")
+                if (easeType == EaseType.easein)
                 {
                     easedTime = 1f - Mathf.Cos((counter / animationTime) * Mathf.PI * 0.5f);
                 }
-                else if (easeType == "easeout")
+                else if (easeType == EaseType.easeout)
                 {
                     easedTime = Mathf.Sin((counter / animationTime) * Mathf.PI * 0.5f);
                 }
-                else if (easeType == "easeineaseout")
+                else if (easeType == EaseType.easeineaseout)
                 {
                     easedTime = (counter / animationTime) * (counter / animationTime) * (3.0f - 2.0f * (counter / animationTime));
                 }
@@ -189,7 +195,7 @@ namespace CreateNeptune
 
         // ***WARNING: THIS CAUSES PERFORMANCE ISSUES ON ANDROID DEVICES IF USED EXCESSIVELY OR ON LARGE OR TRANSPARENT OBJECTS. BEWARE!***
         public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 startScale, Vector3 endScale,
-            string easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
+            EaseType easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
         {
             float counter = 0f;
             float easedTime;
@@ -207,11 +213,11 @@ namespace CreateNeptune
                 else
                     counter += Time.deltaTime;
 
-                if (easeType == "easein")
+                if (easeType == EaseType.easein)
                     easedTime = 1f - Mathf.Cos((counter / animationTime) * Mathf.PI * 0.5f);
-                else if (easeType == "easeout")
+                else if (easeType == EaseType.easeout)
                     easedTime = Mathf.Sin((counter / animationTime) * Mathf.PI * 0.5f);
-                else if (easeType == "easeineaseout")
+                else if (easeType == EaseType.easeineaseout)
                     easedTime = (counter / animationTime) * (counter / animationTime) * (3.0f - 2.0f * (counter / animationTime));
                 else // linear
                     easedTime = counter / animationTime;
@@ -267,6 +273,7 @@ namespace CreateNeptune
                 {
                     objectToFadeSpriteRenderer.color = new Color(currentColor.r, currentColor.g, currentColor.b,
                         startAlpha + (endAlpha - startAlpha) * counter / timeToFade);
+
                     if (timeUnscaled)
                     {
                         counter += Time.unscaledDeltaTime;
@@ -293,6 +300,7 @@ namespace CreateNeptune
                 {
                     objectToFadeImage.color = new Color(currentColor.r, currentColor.g, currentColor.b,
                         startAlpha + (endAlpha - startAlpha) * counter / timeToFade);
+
                     if (timeUnscaled)
                     {
                         counter += Time.unscaledDeltaTime;
@@ -319,6 +327,7 @@ namespace CreateNeptune
                 {
                     objectToFadeImage.color = new Color(currentColor.r, currentColor.g, currentColor.b,
                         startAlpha + (endAlpha - startAlpha) * counter / timeToFade);
+
                     if (timeUnscaled)
                     {
                         counter += Time.unscaledDeltaTime;
@@ -342,6 +351,7 @@ namespace CreateNeptune
                 {
                     objectToFadeImage.alpha =
                         startAlpha + (endAlpha - startAlpha) * counter / timeToFade;
+
                     if (timeUnscaled)
                     {
                         counter += Time.unscaledDeltaTime;
@@ -368,6 +378,7 @@ namespace CreateNeptune
                 {
                     objectToFadeImage.color = new Color(currentColor.r, currentColor.g, currentColor.b,
                         startAlpha + (endAlpha - startAlpha) * counter / timeToFade);
+
                     if (timeUnscaled)
                     {
                         counter += Time.unscaledDeltaTime;
@@ -411,6 +422,7 @@ namespace CreateNeptune
                 while (counter <= timeToFade)
                 {
                     objectToColorSpriteRenderer.color = startColor + (endColor - startColor) * (counter / timeToFade);
+
                     if (timeUnscaled)
                     {
                         counter += Time.unscaledDeltaTime;
@@ -433,6 +445,7 @@ namespace CreateNeptune
                 while (counter <= timeToFade)
                 {
                     objectToColorImage.color = startColor + (endColor - startColor) * (counter / timeToFade);
+
                     if (timeUnscaled)
                     {
                         counter += Time.unscaledDeltaTime;
@@ -455,6 +468,7 @@ namespace CreateNeptune
                 while (counter <= timeToFade)
                 {
                     objectToColorRenderer.material.color = startColor + (endColor - startColor) * (counter / timeToFade);
+
                     if (timeUnscaled)
                     {
                         counter += Time.unscaledDeltaTime;
@@ -477,6 +491,7 @@ namespace CreateNeptune
                 while (counter <= timeToFade)
                 {
                     objectToColorRenderer.material.color = startColor + (endColor - startColor) * (counter / timeToFade);
+
                     if (timeUnscaled)
                     {
                         counter += Time.unscaledDeltaTime;
@@ -527,7 +542,7 @@ namespace CreateNeptune
         }
 
         public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 startScale, Vector3 endScale,
-            float animationTime, string easeType, bool activateAtStart, bool deactivateAtEnd, bool destroyAtEnd, bool timeUnscaled)
+            float animationTime, EaseType easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
         {
             float counter = 0f;
             float easedTime;
@@ -551,15 +566,15 @@ namespace CreateNeptune
                     counter += Time.deltaTime;
                 }
 
-                if (easeType == "easein")
+                if (easeType == EaseType.easein)
                 {
                     easedTime = 1f - Mathf.Cos((counter / animationTime) * Mathf.PI * 0.5f);
                 }
-                else if (easeType == "easeout")
+                else if (easeType == EaseType.easeout)
                 {
                     easedTime = Mathf.Sin((counter / animationTime) * Mathf.PI * 0.5f);
                 }
-                else if (easeType == "easeineaseout")
+                else if (easeType == EaseType.easeineaseout)
                 {
                     easedTime = (counter / animationTime) * (counter / animationTime) * (3.0f - 2.0f * (counter / animationTime));
                 }
@@ -579,11 +594,6 @@ namespace CreateNeptune
             if (deactivateAtEnd)
             {
                 objectToScale.SetActive(false);
-            }
-
-            if (destroyAtEnd)
-            {
-                Destroy(objectToScale);
             }
         }
 
