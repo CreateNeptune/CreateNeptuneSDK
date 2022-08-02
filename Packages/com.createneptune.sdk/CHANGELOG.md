@@ -60,3 +60,7 @@
 -made MPAction a static class
 -removed ability to Destroy an object after a scale (down)--this should be handled elsewhere going forward
 -NOTE: Will break most previous projects. You will need to replace string inputs with the new MPAction.EaseType
+
+### 1.3.0
+
+-added ScreenshotUtility
