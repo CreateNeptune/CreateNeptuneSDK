@@ -53,3 +53,10 @@
 ### 1.1.9
 
 -added CheckFlag to CNExtensions.cs
+
+### 1.2.0
+
+-replaced string easing inputs with enum
+-made MPAction a static class
+-removed ability to Destroy an object after a scale (down)--this should be handled elsewhere going forward
+-NOTE: Will break most previous projects. You will need to replace string inputs with the new MPAction.EaseType
