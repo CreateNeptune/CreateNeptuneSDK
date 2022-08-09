@@ -2,11 +2,12 @@ using UnityEngine;
 using UnityEngine.Events;
 namespace CreateNeptune
 {
-
     public class CNCanvas : MonoBehaviour
     {
+        // TODO: I would recommend we add additional transitions other than
+        // fade. In particular, slide (in various directions) as well as scale.
         [SerializeField] protected Canvas canvas;
-        [SerializeField] private float timeToFade = .25f;
+        [SerializeField] private float timeToFade = 0.25f;
 
         //you must assign this in Awake() on the child class
         protected UnityEvent ToggleEvent;
@@ -40,6 +41,7 @@ namespace CreateNeptune
             {
                 StartCoroutine(MPAction.FadeObject(canvas, timeToFade, 1, 0, false, true, false));
             }
+
             PostToggle(isOn);
         }
 
