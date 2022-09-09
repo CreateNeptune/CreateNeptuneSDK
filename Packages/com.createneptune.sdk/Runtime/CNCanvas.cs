@@ -7,7 +7,7 @@ namespace CreateNeptune
         // TODO: I would recommend we add additional transitions other than
         // fade. In particular, slide (in various directions) as well as scale.
         [SerializeField] protected Canvas canvas;
-        [SerializeField] private float timeToFade = 0.25f;
+        [SerializeField] protected float timeToFade = 0.25f;
 
         //you must assign this in Awake() on the child class
         protected UnityEvent ToggleEvent;
