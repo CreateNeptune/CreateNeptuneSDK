@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace CreateNeptune.Addressables
 {
     public class CNAddressables
     {
-        public static object LoadAssetReference<TObject>(AssetReference assetReference)
+        public static TObject LoadAssetReference<TObject>(AssetReference assetReference)
         {
             if (assetReference.Asset == null)
             {
@@ -18,11 +19,42 @@ namespace CreateNeptune.Addressables
 
             if (assetReference.OperationHandle.Status == AsyncOperationStatus.Succeeded)
             {
-                return assetReference.Asset;
+                return (TObject)((object)assetReference.Asset);
             }
 
             Debug.LogError("Asset Reference failed to load!");
-            return null;
+            return default(TObject);
+        }
+
+        public static void LoadAssetReferenceAsync<TObject>(AssetReference assetReference, Action<TObject> Callback)
+        {
+            if (assetReference.Asset == null)
+            {
+                assetReference.LoadAssetAsync<TObject>();
+                assetReference.OperationHandle.Completed += (opHandle) =>
+                {
+                    if (opHandle.Status == AsyncOperationStatus.Succeeded)
+                    {
+                        Callback((TObject)((object)assetReference.Asset));
+                    }
+                    else
+                    {
+                        Debug.LogError("Asset Reference failed to load!");
+                    }
+                };
+
+            }
+            else
+            {
+                if (assetReference.OperationHandle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    Callback((TObject)((object)assetReference.Asset));
+                }
+                else
+                {
+                    Debug.LogError("Asset Reference failed to load!");
+                }
+            }
         }
     }
 }
