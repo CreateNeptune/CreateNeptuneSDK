@@ -64,3 +64,7 @@
 ### 1.3.0
 
 -added ScreenshotUtility
+  
+### 1.3.3
+
+-changed timeToFade in CNCanvas.cs from private to protected
