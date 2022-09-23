@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 
 namespace CreateNeptune
@@ -157,6 +158,29 @@ namespace CreateNeptune
             }
 
             return norm * standardDeviation + mean;
+        }
+
+        /// <summary>
+        /// Tries to deserialize a value with name from info and output into unserializedObject
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="info"></param>
+        /// <param name="name"></param>
+        /// <param name="unserializedObject"></param>
+        /// <returns>True if successfully deserialized, false if not</returns>
+        public static bool TryGetSerializationInfoValue<T>(SerializationInfo info, string name, out T unserializedObject)
+        {
+            try
+            {
+                unserializedObject = (T)info.GetValue(name, typeof(T));
+                return true;
+            }
+            catch
+            {
+                Debug.LogWarning("Error retreiving field " + name + " from serialized data.");
+                unserializedObject = default(T);
+                return false;
+            }
         }
 
         // Create a GameObject pool of a certain size.
