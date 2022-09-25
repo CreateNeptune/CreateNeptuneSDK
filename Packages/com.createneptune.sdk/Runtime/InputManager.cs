@@ -81,7 +81,7 @@ namespace CreateNeptune
                         tapTimer = Time.time;
                         touchStartPosition = Input.touches[0].position;
                         lastTouchPosition = Input.touches[0].position;
-                        wasPointerOverGameObject = EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId);
+                        wasPointerOverGameObject = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId);
 
                         break;
                     case TouchPhase.Moved:
@@ -103,7 +103,7 @@ namespace CreateNeptune
 
                         break;
                     case TouchPhase.Ended:
-                        if (Time.time - tapTimer < tapThresholdTime && (EventSystem.current == null || !wasPointerOverGameObject))
+                        if (Time.time - tapTimer < tapThresholdTime && !wasPointerOverGameObject)
                         {
                             SendTapEvent(Input.touches[0].position);
                         }
