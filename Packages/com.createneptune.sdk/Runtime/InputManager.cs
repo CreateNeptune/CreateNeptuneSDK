@@ -25,7 +25,7 @@ namespace CreateNeptune
         private Vector2 touchStartPosition;
         private Vector2 lastTouchPosition;
 
-        private void Awake()
+        protected override void OnSuccessfulAwake()
         {
             dragDistanceThresholdSqr = dragDistanceThreshold * dragDistanceThreshold;
         }
