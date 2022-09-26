@@ -27,7 +27,7 @@ namespace CreateNeptune
 
         [SerializeField] private bool shouldDestroyOnLoad = false;
 
-        private void Awake()
+        protected void Awake()
         {
             if (this is T self)
             {

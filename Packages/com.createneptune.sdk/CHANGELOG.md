@@ -72,3 +72,10 @@
 ### 1.3.4
 
 -added TryGetSerializationInfoValue to CNExtensions.cs
+
+### 1.3.5
+
+-Changed input checks to sqrMagnitude for efficiency
+-Added a check on mobile input for IsPointerOverGameObject in TouchPhase.Began instead of TouchPhase.Ended since this is always false on end on mobile.
+
+
