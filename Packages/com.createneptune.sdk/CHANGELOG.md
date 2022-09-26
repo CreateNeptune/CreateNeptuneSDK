@@ -68,3 +68,7 @@
 ### 1.3.3
 
 -changed timeToFade in CNCanvas.cs from private to protected
+
+### 1.3.4
+
+-added TryGetSerializationInfoValue to CNExtensions.cs
