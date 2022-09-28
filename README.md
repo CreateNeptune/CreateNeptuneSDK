@@ -17,3 +17,6 @@ You must log in since this is a private repo. To do so, use something like the [
 Feel free to make all necessary edits to this repo by branching off and making a pull request if you do. The files to edit are in /Packages/com.createneptune.sdk. All pull requests must be approved by at least two members of Create Neptune.
 
 To publish the update, you must edit the version number in package.json and make any necessary additions to changelog.md. Then push your changes to your branch prior to making a pull request.
+
+## Copyright
+All algorithms, ideas, and code contained herein are property of Create Neptune LLC ("Create Neptune"). The code is for limited use in the projects given written approval by Create Neptune, and is explicitly not for resale, reuse, or for use in any unapproved projects.
