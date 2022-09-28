@@ -196,6 +196,12 @@ namespace CreateNeptune
             }
         }
 
+        public static T GetPooledObject<T>(List<GameObject> objectPool, GameObject gameObject,
+            int physicsLayer, Transform t, Vector3 positionOffset, Quaternion rotationOffset, bool ignoreParentTransform)
+        {
+            return GetPooledObject(objectPool, gameObject, physicsLayer, t, positionOffset, rotationOffset, ignoreParentTransform).GetComponent<T>();
+        }
+
         // Get a pooled object in a certain orientation (like a bullet being shot).
         public static GameObject GetPooledObject(List<GameObject> objectPool, GameObject gameObject,
             int physicsLayer, Transform t, Vector3 positionOffset, Quaternion rotationOffset, bool ignoreParentTransform)

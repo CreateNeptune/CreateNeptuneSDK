@@ -78,4 +78,7 @@
 -Changed input checks to sqrMagnitude for efficiency
 -Added a check on mobile input for IsPointerOverGameObject in TouchPhase.Began instead of TouchPhase.Ended since this is always false on end on mobile.
 
+### 1.3.6
+
+-Added GetPooledObject<T> to CNExtensions.cs
 
