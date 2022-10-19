@@ -82,3 +82,6 @@
 
 -Added GetPooledObject<T> to CNExtensions.cs
 
+### 1.3.7
+
+-Changed FindIndexOfItemInArray<T> to work with value types
