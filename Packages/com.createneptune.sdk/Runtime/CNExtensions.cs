@@ -292,6 +292,23 @@ namespace CreateNeptune
             return copyArray.Length;
         }
 
+        public static LinkedList<T> Shuffle<T>(LinkedList<T> list)
+        {
+            //copy to array and shuffle
+            T[] shuffledArray = new T[list.Count];
+            list.CopyTo(shuffledArray, 0);
+            shuffledArray = (T[])Shuffle(shuffledArray);
+
+            //rebuild the list
+            list.Clear();
+            for (int i = 0; i < shuffledArray.Length; i++)
+            {
+                list.AddLast(shuffledArray[i]);
+            }
+
+            return list;
+        }
+
         public static IList<T> Shuffle<T>(IList<T> list)
         {
             int n = list.Count;
