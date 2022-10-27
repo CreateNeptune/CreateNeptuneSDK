@@ -93,3 +93,7 @@
 ### 1.3.9
 
 -Change MPAction.FadeObject to prioritiza CanvasGroups over other UI components
+
+### 1.3.10
+
+-Added null checking to CNExtensions.FindIndexOfItemInArray

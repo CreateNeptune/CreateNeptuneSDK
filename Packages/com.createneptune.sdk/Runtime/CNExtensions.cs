@@ -402,7 +402,7 @@ namespace CreateNeptune
         {
             for (int i = 0; i < array.Length; i++)
             {
-                if (array[i].Equals(item))
+                if (array[i] != null && array[i].Equals(item))
                 {
                     return i;
                 }
