@@ -289,6 +289,30 @@ namespace CreateNeptune
                 // guarantee end alpha
                 objectToFadeSpriteRenderer.color = new Color(currentColor.r, currentColor.g, currentColor.b, endAlpha);
             }
+            else if (objectToFade.GetComponent<CanvasGroup>() != null)
+            {
+                CanvasGroup objectToFadeImage = objectToFade.GetComponent<CanvasGroup>();
+
+                while (counter <= timeToFade)
+                {
+                    objectToFadeImage.alpha =
+                        startAlpha + (endAlpha - startAlpha) * counter / timeToFade;
+
+                    if (timeUnscaled)
+                    {
+                        counter += Time.unscaledDeltaTime;
+                    }
+                    else
+                    {
+                        counter += Time.deltaTime;
+                    }
+
+                    yield return null;
+                }
+
+                // guarantee end alpha
+                objectToFadeImage.alpha = endAlpha;
+            }
             else if (objectToFade.GetComponent<Image>() != null)
             {
                 Image objectToFadeImage = objectToFade.GetComponent<Image>();
@@ -343,30 +367,7 @@ namespace CreateNeptune
                 // guarantee end alpha
                 objectToFadeImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, endAlpha);
             }
-            else if (objectToFade.GetComponent<CanvasGroup>() != null)
-            {
-                CanvasGroup objectToFadeImage = objectToFade.GetComponent<CanvasGroup>();
 
-                while (counter <= timeToFade)
-                {
-                    objectToFadeImage.alpha =
-                        startAlpha + (endAlpha - startAlpha) * counter / timeToFade;
-
-                    if (timeUnscaled)
-                    {
-                        counter += Time.unscaledDeltaTime;
-                    }
-                    else
-                    {
-                        counter += Time.deltaTime;
-                    }
-
-                    yield return null;
-                }
-
-                // guarantee end alpha
-                objectToFadeImage.alpha = endAlpha;
-            }
             else if (objectToFade.GetComponent<RawImage>() != null)
             {
                 RawImage objectToFadeImage = objectToFade.GetComponent<RawImage>();

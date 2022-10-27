@@ -89,3 +89,7 @@
 ### 1.3.8
 
 -Added Shuffle<T> overload for LinkedList<T>
+
+### 1.3.9
+
+-Change MPAction.FadeObject to prioritiza CanvasGroups over other UI components
