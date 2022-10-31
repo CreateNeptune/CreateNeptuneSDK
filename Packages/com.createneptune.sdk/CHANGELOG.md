@@ -97,3 +97,7 @@
 ### 1.3.10
 
 -Added null checking to CNExtensions.FindIndexOfItemInArray
+
+### 1.3.11
+
+-Changed dragging logic to accomodate drags that exceed the threshold then at some point go under the threshold

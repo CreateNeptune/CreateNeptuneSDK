@@ -25,6 +25,8 @@ namespace CreateNeptune
         private Vector2 touchStartPosition;
         private Vector2 lastTouchPosition;
 
+        private bool dragging = false;
+
         protected override void OnSuccessfulAwake()
         {
             dragDistanceThresholdSqr = dragDistanceThreshold * dragDistanceThreshold;
@@ -52,6 +54,12 @@ namespace CreateNeptune
                 if (((Vector2)Input.mousePosition - touchStartPosition).sqrMagnitude > dragDistanceThresholdSqr)
                 {
                     SendDragEvent(DragState.Dragging, touchStartPosition, Input.mousePosition, lastTouchPosition);
+                    dragging = true;
+                }
+                else if(dragging)
+                {
+                    SendDragEvent(DragState.Ended, touchStartPosition, Input.mousePosition, lastTouchPosition);
+                    dragging = false;
                 }
 
                 lastTouchPosition = Input.mousePosition;
@@ -63,11 +71,12 @@ namespace CreateNeptune
                 {
                     SendTapEvent(Input.mousePosition);
                 }
-                // TODO: Should we ever want to send a tap and a drag at the same time? Shouldn't this be else if?-MP
-                if (((Vector2)Input.mousePosition - touchStartPosition).sqrMagnitude > dragDistanceThresholdSqr)
+                if (dragging || ((Vector2)Input.mousePosition - touchStartPosition).sqrMagnitude > dragDistanceThresholdSqr)
                 {
                     SendDragEvent(DragState.Ended, touchStartPosition, Input.mousePosition, lastTouchPosition);
+                    dragging = false;
                 }
+
             }
         }
 
@@ -85,18 +94,25 @@ namespace CreateNeptune
 
                         break;
                     case TouchPhase.Moved:
-                        if ((Input.touches[0].position - touchStartPosition).sqrMagnitude > dragDistanceThresholdSqr)
+                        if (dragging || (Input.touches[0].position - touchStartPosition).sqrMagnitude > dragDistanceThresholdSqr)
                         {
                             SendDragEvent(DragState.Dragging, touchStartPosition, Input.touches[0].position, lastTouchPosition);
+                            dragging = true;
+                        }
+                        else if (dragging)
+                        {
+                            SendDragEvent(DragState.Ended, touchStartPosition, Input.mousePosition, lastTouchPosition);
+                            dragging = false;
                         }
 
                         lastTouchPosition = Input.touches[0].position;
 
                         break;
                     case TouchPhase.Stationary:
-                        if ((Input.touches[0].position - touchStartPosition).sqrMagnitude > dragDistanceThresholdSqr)
+                        if (dragging || (Input.touches[0].position - touchStartPosition).sqrMagnitude > dragDistanceThresholdSqr)
                         {
                             SendDragEvent(DragState.Dragging, touchStartPosition, Input.touches[0].position, lastTouchPosition);
+                            dragging = true;
                         }
 
                         lastTouchPosition = Input.touches[0].position;
@@ -107,10 +123,10 @@ namespace CreateNeptune
                         {
                             SendTapEvent(Input.touches[0].position);
                         }
-                        // TODO: Should we ever want to send a tap and a drag at the same time? Shouldn't this be else if?-MP
-                        if ((Input.touches[0].position - touchStartPosition).sqrMagnitude > dragDistanceThresholdSqr)
+                        if (dragging || (Input.touches[0].position - touchStartPosition).sqrMagnitude > dragDistanceThresholdSqr)
                         {
                             SendDragEvent(DragState.Ended, touchStartPosition, Input.touches[0].position, lastTouchPosition);
+                            dragging = false;
                         }
 
                         break;
