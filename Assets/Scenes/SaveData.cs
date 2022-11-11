@@ -12,8 +12,8 @@ public class SerialSaveData
 
 public class SaveData : SaveDataSingleton<SaveData, SerialSaveData>
 {
-	public static string[] pigNames;
-	public static float costPerPig;
+	public string[] pigNames;
+	public float costPerPig;
 
 	protected override void OnSuccessfulAwake()
 	{

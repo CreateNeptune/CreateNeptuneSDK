@@ -14,13 +14,13 @@ public class SaveDataTester : MonoBehaviour
 		Debug.Log("Loading...");
 		SaveData.Instance.LoadGame();
 
-		pigNames = SaveData.pigNames;
-		costPerPig = SaveData.costPerPig;
+		pigNames = SaveData.Instance.pigNames;
+		costPerPig = SaveData.Instance.costPerPig;
 	}
 	private void OnApplicationQuit()
 	{
-		SaveData.pigNames = pigNames;
-		SaveData.costPerPig = costPerPig;
+		SaveData.Instance.pigNames = pigNames;
+		SaveData.Instance.costPerPig = costPerPig;
 
 		Debug.Log("Saving...");
 		SaveData.Instance.SaveGame();
