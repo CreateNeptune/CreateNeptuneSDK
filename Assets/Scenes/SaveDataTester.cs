@@ -10,37 +10,15 @@ public class SerialSaveData
 	public float costPerPig;
 }
 
-internal class SaveData : SaveDataUtility<SerialSaveData>
-{
-	public static SaveData Instance = new();
-
-	public static string[] pigNames;
-	public static float costPerPig;
-	protected override void Deserialize(SerialSaveData dataStruct)
-	{
-		SafeLoadDatum(ref pigNames, dataStruct.pigNames);
-		SafeLoadDatum(ref costPerPig, dataStruct.costPerPig);
-	}
-
-	protected override SerialSaveData Serialize()
-	{
-		return new()
-		{
-			pigNames = pigNames,
-			costPerPig = costPerPig
-		};
-	}
-}
-
 public class SaveDataTester : MonoBehaviour
 {
 	public string[] pigNames;
 	public float costPerPig;
 
-	private void Awake()
+	private void Start()
 	{
 
-		Debug.Log("AWAKE");
+		Debug.Log("Loading...");
 		SaveData.Instance.LoadGame();
 
 		pigNames = SaveData.pigNames;
@@ -51,7 +29,7 @@ public class SaveDataTester : MonoBehaviour
 		SaveData.pigNames = pigNames;
 		SaveData.costPerPig = costPerPig;
 
-		Debug.Log("GONE");
+		Debug.Log("Saving...");
 		SaveData.Instance.SaveGame();
 	}
 

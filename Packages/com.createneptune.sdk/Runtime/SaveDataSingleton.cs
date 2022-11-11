@@ -7,26 +7,50 @@ using System.IO;
 
 namespace CreateNeptune
 {
-    public abstract class SaveDataUtility<T>
+    public abstract class SaveDataSingleton<TExtendedClass, TSerializedClass> : Singleton<TExtendedClass>
+        where TExtendedClass : class
     {
-#if UNITY_IOS
-    private static readonly string fileName = Application.productName + "ios.data";
-#elif UNITY_ANDROID
-    private static readonly string fileName = Application.productName + "android.data";
-#else
-        private static readonly string fileName = Application.productName + "universal.data";
-#endif
+        private string fileName;
+        public string FileName
+		{
+			get
+			{
+                if (fileName is null || fileName == "")
+				{
+                #if UNITY_IOS
+                    fileName = Application.productName + "ios.data";
+                #elif UNITY_ANDROID
+                    fileName = Application.productName + "android.data";
+                #else
+                    fileName = Application.productName + "universal.data";
+                #endif
+                }
+
+                return fileName;
+            }
+		}
+
+        /// <summary>
+        /// child classes should override this to have some some initial data before anything gets loaded. 
+        /// </summary>
+        protected override void OnSuccessfulAwake()
+		{ }
 
         /// <summary>
         /// Takes a serializable structure and read from its field
         /// </summary>
         /// <param name="dataStruct"></param>
-        protected abstract void Deserialize(T dataStruct);
+        protected abstract void Deserialize(TSerializedClass dataStruct);
         /// <summary>
         /// Create a serializable structure that will be written to a file.
         /// </summary>
         /// <returns></returns>
-        protected abstract T Serialize();
+        protected abstract TSerializedClass Serialize();
+
+        /// <summary>
+        /// Called after a game has been written to file, before any event is sent out
+        /// </summary>
+        protected virtual void OnGameSaved() { }
 
         /// <summary>
         /// Read json save data, deserialize it into an instance class/struct T, then pass it to 
@@ -34,14 +58,14 @@ namespace CreateNeptune
         /// </summary>
         public void LoadGame()
         {
-            string saveLocation = Application.persistentDataPath + "/" + fileName;
+            string saveLocation = Application.persistentDataPath + "/" + FileName;
 
             try
             {
                 if (File.Exists(saveLocation))
                 {
                     string jsonData = File.ReadAllText(saveLocation);
-                    T serializedSaveData = JsonUtility.FromJson<T>(jsonData);
+                    TSerializedClass serializedSaveData = JsonUtility.FromJson<TSerializedClass>(jsonData);
                     Deserialize(serializedSaveData);
 
                     Debug.Log($"Saved game loaded from {saveLocation}");
@@ -57,7 +81,7 @@ namespace CreateNeptune
                 Debug.LogError(e);
             }
 
-            SaveDataLoadEvent.Instance.Invoke();
+            SaveDataLoadedEvent.Instance.Invoke();
         }
 
         /// <summary>
@@ -65,14 +89,15 @@ namespace CreateNeptune
         /// </summary>
         public void SaveGame()
         {
-            string saveLocation = Application.persistentDataPath + "/" + fileName;
+            string saveLocation = Application.persistentDataPath + "/" + FileName;
 
-            T serializedSaveData = Serialize();
+            TSerializedClass serializedSaveData = Serialize();
 
             string jsonData = JsonUtility.ToJson(serializedSaveData, true);
             File.WriteAllText(saveLocation, jsonData);
 
-            SaveDataSaveEvent.Instance.Invoke();
+            OnGameSaved();
+            SaveDataSavedEvent.Instance.Invoke();
             Debug.Log("Game saved at " + saveLocation);
         }
 
