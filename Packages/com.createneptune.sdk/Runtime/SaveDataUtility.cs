@@ -7,7 +7,7 @@ using System.IO;
 
 namespace CreateNeptune
 {
-    public static class SaveDataUtility
+    public abstract class SaveDataUtility<T>
     {
 #if UNITY_IOS
     private static readonly string fileName = Application.productName + "ios.data";
@@ -17,20 +17,22 @@ namespace CreateNeptune
         private static readonly string fileName = Application.productName + "universal.data";
 #endif
 
-        public static bool loaded = false;
-
-        // NOTE: Make sure all SerializedSaveData fields are included here.
-        // *** Search the above "NOTE:..." to catch 'em all.
-        public static int version;
+        /// <summary>
+        /// Takes a serializable structure and read from its field
+        /// </summary>
+        /// <param name="dataStruct"></param>
+        protected abstract void Deserialize(T dataStruct);
+        /// <summary>
+        /// Create a serializable structure that will be written to a file.
+        /// </summary>
+        /// <returns></returns>
+        protected abstract T Serialize();
 
         /// <summary>
         /// Read json save data, deserialize it into an instance class/struct T, then pass it to 
         /// the processing function
         /// </summary>
-        /// <typeparam name="T">A serializable class</typeparam>
-        /// <param name="deserializeAction">A function that takes an instance of T. 
-        /// This function handles reading values into the class. </param>
-        public static void LoadGame<T>(Action<T> deserializeAction)
+        public void LoadGame()
         {
             string saveLocation = Application.persistentDataPath + "/" + fileName;
 
@@ -40,7 +42,7 @@ namespace CreateNeptune
                 {
                     string jsonData = File.ReadAllText(saveLocation);
                     T serializedSaveData = JsonUtility.FromJson<T>(jsonData);
-                    deserializeAction(serializedSaveData);
+                    Deserialize(serializedSaveData);
 
                     Debug.Log($"Saved game loaded from {saveLocation}");
                 }
@@ -55,25 +57,22 @@ namespace CreateNeptune
                 Debug.LogError(e);
             }
 
-            loaded = true;
-            CreateNeptune.SaveDataLoadEvent.Instance.Invoke();
+            SaveDataLoadEvent.Instance.Invoke();
         }
 
         /// <summary>
         /// Write a serializable json structure to a file.
         /// </summary>
-        /// <typeparam name="T">A serializable class</typeparam>
-        /// <param name="serializeFunc">Serializing function. Returns a serializable struct to be written to a file.</param>
-        public static void SaveGame<T>(Func<T> serializeFunc)
+        public void SaveGame()
         {
             string saveLocation = Application.persistentDataPath + "/" + fileName;
 
-            T serializedSaveData = serializeFunc();
+            T serializedSaveData = Serialize();
 
             string jsonData = JsonUtility.ToJson(serializedSaveData, true);
             File.WriteAllText(saveLocation, jsonData);
 
-            CreateNeptune.SaveDataSaveEvent.Instance.Invoke();
+            SaveDataSaveEvent.Instance.Invoke();
             Debug.Log("Game saved at " + saveLocation);
         }
 
