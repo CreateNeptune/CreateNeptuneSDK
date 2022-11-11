@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using CreateNeptune;
 
+[System.Serializable]
+public class SerialSaveData
+{
+	public string[] pigNames;
+	public float costPerPig;
+}
+
 public class SaveData : SaveDataSingleton<SaveData, SerialSaveData>
 {
 	public static string[] pigNames;
