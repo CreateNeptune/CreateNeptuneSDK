@@ -101,3 +101,7 @@
 ### 1.3.11
 
 -Changed dragging logic to accomodate drags that exceed the threshold then at some point go under the threshold
+
+### 1.4.0
+
+-Added generic SaveDataUtility class and events. Designed for saving and loading JSON. 
