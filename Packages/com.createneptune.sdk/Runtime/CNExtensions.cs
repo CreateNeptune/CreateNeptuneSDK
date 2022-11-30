@@ -9,6 +9,16 @@ namespace CreateNeptune
 
     public class CNExtensions : MonoBehaviour
     {
+
+        public static void SafeStartCoroutine(MonoBehaviour caller, ref IEnumerator currentRoutine, IEnumerator newRoutine)
+        {
+            if (currentRoutine != null)
+                caller.StopCoroutine(currentRoutine);
+
+            currentRoutine = newRoutine;
+            caller.StartCoroutine(currentRoutine);
+        }
+
         /// <summary>
         /// Checks to see if check is in the given flag
         /// </summary>

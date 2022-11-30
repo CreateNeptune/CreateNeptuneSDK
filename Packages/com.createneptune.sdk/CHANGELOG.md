@@ -104,4 +104,8 @@
 
 ### 1.4.0
 
--Added generic SaveDataUtility class and events. Designed for saving and loading JSON. 
+-Added generic SaveDataUtility class and events. Designed for saving and loading JSON.
+
+### 1.4.1
+
+-Added SafeStartCoroutine() to CNExtensions.cs
