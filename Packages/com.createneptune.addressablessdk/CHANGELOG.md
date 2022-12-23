@@ -9,3 +9,7 @@
 ### 1.1.1
 
 -Fixed asmdef name
+
+### 1.1.2
+
+-Added profile check to AddressablesBuildProcessor
