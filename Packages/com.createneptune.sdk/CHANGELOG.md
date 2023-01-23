@@ -109,3 +109,7 @@
 ### 1.4.1
 
 -Added SafeStartCoroutine() to CNExtensions.cs
+
+### 1.4.2
+
+-Added implementation for TextMeshProUGUI in MPAction.ColorObject()

@@ -508,6 +508,29 @@ namespace CreateNeptune
                 // guarantee end alpha
                 objectToColorRenderer.material.color = endColor;
             }
+            else if (objectToColor.GetComponent<TextMeshProUGUI>() != null)
+            {
+                TextMeshProUGUI textToColor = objectToColor.GetComponent<TextMeshProUGUI>();
+
+                while (counter <= timeToFade)
+                {
+                    textToColor.color = startColor + (endColor - startColor) * (counter / timeToFade);
+
+                    if (timeUnscaled)
+                    {
+                        counter += Time.unscaledDeltaTime;
+                    }
+                    else
+                    {
+                        counter += Time.deltaTime;
+                    }
+
+                    yield return null;
+                }
+
+                // guarantee end alpha
+                textToColor.color = endColor;
+            }
             else
             {
                 yield break;
