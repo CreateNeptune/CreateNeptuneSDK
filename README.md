@@ -1,4 +1,4 @@
-# CreateNeptuneSDK
+# Create Neptune SDK
 
 ## How to Install
 1. Open Unity Package Manager
