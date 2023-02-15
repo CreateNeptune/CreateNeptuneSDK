@@ -542,6 +542,161 @@ namespace CreateNeptune
             }
         }
 
+        public static IEnumerator ColorObjectHue(GameObject objectToColor, float timeToFade, float startHue, float endHue, float saturation, float value,
+        bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
+        {
+            // this function doesn't touch alpha at all
+            Color startColor = Color.HSVToRGB(startHue, saturation, value);
+            Color endColor = Color.HSVToRGB(endHue, saturation, value);
+
+            float counter = 0f;
+
+            if (activateAtStart)
+            {
+                objectToColor.SetActive(true);
+            }
+
+            if (objectToColor.GetComponent<SpriteRenderer>() != null)
+            {
+                SpriteRenderer objectToColorSpriteRenderer = objectToColor.GetComponent<SpriteRenderer>();
+
+
+                while (counter <= timeToFade)
+                {
+                    startColor.a = objectToColorSpriteRenderer.color.a;
+                    endColor.a = objectToColorSpriteRenderer.color.a;
+                    objectToColorSpriteRenderer.color = startColor + (endColor - startColor) * (counter / timeToFade);
+
+                    if (timeUnscaled)
+                    {
+                        counter += Time.unscaledDeltaTime;
+                    }
+                    else
+                    {
+                        counter += Time.deltaTime;
+                    }
+
+                    yield return null;
+                }
+
+                // guarantee end color
+                objectToColorSpriteRenderer.color = endColor;
+            }
+            else if (objectToColor.GetComponent<Image>() != null)
+            {
+                Image objectToColorImage = objectToColor.GetComponent<Image>();
+
+
+                while (counter <= timeToFade)
+                {
+                    startColor.a = objectToColorImage.color.a;
+                    endColor.a = objectToColorImage.color.a;
+                    objectToColorImage.color = startColor + (endColor - startColor) * (counter / timeToFade);
+
+                    if (timeUnscaled)
+                    {
+                        counter += Time.unscaledDeltaTime;
+                    }
+                    else
+                    {
+                        counter += Time.deltaTime;
+                    }
+
+                    yield return null;
+                }
+
+                // guarantee end alpha
+                objectToColorImage.color = endColor;
+            }
+            else if (objectToColor.GetComponent<MeshRenderer>() != null)
+            {
+                MeshRenderer objectToColorRenderer = objectToColor.GetComponent<MeshRenderer>();
+
+
+                while (counter <= timeToFade)
+                {
+                    startColor.a = objectToColorRenderer.material.color.a;
+                    endColor.a = objectToColorRenderer.material.color.a;
+                    objectToColorRenderer.material.color = startColor + (endColor - startColor) * (counter / timeToFade);
+
+                    if (timeUnscaled)
+                    {
+                        counter += Time.unscaledDeltaTime;
+                    }
+                    else
+                    {
+                        counter += Time.deltaTime;
+                    }
+
+                    yield return null;
+                }
+
+                // guarantee end alpha
+                objectToColorRenderer.material.color = endColor;
+            }
+            else if (objectToColor.GetComponent<SkinnedMeshRenderer>() != null)
+            {
+                SkinnedMeshRenderer objectToColorRenderer = objectToColor.GetComponent<SkinnedMeshRenderer>();
+
+
+                while (counter <= timeToFade)
+                {
+                    startColor.a = objectToColorRenderer.material.color.a;
+                    endColor.a = objectToColorRenderer.material.color.a;
+                    objectToColorRenderer.material.color = startColor + (endColor - startColor) * (counter / timeToFade);
+
+                    if (timeUnscaled)
+                    {
+                        counter += Time.unscaledDeltaTime;
+                    }
+                    else
+                    {
+                        counter += Time.deltaTime;
+                    }
+
+                    yield return null;
+                }
+
+                // guarantee end alpha
+                objectToColorRenderer.material.color = endColor;
+            }
+            else if (objectToColor.GetComponent<TextMeshProUGUI>() != null)
+            {
+                TextMeshProUGUI textToColor = objectToColor.GetComponent<TextMeshProUGUI>();
+
+
+                while (counter <= timeToFade)
+                {
+                    startColor.a = textToColor.color.a;
+                    endColor.a = textToColor.color.a;
+                    textToColor.color = startColor + (endColor - startColor) * (counter / timeToFade);
+
+                    if (timeUnscaled)
+                    {
+                        counter += Time.unscaledDeltaTime;
+                    }
+                    else
+                    {
+                        counter += Time.deltaTime;
+                    }
+
+                    yield return null;
+                }
+
+                // guarantee end alpha
+                textToColor.color = endColor;
+            }
+            else
+            {
+                yield break;
+            }
+
+            if (deactivateAtEnd)
+            {
+                objectToColor.SetActive(false);
+            }
+        }
+
         public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval,
             float totalTime, Color startColor, Color endColor, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
         {
