@@ -9,14 +9,10 @@ public class EaseFunctionTest : MonoBehaviour
     public float animationTime;
     public float scaleMax;
 
-	public void Start()
-	{
-		//StartCoroutine(MPAction.ScaleObject(gameObject, Vector3.zero, Vector3.one * scaleMax, animationTime, easeType, false, false, true));
-	}
+	private IEnumerator scaleRoutine;
 
 	public void OnValidate()
 	{
-		StopAllCoroutines();
-		StartCoroutine(MPAction.ScaleObject(gameObject, Vector3.zero, Vector3.one * scaleMax, animationTime, easeType, false, false, false));
+		CNExtensions.SafeStartCoroutine(this, ref scaleRoutine, MPAction.ScaleObject(gameObject, Vector3.zero, Vector3.one * scaleMax, animationTime, easeType, false, false, true));
 	}
 }
