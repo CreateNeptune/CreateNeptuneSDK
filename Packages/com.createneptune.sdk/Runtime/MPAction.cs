@@ -7,12 +7,38 @@ namespace CreateNeptune
     using UnityEngine;
     using UnityEngine.UI;
     using TMPro;
+	using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
     public static class MPAction
     {
         public enum EaseType
         {
             easein, easeout, easeineaseout, linear
+        }
+
+        /// <summary>
+        /// This function implements all of the possible easing functions <br></br>
+        /// To add a new easing function, add the type to the enum above, then add the code in this function.
+        /// </summary>
+        /// <param name="type">Easing function to use</param>
+        /// <param name="t">normalized time value (from 0 to 1)</param>
+        /// <returns></returns>
+        public static float EaseFunction(EaseType type, float t)
+        {
+            switch (type)
+            {
+				case EaseType.easein:
+                    return 1f - Mathf.Cos(t * Mathf.PI * 0.5f);
+
+                case EaseType.easeout:
+                    return Mathf.Sin(t * Mathf.PI * 0.5f);
+
+                case EaseType.easeineaseout:
+                    return t * t * (3.0f - 2.0f * t);
+
+                default: 
+                    return t;
+            }
         }
 
         public static IEnumerator RotateObject(GameObject rotateObject, bool local, float animationTime, Vector3 startRotation,
@@ -35,22 +61,7 @@ namespace CreateNeptune
                     counter += Time.deltaTime;
                 }
 
-                if (easeType == EaseType.easein)
-                {
-                    easedTime = 1f - Mathf.Cos((counter / animationTime) * Mathf.PI * 0.5f);
-                }
-                else if (easeType == EaseType.easeout)
-                {
-                    easedTime = Mathf.Sin((counter / animationTime) * Mathf.PI * 0.5f);
-                }
-                else if (easeType == EaseType.easeineaseout)
-                {
-                    easedTime = (counter / animationTime) * (counter / animationTime) * (3.0f - 2.0f * (counter / animationTime));
-                }
-                else // linear
-                {
-                    easedTime = counter / animationTime;
-                }
+                easedTime = EaseFunction(easeType, counter / animationTime);
 
                 if (local)
                     rotateObjectT.localRotation = Quaternion.Euler(Vector3.Lerp(startRotation, endRotation, easedTime));
@@ -92,22 +103,7 @@ namespace CreateNeptune
                     counter += Time.deltaTime;
                 }
 
-                if (easeType == EaseType.easein)
-                {
-                    easedTime = 1f - Mathf.Cos((counter / animationTime) * Mathf.PI * 0.5f);
-                }
-                else if (easeType == EaseType.easeout)
-                {
-                    easedTime = Mathf.Sin((counter / animationTime) * Mathf.PI * 0.5f);
-                }
-                else if (easeType == EaseType.easeineaseout)
-                {
-                    easedTime = (counter / animationTime) * (counter / animationTime) * (3.0f - 2.0f * (counter / animationTime));
-                }
-                else // linear
-                {
-                    easedTime = counter / animationTime;
-                }
+                easedTime = EaseFunction(easeType, counter / animationTime);
 
                 if (localPosition)
                 {
@@ -162,22 +158,7 @@ namespace CreateNeptune
                     counter += Time.deltaTime;
                 }
 
-                if (easeType == EaseType.easein)
-                {
-                    easedTime = 1f - Mathf.Cos((counter / animationTime) * Mathf.PI * 0.5f);
-                }
-                else if (easeType == EaseType.easeout)
-                {
-                    easedTime = Mathf.Sin((counter / animationTime) * Mathf.PI * 0.5f);
-                }
-                else if (easeType == EaseType.easeineaseout)
-                {
-                    easedTime = (counter / animationTime) * (counter / animationTime) * (3.0f - 2.0f * (counter / animationTime));
-                }
-                else // linear
-                {
-                    easedTime = counter / animationTime;
-                }
+                easedTime = EaseFunction(easeType, counter / animationTime);
 
                 moveObjectT.anchoredPosition = Vector2.Lerp(startPosition, endPosition, easedTime);
 
@@ -213,14 +194,7 @@ namespace CreateNeptune
                 else
                     counter += Time.deltaTime;
 
-                if (easeType == EaseType.easein)
-                    easedTime = 1f - Mathf.Cos((counter / animationTime) * Mathf.PI * 0.5f);
-                else if (easeType == EaseType.easeout)
-                    easedTime = Mathf.Sin((counter / animationTime) * Mathf.PI * 0.5f);
-                else if (easeType == EaseType.easeineaseout)
-                    easedTime = (counter / animationTime) * (counter / animationTime) * (3.0f - 2.0f * (counter / animationTime));
-                else // linear
-                    easedTime = counter / animationTime;
+                easedTime = EaseFunction(easeType, counter / animationTime);
 
                 if (scaleObjectT != null)
                     scaleObjectT.localScale = Vector3.Lerp(startScale, endScale, easedTime);
@@ -590,22 +564,7 @@ namespace CreateNeptune
                     counter += Time.deltaTime;
                 }
 
-                if (easeType == EaseType.easein)
-                {
-                    easedTime = 1f - Mathf.Cos((counter / animationTime) * Mathf.PI * 0.5f);
-                }
-                else if (easeType == EaseType.easeout)
-                {
-                    easedTime = Mathf.Sin((counter / animationTime) * Mathf.PI * 0.5f);
-                }
-                else if (easeType == EaseType.easeineaseout)
-                {
-                    easedTime = (counter / animationTime) * (counter / animationTime) * (3.0f - 2.0f * (counter / animationTime));
-                }
-                else // linear
-                {
-                    easedTime = counter / animationTime;
-                }
+                easedTime = EaseFunction(easeType, counter / animationTime);
 
                 objectToScaleT.localScale = Vector3.Lerp(startScale, endScale, easedTime);
 
