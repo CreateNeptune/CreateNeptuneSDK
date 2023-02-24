@@ -23,7 +23,7 @@ namespace CreateNeptune
         /// <param name="type">Easing function to use</param>
         /// <param name="t">normalized time value (from 0 to 1)</param>
         /// <returns></returns>
-        public static float EaseFunction(EaseType type, float t)
+        public static float GetEasedTime(EaseType type, float t)
         {
             switch (type)
             {
@@ -76,7 +76,7 @@ namespace CreateNeptune
                     counter += Time.deltaTime;
                 }
 
-                easedTime = EaseFunction(easeType, counter / animationTime);
+                easedTime = GetEasedTime(easeType, counter / animationTime);
 
                 if (local)
                     rotateObjectT.localRotation = Quaternion.Euler(Vector3.LerpUnclamped(startRotation, endRotation, easedTime));
@@ -118,7 +118,7 @@ namespace CreateNeptune
                     counter += Time.deltaTime;
                 }
 
-                easedTime = EaseFunction(easeType, counter / animationTime);
+                easedTime = GetEasedTime(easeType, counter / animationTime);
 
                 if (localPosition)
                 {
@@ -173,7 +173,7 @@ namespace CreateNeptune
                     counter += Time.deltaTime;
                 }
 
-                easedTime = EaseFunction(easeType, counter / animationTime);
+                easedTime = GetEasedTime(easeType, counter / animationTime);
 
                 moveObjectT.anchoredPosition = Vector2.LerpUnclamped(startPosition, endPosition, easedTime);
 
@@ -209,7 +209,7 @@ namespace CreateNeptune
                 else
                     counter += Time.deltaTime;
 
-                easedTime = EaseFunction(easeType, counter / animationTime);
+                easedTime = GetEasedTime(easeType, counter / animationTime);
 
                 if (scaleObjectT != null)
                     scaleObjectT.localScale = Vector3.LerpUnclamped(startScale, endScale, easedTime);
@@ -579,7 +579,7 @@ namespace CreateNeptune
                     counter += Time.deltaTime;
                 }
 
-                easedTime = EaseFunction(easeType, counter / animationTime);
+                easedTime = GetEasedTime(easeType, counter / animationTime);
 
                 objectToScaleT.localScale = Vector3.LerpUnclamped(startScale, endScale, easedTime);
 
