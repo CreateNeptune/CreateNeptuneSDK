@@ -13,7 +13,7 @@ namespace CreateNeptune
     {
         public enum EaseType
         {
-            easein, easeout, easeineaseout, linear
+            easein, easeout, easeineaseout, linear, elasticeaseout
         }
 
         /// <summary>
@@ -35,6 +35,21 @@ namespace CreateNeptune
 
                 case EaseType.easeineaseout:
                     return t * t * (3.0f - 2.0f * t);
+
+                case EaseType.elasticeaseout:
+					// source: https://easings.net/#easeOutElastic
+					if (Mathf.Approximately(t, 0))
+                    {
+                        return 0;
+                    }
+                    else if (Mathf.Approximately(t, 1))
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return Mathf.Pow(2, -10 * t) * Mathf.Sin((t * 10 - 0.75f) * (2 * Mathf.PI) / 3) + 1;
+                    }
 
                 default: 
                     return t;
@@ -64,9 +79,9 @@ namespace CreateNeptune
                 easedTime = EaseFunction(easeType, counter / animationTime);
 
                 if (local)
-                    rotateObjectT.localRotation = Quaternion.Euler(Vector3.Lerp(startRotation, endRotation, easedTime));
+                    rotateObjectT.localRotation = Quaternion.Euler(Vector3.LerpUnclamped(startRotation, endRotation, easedTime));
                 else
-                    rotateObjectT.rotation = Quaternion.Euler(Vector3.Lerp(startRotation, endRotation, easedTime));
+                    rotateObjectT.rotation = Quaternion.Euler(Vector3.LerpUnclamped(startRotation, endRotation, easedTime));
 
                 yield return null;
             }
@@ -107,11 +122,11 @@ namespace CreateNeptune
 
                 if (localPosition)
                 {
-                    moveObjectT.localPosition = Vector3.Lerp(startPosition, endPosition, easedTime);
+                    moveObjectT.localPosition = Vector3.LerpUnclamped(startPosition, endPosition, easedTime);
                 }
                 else
                 {
-                    moveObjectT.position = Vector3.Lerp(startPosition, endPosition, easedTime);
+                    moveObjectT.position = Vector3.LerpUnclamped(startPosition, endPosition, easedTime);
                 }
 
                 yield return null;
@@ -160,7 +175,7 @@ namespace CreateNeptune
 
                 easedTime = EaseFunction(easeType, counter / animationTime);
 
-                moveObjectT.anchoredPosition = Vector2.Lerp(startPosition, endPosition, easedTime);
+                moveObjectT.anchoredPosition = Vector2.LerpUnclamped(startPosition, endPosition, easedTime);
 
                 yield return null;
             }
@@ -197,7 +212,7 @@ namespace CreateNeptune
                 easedTime = EaseFunction(easeType, counter / animationTime);
 
                 if (scaleObjectT != null)
-                    scaleObjectT.localScale = Vector3.Lerp(startScale, endScale, easedTime);
+                    scaleObjectT.localScale = Vector3.LerpUnclamped(startScale, endScale, easedTime);
 
                 yield return null;
             }
@@ -566,7 +581,7 @@ namespace CreateNeptune
 
                 easedTime = EaseFunction(easeType, counter / animationTime);
 
-                objectToScaleT.localScale = Vector3.Lerp(startScale, endScale, easedTime);
+                objectToScaleT.localScale = Vector3.LerpUnclamped(startScale, endScale, easedTime);
 
                 yield return null;
             }
@@ -741,7 +756,7 @@ namespace CreateNeptune
                     counter += Time.deltaTime;
                 }
 
-                audioSource.volume = Mathf.Lerp(startVolume, endVolume, counter / timeToFade);
+                audioSource.volume = Mathf.LerpUnclamped(startVolume, endVolume, counter / timeToFade);
 
                 yield return null;
             }
