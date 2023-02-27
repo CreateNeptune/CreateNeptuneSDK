@@ -117,3 +117,7 @@
 ### 1.4.3
 
 -Added GetEasedTime function, which implements all easing functions, as well as new elastic easing type. 
+
+### 1.4.4
+
+-Removed an experimental static include. 
