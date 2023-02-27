@@ -113,3 +113,7 @@
 ### 1.4.2
 
 -Added implementation for TextMeshProUGUI in MPAction.ColorObject()
+
+### 1.4.3
+
+-Added GetEasedTime function, which implements all easing functions, as well as new elastic easing type. 
