@@ -10,6 +10,9 @@ namespace CreateNeptune
     public abstract class SaveDataSingleton<TExtendedClass, TSerializedClass> : Singleton<TExtendedClass>
         where TExtendedClass : class
     {
+
+        public bool loaded;
+
         private string fileName;
         public string FileName
 		{
@@ -74,6 +77,8 @@ namespace CreateNeptune
                 {
                     Debug.Log("New user. No game saved.");
                 }
+
+                loaded = true;
             }
             catch (Exception e)
             {
