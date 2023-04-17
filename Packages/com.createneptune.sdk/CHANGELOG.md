@@ -120,4 +120,9 @@
 
 ### 1.4.4
 
--Removed an experimental static include. 
+-Removed an experimental static include.
+
+### 1.4.5
+
+-Added bool loaded to SaveDataSingleton.
+-Added SetDefaultValues() to SaveDataSingleton.
