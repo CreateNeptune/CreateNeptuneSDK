@@ -124,4 +124,5 @@
 
 ### 1.4.5
 
--Added bool loaded to SaveDataSingleton. 
+-Added bool loaded to SaveDataSingleton.
+-Added SetDefaultValues() to SaveDataSingleton.

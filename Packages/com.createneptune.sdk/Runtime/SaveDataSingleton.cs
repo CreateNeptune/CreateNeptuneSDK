@@ -10,34 +10,35 @@ namespace CreateNeptune
     public abstract class SaveDataSingleton<TExtendedClass, TSerializedClass> : Singleton<TExtendedClass>
         where TExtendedClass : class
     {
-
-        public bool loaded;
+        public bool loaded { get; private set; }
 
         private string fileName;
         public string FileName
-		{
-			get
-			{
+        {
+            get
+            {
                 if (fileName is null || fileName == "")
-				{
-                #if UNITY_IOS
+                {
+#if UNITY_IOS
                     fileName = Application.productName + "ios.data";
-                #elif UNITY_ANDROID
+#elif UNITY_ANDROID
                     fileName = Application.productName + "android.data";
-                #else
+#else
                     fileName = Application.productName + "universal.data";
-                #endif
+#endif
                 }
 
                 return fileName;
             }
-		}
+        }
 
         /// <summary>
         /// child classes should override this to have some some initial data before anything gets loaded. 
         /// </summary>
         protected override void OnSuccessfulAwake()
-		{ }
+        {
+            SetDefaultValues();
+        }
 
         /// <summary>
         /// Takes a serializable structure and read from its field
@@ -77,7 +78,6 @@ namespace CreateNeptune
                 {
                     Debug.Log("New user. No game saved.");
                 }
-
                 loaded = true;
             }
             catch (Exception e)
@@ -117,6 +117,14 @@ namespace CreateNeptune
         {
             if (loadedItem != null)
                 toLoadInto = loadedItem;
+        }
+
+        /// <summary>
+        /// Use this whenever you need to reset or unload save data
+        /// </summary>
+        protected virtual void SetDefaultValues()
+        {
+            loaded = false;
         }
     }
 }
