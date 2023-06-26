@@ -78,9 +78,9 @@ namespace CreateNeptune
                 easedTime = GetEasedTime(easeType, counter / animationTime);
 
                 if (local)
-                    rotateObjectT.localRotation = Quaternion.Euler(Vector3.LerpUnclamped(startRotation, endRotation, easedTime));
+                    rotateObjectT.localRotation = Quaternion.Lerp(Quaternion.Euler(startRotation), Quaternion.Euler(endRotation), easedTime);
                 else
-                    rotateObjectT.rotation = Quaternion.Euler(Vector3.LerpUnclamped(startRotation, endRotation, easedTime));
+                    rotateObjectT.rotation = Quaternion.Lerp(Quaternion.Euler(startRotation), Quaternion.Euler(endRotation), easedTime);
 
                 yield return null;
             }
