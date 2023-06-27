@@ -92,7 +92,7 @@
 
 ### 1.3.9
 
--Change MPAction.FadeObject to prioritiza CanvasGroups over other UI components
+-Change MPAction.FadeObject to prioritize CanvasGroups over other UI components
 
 ### 1.3.10
 
@@ -126,3 +126,7 @@
 
 -Added bool loaded to SaveDataSingleton.
 -Added SetDefaultValues() to SaveDataSingleton.
+
+### 1.4.6
+
+-Altered MPAction.RotateObject to use Quaternion.Lerp for shortest-path rotations instead of using Vector3.Lerp.
