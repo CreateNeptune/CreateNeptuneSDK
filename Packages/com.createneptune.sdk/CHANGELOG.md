@@ -133,4 +133,4 @@
 
 ### 1.4.7
 
--Changed SaveDataSingleton to explictly not update a save file if Serialize outputs null
+-Changed SaveDataSingleton to explicitly not update a save file if Serialize outputs null
