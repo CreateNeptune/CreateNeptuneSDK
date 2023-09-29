@@ -98,6 +98,12 @@ namespace CreateNeptune
 
             TSerializedClass serializedSaveData = Serialize();
 
+            if (serializedSaveData == null)
+            {
+                Debug.Log("Save data object is null, so not saving game.");
+                return;
+            }
+
             string jsonData = JsonUtility.ToJson(serializedSaveData, true);
             File.WriteAllText(saveLocation, jsonData);
 
