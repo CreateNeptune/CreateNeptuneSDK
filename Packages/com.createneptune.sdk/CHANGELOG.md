@@ -130,3 +130,7 @@
 ### 1.4.6
 
 -Altered MPAction.RotateObject to use Quaternion.Lerp for shortest-path rotations instead of using Vector3.Lerp.
+
+### 1.4.7
+
+-Changed SaveDataSingleton to explictly not update a save file if Serialize outputs null
