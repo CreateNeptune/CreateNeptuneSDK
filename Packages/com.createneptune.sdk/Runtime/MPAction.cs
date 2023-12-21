@@ -4,6 +4,7 @@
 namespace CreateNeptune
 {
     using System.Collections;
+    using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.UI;
     using TMPro;
@@ -12,47 +13,472 @@ namespace CreateNeptune
     {
         public enum EaseType
         {
-            easein, easeout, easeineaseout, linear, elasticeaseout
+            // Deprecated
+            easein,
+            easeout, 
+            easeineaseout, 
+            linear, 
+            elasticeaseout,
+
+            // Use these
+            Linear,
+            InSine,
+            OutSine,
+            InOutSine,
+            InQuad,
+            OutQuad,
+            InOutQuad,
+            InCubic,
+            OutCubic,
+            InOutCubic,
+            InQuart,
+            OutQuart,
+            InOutQuart,
+            InQuint,
+            OutQuint,
+            InOutQuint,
+            InExpo,
+            OutExpo,
+            InOutExpo,
+            InCirc,
+            OutCirc,
+            InOutCirc,
+            InBack,
+            OutBack,
+            InOutBack,
+            InElastic,
+            OutElastic,
+            InOutElastic,
+            InBounce,
+            OutBounce,
+            InOutBounce
+        }
+
+        private static readonly Dictionary<EaseType, EasingFunc> easingFuncDictionary = new()
+        {
+            // Support for deprecated enum names
+            { EaseType.easein, EaseInSine },
+            { EaseType.easeout, EaseOutSine },
+            { EaseType.easeineaseout, EaseInOutOld },
+            { EaseType.linear, EaseLinear },
+            { EaseType.elasticeaseout, EaseOutElastic },
+
+            // New naming scheme
+            { EaseType.Linear, EaseLinear },
+            { EaseType.InSine, EaseInSine },
+            { EaseType.OutSine, EaseOutSine },
+            { EaseType.InOutSine, EaseInOutSine },
+            { EaseType.InQuad, EaseInQuad },
+            { EaseType.OutQuad, EaseOutQuad },
+            { EaseType.InOutQuad, EaseInOutQuad },
+            { EaseType.InCubic, EaseInCubic },
+            { EaseType.OutCubic, EaseOutCubic },
+            { EaseType.InOutCubic, EaseInOutCubic },
+            { EaseType.InQuart, EaseInQuart },
+            { EaseType.OutQuart, EaseOutQuart },
+            { EaseType.InOutQuart, EaseInOutQuart },
+            { EaseType.InQuint, EaseInQuint },
+            { EaseType.OutQuint, EaseOutQuint },
+            { EaseType.InOutQuint, EaseInOutQuint },
+            { EaseType.InExpo, EaseInExpo },
+            { EaseType.OutExpo, EaseOutExpo },
+            { EaseType.InOutExpo, EaseInOutExpo },
+            { EaseType.InCirc, EaseInCirc },
+            { EaseType.OutCirc, EaseOutCirc },
+            { EaseType.InOutCirc, EaseInOutCirc },
+            { EaseType.InBack, EaseInBack },
+            { EaseType.OutBack, EaseOutBack },
+            { EaseType.InOutBack, EaseInOutBack },
+            { EaseType.InElastic, EaseInElastic },
+            { EaseType.OutElastic, EaseOutElastic },
+            { EaseType.InOutElastic, EaseInOutElastic },
+            { EaseType.InBounce, EaseInBounce },
+            { EaseType.OutBounce, EaseOutBounce },
+            { EaseType.InOutBounce, EaseInOutBounce },
+        };
+
+        public delegate float EasingFunc(float x);
+
+#region Easing Functions
+        // Various constants used in the easing calculations
+        private static readonly float c1 = 1.70158f;
+        private static readonly float c2 = c1 * 1.525f;
+        private static readonly float c3 = c1 + 1;
+        private static readonly float c4 = 2 * Mathf.PI / 3;
+        private static readonly float c5 = 2 * Mathf.PI / 4.5f;
+        private static readonly float n1 = 7.5625f;
+        private static readonly float d1 = 2.75f;
+
+        /// <summary>
+        /// Support for the deprecated ease in/out function
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        private static float EaseInOutOld(float x)
+        {
+            return x * x * (3.0f - 2.0f * x);
         }
 
         /// <summary>
-        /// This function implements all of the possible easing functions <br></br>
-        /// To add a new easing function, add the type to the enum above, then add the code in this function.
+        /// Linear 'easing' (this is only really here to keep consistent syntax)
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseLinear(float x)
+        {
+            return x;
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInSine
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInSine(float x)
+        {
+            return 1 - Mathf.Cos(x * Mathf.PI / 2);
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeOutSine
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseOutSine(float x)
+        {
+            return Mathf.Sin(x * Mathf.PI / 2);
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInOutSine
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInOutSine(float x)
+        {
+            return -(Mathf.Cos(Mathf.PI * x) - 1) / 2;
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInQuad
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInQuad(float x)
+        {
+            return x * x;
+        }
+        
+        /// <summary>
+        /// https://easings.net/#easeOutQuad
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseOutQuad(float x)
+        {
+            return 1 - (1 - x) * (1 - x);
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInOutQuad
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInOutQuad(float x)
+        {
+            return x < 0.5 ? 2 * x * x : 1 - Mathf.Pow(-2 * x + 2, 2) / 2;
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInCubic
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInCubic(float x)
+        {
+            return x * x * x;        
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeOutCubic
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseOutCubic(float x)
+        {
+            return 1 - Mathf.Pow(1 - x, 3);    
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInOutCubic
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInOutCubic(float x)
+        {
+            return x < 0.5 ? 4 * x * x * x : 1 - Mathf.Pow(-2 * x + 2, 3) / 2;    
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInQuart
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInQuart(float x)
+        {
+            return x * x * x * x;
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeOutQuart
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseOutQuart(float x)
+        {
+            return 1 - Mathf.Pow(1 - x, 4);
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInOutQuart
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInOutQuart(float x)
+        {
+            return x < 0.5 ? 8 * x * x * x * x : 1 - Mathf.Pow(-2 * x + 2, 4) / 2;
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInQuint
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInQuint(float x)
+        {
+            return x * x * x * x * x;
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeOutQuint
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseOutQuint(float x)
+        {
+            return 1 - Mathf.Pow(1 - x, 5);
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInOutQuint
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInOutQuint(float x)
+        {
+            return x < 0.5 ? 16 * x * x * x * x * x : 1 - Mathf.Pow(-2 * x + 2, 5) / 2;
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInExpo
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInExpo(float x)
+        {
+            return x == 0 ? 0 : Mathf.Pow(2, 10 * x - 10);
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeOutExpo
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseOutExpo(float x)
+        {
+            return x == 1 ? 1 : 1 - Mathf.Pow(2, -10 * x);
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInOutExpo
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInOutExpo(float x)
+        {
+            return x == 0
+                ? 0
+                : x == 1
+                ? 1
+                : x < 0.5 ? Mathf.Pow(2, 20 * x - 10) / 2
+                : (2 - Mathf.Pow(2, -20 * x + 10)) / 2;
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInCirc
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInCirc(float x)
+        {
+            return 1 - Mathf.Sqrt(1 - Mathf.Pow(x, 2));
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeOutCirc
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseOutCirc(float x)
+        {
+            return Mathf.Sqrt(1 - Mathf.Pow(x - 1, 2));
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInOutCirc
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInOutCirc(float x)
+        {
+            return x < 0.5
+                ? (1 - Mathf.Sqrt(1 - Mathf.Pow(2 * x, 2))) / 2
+                : (Mathf.Sqrt(1 - Mathf.Pow(-2 * x + 2, 2)) + 1) / 2;
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInBack
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInBack(float x)
+        {
+            return c3 * x * x * x - c1 * x * x;
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeOutBack
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseOutBack(float x)
+        {
+            return 1 + c3 * Mathf.Pow(x - 1, 3) + c1 * Mathf.Pow(x - 1, 2);
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInOutBack
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInOutBack(float x)
+        {
+            return x < 0.5
+                ? Mathf.Pow(2 * x, 2) * ((c2 + 1) * 2 * x - c2) / 2
+                : (Mathf.Pow(2 * x - 2, 2) * ((c2 + 1) * (x * 2 - 2) + c2) + 2) / 2;
+        }    
+        
+        /// <summary>
+        /// https://easings.net/#easeInElastic
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInElastic(float x)
+        {
+            return x == 0
+                ? 0
+                : x == 1
+                ? 1
+                : -Mathf.Pow(2, 10 * x - 10) * Mathf.Sin((x * 10 - 10.75f) * c4);
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeOutElastic
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseOutElastic(float x)
+        {
+            return x == 0
+                ? 0
+                : x == 1
+                ? 1
+                : Mathf.Pow(2, -10 * x) * Mathf.Sin((x * 10 - 0.75f) * c4) + 1;
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInOutElastic
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInOutElastic(float x)
+        {
+            return x == 0
+                ? 0
+                : x == 1
+                ? 1
+                : x < 0.5
+                ? -(Mathf.Pow(2, 20 * x - 10) * Mathf.Sin((20 * x - 11.125f) * c5)) / 2
+                : Mathf.Pow(2, -20 * x + 10) * Mathf.Sin((20 * x - 11.125f) * c5) / 2 + 1;
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeInBounce
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInBounce(float x)
+        {
+            return 1 - EaseOutBounce(1 - x);
+        }
+
+        /// <summary>
+        /// https://easings.net/#easeOutBounce
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseOutBounce(float x)
+        {
+            if (x < 1 / d1) 
+            {
+                return n1 * x * x;
+            } 
+            else if (x < 2 / d1) 
+            {
+                return n1 * (x -= 1.5f / d1) * x + 0.75f;
+            } 
+            else if (x < 2.5 / d1) 
+            {
+                return n1 * (x -= 2.25f / d1) * x + 0.9375f;
+            } 
+            else 
+            {
+                return n1 * (x -= 2.625f / d1) * x + 0.984375f;
+            }
+        }
+        
+        /// <summary>
+        /// https://easings.net/#easeInOutBounce
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static float EaseInOutBounce(float x)
+        {
+            return x < 0.5
+                ? (1 - EaseOutBounce(1 - 2 * x)) / 2
+                : (1 + EaseOutBounce(2 * x - 1)) / 2;
+        }
+#endregion
+
+        /// <summary>
+        /// This function is a quick way to get an easing function using the EaseType enum <br></br>
         /// </summary>
         /// <param name="type">Easing function to use</param>
         /// <param name="t">normalized time value (from 0 to 1)</param>
         /// <returns></returns>
         public static float GetEasedTime(EaseType type, float t)
         {
-            switch (type)
-            {
-				case EaseType.easein:
-                    return 1f - Mathf.Cos(t * Mathf.PI * 0.5f);
-
-                case EaseType.easeout:
-                    return Mathf.Sin(t * Mathf.PI * 0.5f);
-
-                case EaseType.easeineaseout:
-                    return t * t * (3.0f - 2.0f * t);
-
-                case EaseType.elasticeaseout:
-					// source: https://easings.net/#easeOutElastic
-					if (Mathf.Approximately(t, 0))
-                    {
-                        return 0;
-                    }
-                    else if (Mathf.Approximately(t, 1))
-                    {
-                        return 1;
-                    }
-                    else
-                    {
-                        return Mathf.Pow(2, -10 * t) * Mathf.Sin((t * 10 - 0.75f) * (2 * Mathf.PI) / 3) + 1;
-                    }
-
-                default: 
-                    return t;
-            }
+            return easingFuncDictionary[type](t);
         }
 
         public static IEnumerator RotateObject(GameObject rotateObject, bool local, float animationTime, Vector3 startRotation,
