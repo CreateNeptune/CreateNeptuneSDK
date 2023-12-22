@@ -99,6 +99,1038 @@ namespace CreateNeptune
 
         public delegate float EasingFunc(float x);
 
+        /// <summary>
+        /// This function is a quick way to get an easing function using the EaseType enum <br></br>
+        /// </summary>
+        /// <param name="type">Easing function to use</param>
+        /// <param name="t">normalized time value (from 0 to 1)</param>
+        /// <returns></returns>
+        public static float GetEasedTime(EaseType type, float t)
+        {
+            return easingFuncDictionary[type](t);
+        }
+
+        public static IEnumerator RotateObject(GameObject rotateObject, bool local, float animationTime, Vector3 startRotation,
+            Vector3 endRotation, EaseType easeType, bool timeUnscaled)
+        {
+            float counter = 0f;
+            float easedTime;
+
+            // Cache transform
+            Transform rotateObjectT = rotateObject.transform;
+
+            while (counter <= animationTime)
+            {
+                if (timeUnscaled)
+                {
+                    counter += Time.unscaledDeltaTime;
+                }
+                else
+                {
+                    counter += Time.deltaTime;
+                }
+
+                easedTime = GetEasedTime(easeType, counter / animationTime);
+
+                if (local)
+                    rotateObjectT.localRotation = Quaternion.Lerp(Quaternion.Euler(startRotation), Quaternion.Euler(endRotation), easedTime);
+                else
+                    rotateObjectT.rotation = Quaternion.Lerp(Quaternion.Euler(startRotation), Quaternion.Euler(endRotation), easedTime);
+
+                yield return null;
+            }
+
+            // guarantee final rotation
+            if (local)
+                rotateObjectT.localRotation = Quaternion.Euler(endRotation);
+            else
+                rotateObjectT.rotation = Quaternion.Euler(endRotation);
+        }
+
+#region RotateObject overloads
+        public static IEnumerator RotateObject(GameObject rotateObject, float animationTime, Vector3 endRotation)
+        {
+            yield return RotateObject(rotateObject, false, animationTime, rotateObject.transform.rotation.eulerAngles, endRotation, EaseType.OutSine, false);
+        }
+
+        public static IEnumerator RotateObject(GameObject rotateObject, float animationTime, Vector3 endRotation, EaseType easeType)
+        {
+            yield return RotateObject(rotateObject, false, animationTime, rotateObject.transform.rotation.eulerAngles, endRotation, easeType, false);
+        }
+
+        public static IEnumerator RotateObject(GameObject rotateObject, float animationTime, Vector3 endRotation, EaseType easeType, bool timeUnscaled)
+        {
+            yield return RotateObject(rotateObject, false, animationTime, rotateObject.transform.rotation.eulerAngles, endRotation, easeType, timeUnscaled);
+        }
+
+        public static IEnumerator RotateObject(GameObject rotateObject, float animationTime, Vector3 startRotation, Vector3 endRotation)
+        {
+            yield return RotateObject(rotateObject, false, animationTime, startRotation, endRotation, EaseType.OutSine, false);
+        }
+
+        public static IEnumerator RotateObject(GameObject rotateObject, float animationTime, Vector3 startRotation, Vector3 endRotation, EaseType easeType)
+        {
+            yield return RotateObject(rotateObject, false, animationTime, startRotation, endRotation, easeType, false);
+        }
+
+        public static IEnumerator RotateObject(GameObject rotateObject, float animationTime, Vector3 startRotation, Vector3 endRotation, EaseType easeType, bool timeUnscaled)
+        {
+            yield return RotateObject(rotateObject, false, animationTime, startRotation, endRotation, easeType, timeUnscaled);
+        }
+
+        public static IEnumerator RotateObjectLocal(GameObject rotateObject, float animationTime, Vector3 endRotation)
+        {
+            yield return RotateObject(rotateObject, true, animationTime, rotateObject.transform.localRotation.eulerAngles, endRotation, EaseType.OutSine, false);
+        }
+
+        public static IEnumerator RotateObjectLocal(GameObject rotateObject, float animationTime, Vector3 endRotation, EaseType easeType)
+        {
+            yield return RotateObject(rotateObject, true, animationTime, rotateObject.transform.localRotation.eulerAngles, endRotation, easeType, false);
+        }
+
+        public static IEnumerator RotateObjectLocal(GameObject rotateObject, float animationTime, Vector3 endRotation, EaseType easeType, bool timeUnscaled)
+        {
+            yield return RotateObject(rotateObject, true, animationTime, rotateObject.transform.localRotation.eulerAngles, endRotation, easeType, timeUnscaled);
+        }
+
+        public static IEnumerator RotateObjectLocal(GameObject rotateObject, float animationTime, Vector3 startRotation, Vector3 endRotation)
+        {
+            yield return RotateObject(rotateObject, true, animationTime, startRotation, endRotation, EaseType.OutSine, false);
+        }
+
+        public static IEnumerator RotateObjectLocal(GameObject rotateObject, float animationTime, Vector3 startRotation, Vector3 endRotation, EaseType easeType)
+        {
+            yield return RotateObject(rotateObject, true, animationTime, startRotation, endRotation, easeType, false);
+        }
+
+        public static IEnumerator RotateObjectLocal(GameObject rotateObject, float animationTime, Vector3 startRotation, Vector3 endRotation, EaseType easeType, bool timeUnscaled)
+        {
+            yield return RotateObject(rotateObject, true, animationTime, startRotation, endRotation, easeType, timeUnscaled);
+        }
+#endregion
+
+        public static IEnumerator MoveObject(GameObject moveObject, bool localPosition, float animationTime, Vector3 startPosition, Vector3 endPosition,
+            EaseType easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
+        {
+            float counter = 0f;
+            float easedTime;
+
+            // Cache transform
+            Transform moveObjectT = moveObject.transform;
+
+            if (activateAtStart)
+            {
+                moveObject.SetActive(true);
+            }
+
+            while (counter <= animationTime)
+            {
+                if (timeUnscaled)
+                {
+                    counter += Time.unscaledDeltaTime;
+                }
+                else
+                {
+                    counter += Time.deltaTime;
+                }
+
+                easedTime = GetEasedTime(easeType, counter / animationTime);
+
+                if (localPosition)
+                {
+                    moveObjectT.localPosition = Vector3.LerpUnclamped(startPosition, endPosition, easedTime);
+                }
+                else
+                {
+                    moveObjectT.position = Vector3.LerpUnclamped(startPosition, endPosition, easedTime);
+                }
+
+                yield return null;
+            }
+
+            // guarantee endPosition
+            if (localPosition)
+            {
+                moveObjectT.localPosition = endPosition;
+            }
+            else
+            {
+                moveObjectT.position = endPosition;
+            }
+
+            if (deactivateAtEnd)
+            {
+                moveObject.SetActive(false);
+            }
+        }
+
+#region MoveObject overloads
+        public static IEnumerator MoveObject(GameObject moveObject, float animationTime, Vector3 endPosition)
+        {
+            yield return MoveObject(moveObject, false, animationTime, moveObject.transform.position, endPosition, EaseType.OutSine, false, false, false);
+        }
+
+        public static IEnumerator MoveObject(GameObject moveObject, float animationTime, Vector3 endPosition, EaseType easeType)
+        {
+            yield return MoveObject(moveObject, false, animationTime, moveObject.transform.position, endPosition, easeType, false, false, false);
+        }
+
+        public static IEnumerator MoveObject(GameObject moveObject, float animationTime, Vector3 endPosition, EaseType easeType, bool timeUnscaled)
+        {
+            yield return MoveObject(moveObject, false, animationTime, moveObject.transform.position, endPosition, easeType, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator MoveObject(GameObject moveObject, float animationTime, Vector3 startPosition, Vector3 endPosition)
+        {
+            yield return MoveObject(moveObject, false, animationTime, startPosition, endPosition, EaseType.OutSine, false, false, false);
+        }
+
+        public static IEnumerator MoveObject(GameObject moveObject, float animationTime, Vector3 startPosition, Vector3 endPosition, EaseType easeType)
+        {
+            yield return MoveObject(moveObject, false, animationTime, startPosition, endPosition, easeType, false, false, false);
+        }
+
+        public static IEnumerator MoveObject(GameObject moveObject, float animationTime, Vector3 startPosition, Vector3 endPosition, EaseType easeType, bool timeUnscaled)
+        {
+            yield return MoveObject(moveObject, false, animationTime, startPosition, endPosition, easeType, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator MoveObjectLocal(GameObject moveObject, float animationTime, Vector3 endPosition)
+        {
+            yield return MoveObject(moveObject, false, animationTime, moveObject.transform.localPosition, endPosition, EaseType.OutSine, false, false, false);
+        }
+
+        public static IEnumerator MoveObjectLocal(GameObject moveObject, float animationTime, Vector3 endPosition, EaseType easeType)
+        {
+            yield return MoveObject(moveObject, true, animationTime, moveObject.transform.localPosition, endPosition, easeType, false, false, false);
+        }
+
+        public static IEnumerator MoveObjectLocal(GameObject moveObject, float animationTime, Vector3 endPosition, EaseType easeType, bool timeUnscaled)
+        {
+            yield return MoveObject(moveObject, true, animationTime, moveObject.transform.localPosition, endPosition, easeType, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator MoveObjectLocal(GameObject moveObject, float animationTime, Vector3 startPosition, Vector3 endPosition)
+        {
+            yield return MoveObject(moveObject, false, animationTime, startPosition, endPosition, EaseType.OutSine, false, false, false);
+        }
+
+        public static IEnumerator MoveObjectLocal(GameObject moveObject, float animationTime, Vector3 startPosition, Vector3 endPosition, EaseType easeType)
+        {
+            yield return MoveObject(moveObject, true, animationTime, startPosition, endPosition, easeType, false, false, false);
+        }
+
+        public static IEnumerator MoveObjectLocal(GameObject moveObject, float animationTime, Vector3 startPosition, Vector3 endPosition, EaseType easeType, bool timeUnscaled)
+        {
+            yield return MoveObject(moveObject, true, animationTime, startPosition, endPosition, easeType, false, false, timeUnscaled);
+        }
+#endregion
+
+        public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 startPosition, Vector2 endPosition,
+            EaseType easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
+        {
+            float counter = 0f;
+            float easedTime;
+
+            // Cache transform
+            RectTransform moveObjectT = moveObject.GetComponent<RectTransform>();
+
+            if (activateAtStart)
+            {
+                moveObject.SetActive(true);
+            }
+
+            while (counter <= animationTime)
+            {
+                if (timeUnscaled)
+                {
+                    counter += Time.unscaledDeltaTime;
+                }
+                else
+                {
+                    counter += Time.deltaTime;
+                }
+
+                easedTime = GetEasedTime(easeType, counter / animationTime);
+
+                moveObjectT.anchoredPosition = Vector2.LerpUnclamped(startPosition, endPosition, easedTime);
+
+                yield return null;
+            }
+
+            // guarantee endPosition
+            moveObjectT.anchoredPosition = endPosition;
+
+            if (deactivateAtEnd)
+            {
+                moveObject.SetActive(false);
+            }
+        }
+
+#region MoveCanvasObject overloads
+        public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 endPosition)
+        {
+            yield return MoveCanvasObject(moveObject, animationTime, moveObject.GetComponent<RectTransform>().anchoredPosition, endPosition, EaseType.OutSine, false, false, false);
+        }
+
+        public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 endPosition, EaseType easeType)
+        {
+            yield return MoveCanvasObject(moveObject, animationTime, moveObject.GetComponent<RectTransform>().anchoredPosition, endPosition, easeType, false, false, false);
+        }
+
+        public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 endPosition, EaseType easeType, bool timeUnscaled)
+        {
+            yield return MoveCanvasObject(moveObject, animationTime, moveObject.GetComponent<RectTransform>().anchoredPosition, endPosition, easeType, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 startPosition, Vector2 endPosition)
+        {
+            yield return MoveCanvasObject(moveObject, animationTime, startPosition, endPosition, EaseType.OutSine, false, false, false);
+        }
+
+        public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 startPosition, Vector2 endPosition, EaseType easeType)
+        {
+            yield return MoveCanvasObject(moveObject, animationTime, startPosition, endPosition, easeType, false, false, false);
+        }
+
+        public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 startPosition, Vector2 endPosition, EaseType easeType, bool timeUnscaled)
+        {
+            yield return MoveCanvasObject(moveObject, animationTime, startPosition, endPosition, easeType, false, false, timeUnscaled);
+        }
+#endregion
+
+        /// ***WARNING: THIS CAUSES PERFORMANCE ISSUES ON ANDROID DEVICES IF USED EXCESSIVELY OR ON LARGE OR TRANSPARENT OBJECTS. BEWARE!***
+        public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 startScale, Vector3 endScale,
+            EaseType easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
+        {
+            float counter = 0f;
+            float easedTime;
+
+            // Cache transform
+            RectTransform scaleObjectT = scaleObject.GetComponent<RectTransform>();
+
+            if (activateAtStart)
+                scaleObject.SetActive(true);
+
+            while (counter <= animationTime)
+            {
+                if (timeUnscaled)
+                    counter += Time.unscaledDeltaTime;
+                else
+                    counter += Time.deltaTime;
+
+                easedTime = GetEasedTime(easeType, counter / animationTime);
+
+                if (scaleObjectT != null)
+                    scaleObjectT.localScale = Vector3.LerpUnclamped(startScale, endScale, easedTime);
+
+                yield return null;
+            }
+
+            // guarantee endScale
+            if (scaleObjectT != null)
+                scaleObjectT.localScale = endScale;
+
+            if (deactivateAtEnd)
+                scaleObject.SetActive(false);
+        }
+
+#region ScaleCanvasObject overloads
+        public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 endScale)
+        {
+            yield return ScaleCanvasObject(scaleObject, animationTime, scaleObject.GetComponent<RectTransform>().localScale, endScale, EaseType.OutSine, false, false, false);
+        }
+
+        public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 endScale, EaseType easeType)
+        {
+            yield return ScaleCanvasObject(scaleObject, animationTime, scaleObject.GetComponent<RectTransform>().localScale, endScale, easeType, false, false, false);
+        }
+
+        public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 endScale, EaseType easeType, bool timeUnscaled)
+        {
+            yield return ScaleCanvasObject(scaleObject, animationTime, scaleObject.GetComponent<RectTransform>().localScale, endScale, easeType, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 startScale, Vector3 endScale)
+        {
+            yield return ScaleCanvasObject(scaleObject, animationTime, startScale, endScale, EaseType.OutSine, false, false, false);
+        }
+
+        public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 startScale, Vector3 endScale, EaseType easeType)
+        {
+            yield return ScaleCanvasObject(scaleObject, animationTime, startScale, endScale, easeType, false, false, false);
+        }
+
+        public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 startScale, Vector3 endScale, EaseType easeType, bool timeUnscaled)
+        {
+            yield return ScaleCanvasObject(scaleObject, animationTime, startScale, endScale, easeType, false, false, timeUnscaled);
+        }
+#endregion
+
+        public static IEnumerator FadeObject(GameObject objectToFade, float timeToFade, float startAlpha, float endAlpha, bool activateAtStart,
+            bool deactivateAtEnd, bool timeUnscaled, EaseType easeType)
+        {
+            float counter = 0f;
+
+            if (activateAtStart)
+            {
+                objectToFade.SetActive(true);
+            }
+
+            System.Action<float> setter;
+
+            if (objectToFade.GetComponent<SpriteRenderer>() != null)
+            {
+                SpriteRenderer objectToFadeSpriteRenderer = objectToFade.GetComponent<SpriteRenderer>();
+                setter = (x) => 
+                {
+                    Color newColor = objectToFadeSpriteRenderer.color;
+                    newColor.a = x;
+                    objectToFadeSpriteRenderer.color = newColor;
+                };
+            }
+            else if (objectToFade.GetComponent<CanvasGroup>() != null)
+            {
+                CanvasGroup objectToFadeImage = objectToFade.GetComponent<CanvasGroup>();
+                setter = (x) => objectToFadeImage.alpha = x;
+            }
+            else if (objectToFade.GetComponent<Image>() != null)
+            {
+                Image objectToFadeImage = objectToFade.GetComponent<Image>();
+                setter = (x) => 
+                {
+                    Color newColor = objectToFadeImage.color;
+                    newColor.a = x;
+                    objectToFadeImage.color = newColor;
+                };
+            }
+            else if (objectToFade.GetComponent<Text>() != null)
+            {
+                Text objectToFadeImage = objectToFade.GetComponent<Text>();
+                setter = (x) => 
+                {
+                    Color newColor = objectToFadeImage.color;
+                    newColor.a = x;
+                    objectToFadeImage.color = newColor;
+                };
+            }
+
+            else if (objectToFade.GetComponent<RawImage>() != null)
+            {
+                RawImage objectToFadeImage = objectToFade.GetComponent<RawImage>();
+                setter = (x) => 
+                {
+                    Color newColor = objectToFadeImage.color;
+                    newColor.a = x;
+                    objectToFadeImage.color = newColor;
+                };
+            }
+            else
+            {
+                yield break;
+            }
+
+            while (counter <= timeToFade)
+            {
+                setter(startAlpha + (endAlpha - startAlpha) * GetEasedTime(easeType, counter / timeToFade));
+
+                if (timeUnscaled)
+                {
+                    counter += Time.unscaledDeltaTime;
+                }
+                else
+                {
+                    counter += Time.deltaTime;
+                }
+
+                yield return null;
+            }
+
+            // guarantee end alpha
+            setter(endAlpha);
+
+            if (deactivateAtEnd)
+            {
+                objectToFade.SetActive(false);
+            }
+        }
+
+#region FadeObject overloads
+        public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float endAlpha) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade), endAlpha, false, false, false, EaseType.Linear);
+        }
+
+        public static IEnumerator FadeObject(Behaviour objectToFade, float timeTofade, float endAlpha) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade.gameObject), endAlpha, false, false, false, EaseType.Linear);
+        }
+
+        public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float startAlpha, float endAlpha) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, false, false, false, EaseType.Linear);
+        }
+
+        public static IEnumerator FadeObject(Behaviour objectToFade, float timeTofade, float startAlpha, float endAlpha) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, false, false, false, EaseType.Linear);
+        }
+
+        public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float endAlpha, EaseType easeType) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade), endAlpha, false, false, false, easeType);
+        }
+
+        public static IEnumerator FadeObject(Behaviour objectToFade, float timeTofade, float endAlpha, EaseType easeType) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade.gameObject), endAlpha, false, false, false, easeType);
+        }
+
+        public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float startAlpha, float endAlpha, EaseType easeType) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, false, false, false, easeType);
+        }
+
+        public static IEnumerator FadeObject(Behaviour objectToFade, float timeTofade, float startAlpha, float endAlpha, EaseType easeType) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, false, false, false, easeType);
+        }
+
+        public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float endAlpha, bool timeUnscaled, EaseType easeType) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade), endAlpha, false, false, timeUnscaled, easeType);
+        }
+
+        public static IEnumerator FadeObject(Behaviour objectToFade, float timeTofade, float endAlpha, bool timeUnscaled, EaseType easeType) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade.gameObject), endAlpha, false, false, timeUnscaled, easeType);
+        }
+
+        public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float startAlpha, float endAlpha, bool timeUnscaled, EaseType easeType) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, false, false, timeUnscaled, easeType);
+        }
+
+        public static IEnumerator FadeObject(Behaviour objectToFade, float timeTofade, float startAlpha, float endAlpha, bool timeUnscaled, EaseType easeType) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, false, false, timeUnscaled, easeType);
+        }
+
+        public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float startAlpha, float endAlpha, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, activateAtStart, deactivateAtEnd, timeUnscaled, EaseType.Linear);
+        }
+
+        public static IEnumerator FadeObject(Behaviour objectToFade, float timeTofade, float startAlpha, float endAlpha, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, activateAtStart, deactivateAtEnd, timeUnscaled, EaseType.Linear);
+        }
+
+        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeToFade, float startAlpha, float endAlpha, bool activateAtStart,
+           bool deactivateAtEnd, bool timeUnscaled, EaseType easeType)
+        {
+            if (activateAtStart)
+            {
+                behaviorToFade.enabled = true;
+            }
+
+            yield return FadeObject(behaviorToFade.gameObject, timeToFade, startAlpha, endAlpha, false, false, timeUnscaled, easeType);
+
+            if (deactivateAtEnd)
+            {
+                behaviorToFade.enabled = false;
+            }
+        }
+#endregion
+
+        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color startColor, Color endColor, bool activateAtStart,
+            bool deactivateAtEnd, bool timeUnscaled, EaseType easeType)
+        {
+            float counter = 0f;
+
+            if (activateAtStart)
+            {
+                objectToColor.SetActive(true);
+            }
+
+            System.Action<Color> setter;
+
+            if (objectToColor.GetComponent<SpriteRenderer>() != null)
+            {
+                SpriteRenderer objectToColorSpriteRenderer = objectToColor.GetComponent<SpriteRenderer>();
+                setter = (x) => objectToColorSpriteRenderer.color = x;
+            }
+            else if (objectToColor.GetComponent<Image>() != null)
+            {
+                Image objectToColorImage = objectToColor.GetComponent<Image>();
+                setter = (x) => objectToColorImage.color = x;
+            }
+            else if (objectToColor.GetComponent<MeshRenderer>() != null)
+            {
+                MeshRenderer objectToColorRenderer = objectToColor.GetComponent<MeshRenderer>();
+                setter = (x) => objectToColorRenderer.material.color = x;
+            }
+            else if (objectToColor.GetComponent<SkinnedMeshRenderer>() != null)
+            {
+                SkinnedMeshRenderer objectToColorRenderer = objectToColor.GetComponent<SkinnedMeshRenderer>();
+                setter = (x) => objectToColorRenderer.material.color = x;
+            }
+            else if (objectToColor.GetComponent<TextMeshProUGUI>() != null)
+            {
+                TextMeshProUGUI textToColor = objectToColor.GetComponent<TextMeshProUGUI>();
+                setter = (x) => textToColor.color = x;
+            }
+            else
+            {
+                yield break;
+            }
+
+            while (counter <= timeToFade)
+            {
+                setter(startColor + (endColor - startColor) * GetEasedTime(easeType, counter / timeToFade));
+
+                if (timeUnscaled)
+                {
+                    counter += Time.unscaledDeltaTime;
+                }
+                else
+                {
+                    counter += Time.deltaTime;
+                }
+
+                yield return null;
+            }
+
+            // guarantee end alpha
+            setter(endColor);
+
+            if (deactivateAtEnd)
+            {
+                objectToColor.SetActive(false);
+            }
+        }
+
+#region ColorObject overloads        
+        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color endColor)
+        {
+            yield return ColorObject(objectToColor, timeToFade, GetObjectColor(objectToColor), endColor, false, false, false, EaseType.linear);
+        }
+
+        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color startColor, Color endColor)
+        {
+            yield return ColorObject(objectToColor, timeToFade, startColor, endColor, false, false, false, EaseType.linear);
+        }
+
+        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color endColor, EaseType easeType)
+        {
+            yield return ColorObject(objectToColor, timeToFade, GetObjectColor(objectToColor), endColor, false, false, false, easeType);
+        }
+
+        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color startColor, Color endColor, EaseType easeType)
+        {
+            yield return ColorObject(objectToColor, timeToFade, startColor, endColor, false, false, false, easeType);
+        }
+
+        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color endColor, bool timeUnscaled, EaseType easeType)
+        {
+            yield return ColorObject(objectToColor, timeToFade, GetObjectColor(objectToColor), endColor, false, false, timeUnscaled, easeType);
+        }
+
+        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color startColor, Color endColor, bool timeUnscaled, EaseType easeType)
+        {
+            yield return ColorObject(objectToColor, timeToFade, startColor, endColor, false, false, timeUnscaled, easeType);
+        }
+#endregion
+        
+        public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval,
+            float totalTime, Color startColor, Color endColor, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled, EaseType easeType)
+        {
+            int numFlashes = (int)(totalTime / flashInterval);
+
+            if (activateAtStart)
+            {
+                objectToFlash.SetActive(true);
+            }
+
+            for (int i = 0; i < numFlashes; i++)
+            {
+                yield return ColorObject(objectToFlash, flashInterval, startColor, endColor, false, false, timeUnscaled, easeType);
+
+                yield return ColorObject(objectToFlash, flashInterval, endColor, startColor, false, false, timeUnscaled, easeType);
+            }
+
+            if (deactivateAtEnd)
+            {
+                objectToFlash.SetActive(false);
+            }
+        }
+
+#region FlashAnimation overloads
+        public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color endColor)
+        {
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, GetObjectColor(objectToFlash), endColor, false,
+                false, false, EaseType.InOutSine);   
+        }
+
+        public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color startColor, Color endColor)
+        {
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, false,
+                false, false, EaseType.InOutSine);   
+        }
+
+        public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color endColor, EaseType easeType)
+        {
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, GetObjectColor(objectToFlash), endColor, false,
+                false, false, easeType);   
+        }
+
+        public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color startColor, Color endColor, EaseType easeType)
+        {
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, false,
+                false, false, easeType);   
+        }
+
+        public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color endColor,
+            bool timeUnscaled, EaseType easeType)
+        {
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, GetObjectColor(objectToFlash), endColor, false,
+                false, timeUnscaled, easeType);   
+        }
+
+        public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color startColor, Color endColor,
+            bool timeUnscaled, EaseType easeType)
+        {
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, false,
+                false, timeUnscaled, easeType);   
+        }
+
+        public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color startColor,
+            Color endColor, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
+        {
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, activateAtStart, 
+                deactivateAtEnd, timeUnscaled, EaseType.InOutSine);   
+        }
+#endregion
+
+        public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 startScale, Vector3 endScale,
+            float animationTime, EaseType easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
+        {
+            float counter = 0f;
+            float easedTime;
+
+            // Cache transform
+            Transform objectToScaleT = objectToScale.transform;
+
+            if (activateAtStart)
+            {
+                objectToScale.SetActive(true);
+            }
+
+            while (counter <= animationTime)
+            {
+                if (timeUnscaled)
+                {
+                    counter += Time.unscaledDeltaTime;
+                }
+                else
+                {
+                    counter += Time.deltaTime;
+                }
+
+                easedTime = GetEasedTime(easeType, counter / animationTime);
+
+                objectToScaleT.localScale = Vector3.LerpUnclamped(startScale, endScale, easedTime);
+
+                yield return null;
+            }
+
+            // guarantee end scale
+            objectToScaleT.localScale = endScale;
+
+            if (deactivateAtEnd)
+            {
+                objectToScale.SetActive(false);
+            }
+        }
+
+#region ScaleObject overloads
+        public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 endScale, float animationTime)
+        {
+            yield return ScaleObject(objectToScale, objectToScale.transform.localScale, endScale, animationTime, EaseType.OutSine, false, false, false);
+        }
+
+        public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 endScale, float animationTime, EaseType easeType)
+        {
+            yield return ScaleObject(objectToScale, objectToScale.transform.localScale, endScale, animationTime, easeType, false, false, false);
+        }
+
+        public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 endScale, float animationTime, EaseType easeType, bool timeUnscaled)
+        {
+            yield return ScaleObject(objectToScale, objectToScale.transform.localScale, endScale, animationTime, easeType, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 startScale, Vector3 endScale, float animationTime)
+        {
+            yield return ScaleObject(objectToScale, startScale, endScale, animationTime, EaseType.OutSine, false, false, false);
+        }
+
+        public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 startScale, Vector3 endScale, float animationTime, EaseType easeType)
+        {
+            yield return ScaleObject(objectToScale, startScale, endScale, animationTime, easeType, false, false, false);
+        }
+
+        public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 startScale, Vector3 endScale, float animationTime, EaseType easeType, bool timeUnscaled)
+        {
+            yield return ScaleObject(objectToScale, startScale, endScale, animationTime, easeType, false, false, timeUnscaled);
+        }
+#endregion
+        
+
+        public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime, string textInFront,
+            string textAtEnd, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled, EaseType easeType)
+        {
+            float counter = 0f;
+            float percentComplete;
+            float floatValue;
+            int displayValue;
+
+            System.Action<string> setter = (x) => {};
+
+            if (activateAtStart)
+            {
+                objectWithTextComponent.SetActive(true);
+            }
+
+            // Cache text component
+            if (objectWithTextComponent.GetComponent<Text>() != null)
+            {
+                Text textComponent = objectWithTextComponent.GetComponent<Text>();
+                setter = (x) => textComponent.text = x;
+            }
+            else if (objectWithTextComponent.GetComponent<TextMeshPro>() != null)
+            {
+                TextMeshPro tmpComponent = objectWithTextComponent.GetComponent<TextMeshPro>();
+                setter = (x) => tmpComponent.text = x;
+            }
+            else if (objectWithTextComponent.GetComponent<TextMeshProUGUI>() != null)
+            {
+                TextMeshProUGUI tmpComponent = objectWithTextComponent.GetComponent<TextMeshProUGUI>();
+                setter = (x) => tmpComponent.text = x;
+            }
+
+            while (counter <= animationTime)
+            {
+                if (timeUnscaled)
+                {
+                    counter += Time.unscaledDeltaTime;
+                }
+                else
+                {
+                    counter += Time.deltaTime;
+                }
+
+                percentComplete = GetEasedTime(easeType, counter / animationTime);
+
+                floatValue = Mathf.Round(percentComplete * (endValue - startValue) + startValue);
+                displayValue = (int)floatValue;
+                setter(textInFront + displayValue.ToString() + textAtEnd);
+
+                yield return null;
+            }
+
+            // guarantee correct end value
+            setter(textInFront + endValue.ToString() + textAtEnd);
+
+            if (deactivateAtEnd)
+            {
+                objectWithTextComponent.SetActive(false);
+            }
+        }
+
+#region CountUpObject overloads
+        private static IEnumerator CountUpObject(GameObject objectWithTextComponent, int endValue, float animationTime)
+        {
+            yield return CountUpObject(objectWithTextComponent, GetObjectTextInt(objectWithTextComponent), endValue, animationTime, "", "",
+                false, false, false, EaseType.linear);
+        }
+
+        private static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime)
+        {
+            yield return CountUpObject(objectWithTextComponent, startValue, endValue, animationTime, "", "",
+                false, false, false, EaseType.linear);
+        }
+
+        private static IEnumerator CountUpObject(GameObject objectWithTextComponent, int endValue, float animationTime, EaseType easeType)
+        {
+            yield return CountUpObject(objectWithTextComponent, GetObjectTextInt(objectWithTextComponent), endValue, animationTime, "", "",
+                false, false, false, easeType);
+        }
+
+        private static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime, EaseType easeType)
+        {
+            yield return CountUpObject(objectWithTextComponent, startValue, endValue, animationTime, "", "",
+                false, false, false, easeType);
+        }
+
+        private static IEnumerator CountUpObject(GameObject objectWithTextComponent, int endValue, float animationTime, bool timeUnscaled, EaseType easeType)
+        {
+            yield return CountUpObject(objectWithTextComponent, GetObjectTextInt(objectWithTextComponent), endValue, animationTime, "", "",
+                false, false, timeUnscaled, easeType);
+        }
+
+        private static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime, bool timeUnscaled, EaseType easeType)
+        {
+            yield return CountUpObject(objectWithTextComponent, startValue, endValue, animationTime, "", "",
+                false, false, timeUnscaled, easeType);
+        }
+
+        public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime, string textInFront,
+            string textAtEnd, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
+        {
+            yield return CountUpObject(objectWithTextComponent, startValue, endValue, animationTime, textInFront, textAtEnd, 
+                activateAtStart, deactivateAtEnd, timeUnscaled, EaseType.linear);
+        }
+#endregion
+        
+        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill, 
+            bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled, EaseType easeType)
+        {
+            float counter = 0f;
+            float percentComplete;
+
+            // Cache image component
+            Image image;
+
+            if (objectWithImage.GetComponent<Image>() != null)
+                image = objectWithImage.GetComponent<Image>();
+            else
+                yield break;
+
+            if (activateAtStart)
+            {
+                objectWithImage.SetActive(true);
+            }
+
+            while (counter < timeToFill)
+            {
+                if (timeUnscaled)
+                {
+                    counter += Time.unscaledDeltaTime;
+                }
+                else
+                {
+                    counter += Time.deltaTime;
+                }
+
+                percentComplete = GetEasedTime(easeType, counter / timeToFill);
+                image.fillAmount = startFill + percentComplete * (endFill - startFill);
+
+                yield return null;
+            }
+
+            // Guarantee correct end fill amount
+            image.fillAmount = endFill;
+
+            if (deactivateAtEnd)
+            {
+                objectWithImage.SetActive(false);
+            }
+        }
+
+#region FillBar overloads
+        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float endFill)
+        {
+            yield return FillBar(objectWithImage, timeToFill, objectWithImage.GetComponent<Image>().fillAmount, endFill, false, false, false, EaseType.linear);
+        }
+
+        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill)
+        {
+            yield return FillBar(objectWithImage, timeToFill, startFill, endFill, false, false, false, EaseType.linear);
+        }
+
+        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float endFill, EaseType easeType)
+        {
+            yield return FillBar(objectWithImage, timeToFill, objectWithImage.GetComponent<Image>().fillAmount, endFill, false, false, false, easeType);
+        }
+
+        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill, EaseType easeType)
+        {
+            yield return FillBar(objectWithImage, timeToFill, startFill, endFill, false, false, false, easeType);
+        }
+
+        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float endFill, bool timeUnscaled, EaseType easeType)
+        {
+            yield return FillBar(objectWithImage, timeToFill, objectWithImage.GetComponent<Image>().fillAmount, endFill, false, false, timeUnscaled, easeType);
+        }
+
+        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill, bool timeUnscaled, EaseType easeType)
+        {
+            yield return FillBar(objectWithImage, timeToFill, startFill, endFill, false, false, timeUnscaled, easeType);
+        }
+
+        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill, 
+            bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
+        {
+            yield return FillBar(objectWithImage, timeToFill, startFill, endFill, activateAtStart, deactivateAtEnd, timeUnscaled, EaseType.linear);
+        }
+        #endregion
+
+        public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float startVolume, float endVolume, bool timeUnscaled, EaseType easeType)
+        {
+            float counter = 0f;
+
+            while (counter < timeToFade)
+            {
+                if (timeUnscaled)
+                {
+                    counter += Time.unscaledDeltaTime;
+                }
+                else
+                {
+                    counter += Time.deltaTime;
+                }
+
+                audioSource.volume = Mathf.LerpUnclamped(startVolume, endVolume, GetEasedTime(easeType, counter / timeToFade));
+
+                yield return null;
+            }
+
+            // Guarantee end volume
+            audioSource.volume = endVolume;
+        }
+
+#region FadeAudioSource overloads
+        public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float endVolume)
+        {
+            yield return FadeAudioSource(audioSource, timeToFade, audioSource.volume, endVolume, false, EaseType.linear);
+        }
+
+        public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float startVolume, float endVolume)
+        {
+            yield return FadeAudioSource(audioSource, timeToFade, startVolume, endVolume, false, EaseType.linear);
+        }
+
+        public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float endVolume, EaseType easeType)
+        {
+            yield return FadeAudioSource(audioSource, timeToFade, audioSource.volume, endVolume, false, easeType);
+        }
+
+        public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float startVolume, float endVolume, EaseType easeType)
+        {
+            yield return FadeAudioSource(audioSource, timeToFade, startVolume, endVolume, false, easeType);
+        }
+
+        public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float endVolume, bool timeUnscaled, EaseType easeType)
+        {
+            yield return FadeAudioSource(audioSource, timeToFade, audioSource.volume, endVolume, timeUnscaled, easeType);
+        }
+
+        public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float startVolume, float endVolume, bool timeUnscaled)
+        {
+            yield return FadeAudioSource(audioSource, timeToFade, startVolume, endVolume, timeUnscaled, EaseType.linear);
+        }
+#endregion
+
 #region Easing Functions
         // Various constants used in the easing calculations
         private static readonly float c1 = 1.70158f;
@@ -469,725 +1501,114 @@ namespace CreateNeptune
                 : (1 + EaseOutBounce(2 * x - 1)) / 2;
         }
 #endregion
+    
+#region Helper Functions
+        /// <summary>
+        /// Helper function for FadeObject. Gets the alpha of the specified game object (provided it has the right component on it)
+        /// </summary>
+        /// <returns></returns>
+        private static float GetObjectAlpha(GameObject gameObject)
+        {
+            if (gameObject.GetComponent<SpriteRenderer>())
+            {
+                return gameObject.GetComponent<SpriteRenderer>().color.a;
+            }
+            else if (gameObject.GetComponent<CanvasGroup>())
+            {
+                return gameObject.GetComponent<CanvasGroup>().alpha;
+            }
+            else if (gameObject.GetComponent<Image>())
+            {
+                return gameObject.GetComponent<Image>().color.a;
+            }
+            else if (gameObject.GetComponent<Text>())
+            {
+                return gameObject.GetComponent<Text>().color.a;
+            }
+            else if (gameObject.GetComponent<TextMeshPro>())
+            {
+                return gameObject.GetComponent<TextMeshPro>().color.a;
+            }
+            else if (gameObject.GetComponent<TextMeshProUGUI>())
+            {
+                return gameObject.GetComponent<TextMeshProUGUI>().color.a;
+            }
+            else if (gameObject.GetComponent<RawImage>())
+            {
+                return gameObject.GetComponent<RawImage>().color.a;
+            }
+            else
+            {
+                Debug.LogWarning("Cound not find an appropriate component to get alpha from");
+                return 0f;
+            }
+        }
 
         /// <summary>
-        /// This function is a quick way to get an easing function using the EaseType enum <br></br>
+        /// Helper function for ColorObject and FlashObject. Gets the alpha of the specified game object (provided it has the right component on it)
         /// </summary>
-        /// <param name="type">Easing function to use</param>
-        /// <param name="t">normalized time value (from 0 to 1)</param>
         /// <returns></returns>
-        public static float GetEasedTime(EaseType type, float t)
+        private static Color GetObjectColor(GameObject gameObject)
         {
-            return easingFuncDictionary[type](t);
-        }
-
-        public static IEnumerator RotateObject(GameObject rotateObject, bool local, float animationTime, Vector3 startRotation,
-            Vector3 endRotation, EaseType easeType, bool timeUnscaled)
-        {
-            float counter = 0f;
-            float easedTime;
-
-            // Cache transform
-            Transform rotateObjectT = rotateObject.transform;
-
-            while (counter <= animationTime)
+            if (gameObject.GetComponent<SpriteRenderer>())
             {
-                if (timeUnscaled)
-                {
-                    counter += Time.unscaledDeltaTime;
-                }
-                else
-                {
-                    counter += Time.deltaTime;
-                }
-
-                easedTime = GetEasedTime(easeType, counter / animationTime);
-
-                if (local)
-                    rotateObjectT.localRotation = Quaternion.Lerp(Quaternion.Euler(startRotation), Quaternion.Euler(endRotation), easedTime);
-                else
-                    rotateObjectT.rotation = Quaternion.Lerp(Quaternion.Euler(startRotation), Quaternion.Euler(endRotation), easedTime);
-
-                yield return null;
+                return gameObject.GetComponent<SpriteRenderer>().color;
             }
-
-            // guarantee final rotation
-            if (local)
-                rotateObjectT.localRotation = Quaternion.Euler(endRotation);
-            else
-                rotateObjectT.rotation = Quaternion.Euler(endRotation);
-        }
-
-        public static IEnumerator MoveObject(GameObject moveObject, bool localPosition, float animationTime, Vector3 startPosition, Vector3 endPosition,
-            EaseType easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
-        {
-            float counter = 0f;
-            float easedTime;
-
-            // Cache transform
-            Transform moveObjectT = moveObject.transform;
-
-            if (activateAtStart)
+            else if (gameObject.GetComponent<Image>())
             {
-                moveObject.SetActive(true);
+                return gameObject.GetComponent<Image>().color;
             }
-
-            while (counter <= animationTime)
+            else if (gameObject.GetComponent<Text>())
             {
-                if (timeUnscaled)
-                {
-                    counter += Time.unscaledDeltaTime;
-                }
-                else
-                {
-                    counter += Time.deltaTime;
-                }
-
-                easedTime = GetEasedTime(easeType, counter / animationTime);
-
-                if (localPosition)
-                {
-                    moveObjectT.localPosition = Vector3.LerpUnclamped(startPosition, endPosition, easedTime);
-                }
-                else
-                {
-                    moveObjectT.position = Vector3.LerpUnclamped(startPosition, endPosition, easedTime);
-                }
-
-                yield return null;
+                return gameObject.GetComponent<Text>().color;
             }
-
-            // guarantee endPosition
-            if (localPosition)
+            else if (gameObject.GetComponent<TextMeshPro>())
             {
-                moveObjectT.localPosition = endPosition;
+                return gameObject.GetComponent<TextMeshPro>().color;
+            }
+            else if (gameObject.GetComponent<TextMeshProUGUI>())
+            {
+                return gameObject.GetComponent<TextMeshProUGUI>().color;
+            }
+            else if (gameObject.GetComponent<RawImage>())
+            {
+                return gameObject.GetComponent<RawImage>().color;
             }
             else
             {
-                moveObjectT.position = endPosition;
-            }
-
-            if (deactivateAtEnd)
-            {
-                moveObject.SetActive(false);
+                Debug.LogWarning("Cound not find an appropriate component to get color from");
+                return Color.white;
             }
         }
 
-        public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 startPosition, Vector2 endPosition,
-            EaseType easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
+        /// <summary>
+        /// Helper function for CountUpObject. Returns the int version of text that is currently displaying a number.
+        /// </summary>
+        /// <param name="objectWithTextComponent">A game object with a Text, TextMeshPro, or TextMeshProUGUI component</param>
+        /// <returns></returns>
+        private static int GetObjectTextInt(GameObject objectWithTextComponent)
         {
-            float counter = 0f;
-            float easedTime;
-
-            // Cache transform
-            RectTransform moveObjectT = moveObject.GetComponent<RectTransform>();
-
-            if (activateAtStart)
+            Text textComponent;
+            if (objectWithTextComponent.TryGetComponent(out textComponent))
             {
-                moveObject.SetActive(true);
+                return int.Parse(textComponent.GetComponent<Text>().text);
             }
 
-            while (counter <= animationTime)
+            TextMeshPro tmpComponent;
+            if (objectWithTextComponent.TryGetComponent(out tmpComponent))
             {
-                if (timeUnscaled)
-                {
-                    counter += Time.unscaledDeltaTime;
-                }
-                else
-                {
-                    counter += Time.deltaTime;
-                }
-
-                easedTime = GetEasedTime(easeType, counter / animationTime);
-
-                moveObjectT.anchoredPosition = Vector2.LerpUnclamped(startPosition, endPosition, easedTime);
-
-                yield return null;
+                return int.Parse(tmpComponent.text);
             }
 
-            // guarantee endPosition
-            moveObjectT.anchoredPosition = endPosition;
-
-            if (deactivateAtEnd)
+            TextMeshProUGUI tmpUiComponent;
+            if (objectWithTextComponent.TryGetComponent(out tmpUiComponent))
             {
-                moveObject.SetActive(false);
+                return int.Parse(tmpUiComponent.text);
             }
+
+            Debug.LogWarning("Could not find an appropriate component on this object");
+            return -1;
         }
-
-        // ***WARNING: THIS CAUSES PERFORMANCE ISSUES ON ANDROID DEVICES IF USED EXCESSIVELY OR ON LARGE OR TRANSPARENT OBJECTS. BEWARE!***
-        public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 startScale, Vector3 endScale,
-            EaseType easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
-        {
-            float counter = 0f;
-            float easedTime;
-
-            // Cache transform
-            RectTransform scaleObjectT = scaleObject.GetComponent<RectTransform>();
-
-            if (activateAtStart)
-                scaleObject.SetActive(true);
-
-            while (counter <= animationTime)
-            {
-                if (timeUnscaled)
-                    counter += Time.unscaledDeltaTime;
-                else
-                    counter += Time.deltaTime;
-
-                easedTime = GetEasedTime(easeType, counter / animationTime);
-
-                if (scaleObjectT != null)
-                    scaleObjectT.localScale = Vector3.LerpUnclamped(startScale, endScale, easedTime);
-
-                yield return null;
-            }
-
-            // guarantee endScale
-            if (scaleObjectT != null)
-                scaleObjectT.localScale = endScale;
-
-            if (deactivateAtEnd)
-                scaleObject.SetActive(false);
-        }
-
-        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeToFade, float startAlpha, float endAlpha, bool activateAtStart,
-           bool deactivateAtEnd, bool timeUnscaled)
-        {
-            if (activateAtStart)
-            {
-                behaviorToFade.enabled = true;
-            }
-
-            yield return FadeObject(behaviorToFade.gameObject, timeToFade, startAlpha, endAlpha, false, false, timeUnscaled);
-
-            if (deactivateAtEnd)
-            {
-                behaviorToFade.enabled = false;
-            }
-        }
-
-        public static IEnumerator FadeObject(GameObject objectToFade, float timeToFade, float startAlpha, float endAlpha, bool activateAtStart,
-            bool deactivateAtEnd, bool timeUnscaled)
-        {
-            float counter = 0f;
-
-            if (activateAtStart)
-            {
-                objectToFade.SetActive(true);
-            }
-
-            if (objectToFade.GetComponent<SpriteRenderer>() != null)
-            {
-                SpriteRenderer objectToFadeSpriteRenderer = objectToFade.GetComponent<SpriteRenderer>();
-
-                // Get current color.
-                Color currentColor = objectToFadeSpriteRenderer.color;
-
-                while (counter <= timeToFade)
-                {
-                    objectToFadeSpriteRenderer.color = new Color(currentColor.r, currentColor.g, currentColor.b,
-                        startAlpha + (endAlpha - startAlpha) * counter / timeToFade);
-
-                    if (timeUnscaled)
-                    {
-                        counter += Time.unscaledDeltaTime;
-                    }
-                    else
-                    {
-                        counter += Time.deltaTime;
-                    }
-
-                    yield return null;
-                }
-
-                // guarantee end alpha
-                objectToFadeSpriteRenderer.color = new Color(currentColor.r, currentColor.g, currentColor.b, endAlpha);
-            }
-            else if (objectToFade.GetComponent<CanvasGroup>() != null)
-            {
-                CanvasGroup objectToFadeImage = objectToFade.GetComponent<CanvasGroup>();
-
-                while (counter <= timeToFade)
-                {
-                    objectToFadeImage.alpha =
-                        startAlpha + (endAlpha - startAlpha) * counter / timeToFade;
-
-                    if (timeUnscaled)
-                    {
-                        counter += Time.unscaledDeltaTime;
-                    }
-                    else
-                    {
-                        counter += Time.deltaTime;
-                    }
-
-                    yield return null;
-                }
-
-                // guarantee end alpha
-                objectToFadeImage.alpha = endAlpha;
-            }
-            else if (objectToFade.GetComponent<Image>() != null)
-            {
-                Image objectToFadeImage = objectToFade.GetComponent<Image>();
-
-                // Get current color.
-                Color currentColor = objectToFadeImage.color;
-
-                while (counter <= timeToFade)
-                {
-                    objectToFadeImage.color = new Color(currentColor.r, currentColor.g, currentColor.b,
-                        startAlpha + (endAlpha - startAlpha) * counter / timeToFade);
-
-                    if (timeUnscaled)
-                    {
-                        counter += Time.unscaledDeltaTime;
-                    }
-                    else
-                    {
-                        counter += Time.deltaTime;
-                    }
-
-                    yield return null;
-                }
-
-                // guarantee end alpha
-                objectToFadeImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, endAlpha);
-            }
-            else if (objectToFade.GetComponent<Text>() != null)
-            {
-                Text objectToFadeImage = objectToFade.GetComponent<Text>();
-
-                // Get current color.
-                Color currentColor = objectToFadeImage.color;
-
-                while (counter <= timeToFade)
-                {
-                    objectToFadeImage.color = new Color(currentColor.r, currentColor.g, currentColor.b,
-                        startAlpha + (endAlpha - startAlpha) * counter / timeToFade);
-
-                    if (timeUnscaled)
-                    {
-                        counter += Time.unscaledDeltaTime;
-                    }
-                    else
-                    {
-                        counter += Time.deltaTime;
-                    }
-
-                    yield return null;
-                }
-
-                // guarantee end alpha
-                objectToFadeImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, endAlpha);
-            }
-
-            else if (objectToFade.GetComponent<RawImage>() != null)
-            {
-                RawImage objectToFadeImage = objectToFade.GetComponent<RawImage>();
-
-                // Get current color.
-                Color currentColor = objectToFadeImage.color;
-
-                while (counter <= timeToFade)
-                {
-                    objectToFadeImage.color = new Color(currentColor.r, currentColor.g, currentColor.b,
-                        startAlpha + (endAlpha - startAlpha) * counter / timeToFade);
-
-                    if (timeUnscaled)
-                    {
-                        counter += Time.unscaledDeltaTime;
-                    }
-                    else
-                    {
-                        counter += Time.deltaTime;
-                    }
-
-                    yield return null;
-                }
-
-                // guarantee end alpha
-                objectToFadeImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, endAlpha);
-            }
-            else
-            {
-                yield break;
-            }
-
-            if (deactivateAtEnd)
-            {
-                objectToFade.SetActive(false);
-            }
-        }
-
-        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color startColor, Color endColor, bool activateAtStart,
-            bool deactivateAtEnd, bool timeUnscaled)
-        {
-            float counter = 0f;
-
-            if (activateAtStart)
-            {
-                objectToColor.SetActive(true);
-            }
-
-            if (objectToColor.GetComponent<SpriteRenderer>() != null)
-            {
-                SpriteRenderer objectToColorSpriteRenderer = objectToColor.GetComponent<SpriteRenderer>();
-
-                while (counter <= timeToFade)
-                {
-                    objectToColorSpriteRenderer.color = startColor + (endColor - startColor) * (counter / timeToFade);
-
-                    if (timeUnscaled)
-                    {
-                        counter += Time.unscaledDeltaTime;
-                    }
-                    else
-                    {
-                        counter += Time.deltaTime;
-                    }
-
-                    yield return null;
-                }
-
-                // guarantee end color
-                objectToColorSpriteRenderer.color = endColor;
-            }
-            else if (objectToColor.GetComponent<Image>() != null)
-            {
-                Image objectToColorImage = objectToColor.GetComponent<Image>();
-
-                while (counter <= timeToFade)
-                {
-                    objectToColorImage.color = startColor + (endColor - startColor) * (counter / timeToFade);
-
-                    if (timeUnscaled)
-                    {
-                        counter += Time.unscaledDeltaTime;
-                    }
-                    else
-                    {
-                        counter += Time.deltaTime;
-                    }
-
-                    yield return null;
-                }
-
-                // guarantee end alpha
-                objectToColorImage.color = endColor;
-            }
-            else if (objectToColor.GetComponent<MeshRenderer>() != null)
-            {
-                MeshRenderer objectToColorRenderer = objectToColor.GetComponent<MeshRenderer>();
-
-                while (counter <= timeToFade)
-                {
-                    objectToColorRenderer.material.color = startColor + (endColor - startColor) * (counter / timeToFade);
-
-                    if (timeUnscaled)
-                    {
-                        counter += Time.unscaledDeltaTime;
-                    }
-                    else
-                    {
-                        counter += Time.deltaTime;
-                    }
-
-                    yield return null;
-                }
-
-                // guarantee end alpha
-                objectToColorRenderer.material.color = endColor;
-            }
-            else if (objectToColor.GetComponent<SkinnedMeshRenderer>() != null)
-            {
-                SkinnedMeshRenderer objectToColorRenderer = objectToColor.GetComponent<SkinnedMeshRenderer>();
-
-                while (counter <= timeToFade)
-                {
-                    objectToColorRenderer.material.color = startColor + (endColor - startColor) * (counter / timeToFade);
-
-                    if (timeUnscaled)
-                    {
-                        counter += Time.unscaledDeltaTime;
-                    }
-                    else
-                    {
-                        counter += Time.deltaTime;
-                    }
-
-                    yield return null;
-                }
-
-                // guarantee end alpha
-                objectToColorRenderer.material.color = endColor;
-            }
-            else if (objectToColor.GetComponent<TextMeshProUGUI>() != null)
-            {
-                TextMeshProUGUI textToColor = objectToColor.GetComponent<TextMeshProUGUI>();
-
-                while (counter <= timeToFade)
-                {
-                    textToColor.color = startColor + (endColor - startColor) * (counter / timeToFade);
-
-                    if (timeUnscaled)
-                    {
-                        counter += Time.unscaledDeltaTime;
-                    }
-                    else
-                    {
-                        counter += Time.deltaTime;
-                    }
-
-                    yield return null;
-                }
-
-                // guarantee end alpha
-                textToColor.color = endColor;
-            }
-            else
-            {
-                yield break;
-            }
-
-            if (deactivateAtEnd)
-            {
-                objectToColor.SetActive(false);
-            }
-        }
-
-        public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval,
-            float totalTime, Color startColor, Color endColor, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
-        {
-            int numFlashes = (int)(totalTime / flashInterval);
-
-            if (activateAtStart)
-            {
-                objectToFlash.SetActive(true);
-            }
-
-            for (int i = 0; i < numFlashes; i++)
-            {
-                yield return ColorObject(objectToFlash, flashInterval, startColor, endColor, false, false, timeUnscaled);
-
-                yield return ColorObject(objectToFlash, flashInterval, endColor, startColor, false, false, timeUnscaled);
-            }
-
-            if (deactivateAtEnd)
-            {
-                objectToFlash.SetActive(false);
-            }
-        }
-
-        public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 startScale, Vector3 endScale,
-            float animationTime, EaseType easeType, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
-        {
-            float counter = 0f;
-            float easedTime;
-
-            // Cache transform
-            Transform objectToScaleT = objectToScale.transform;
-
-            if (activateAtStart)
-            {
-                objectToScale.SetActive(true);
-            }
-
-            while (counter <= animationTime)
-            {
-                if (timeUnscaled)
-                {
-                    counter += Time.unscaledDeltaTime;
-                }
-                else
-                {
-                    counter += Time.deltaTime;
-                }
-
-                easedTime = GetEasedTime(easeType, counter / animationTime);
-
-                objectToScaleT.localScale = Vector3.LerpUnclamped(startScale, endScale, easedTime);
-
-                yield return null;
-            }
-
-            // guarantee end scale
-            objectToScaleT.localScale = endScale;
-
-            if (deactivateAtEnd)
-            {
-                objectToScale.SetActive(false);
-            }
-        }
-
-        public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime, string textInFront,
-            string textAtEnd, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
-        {
-            float counter = 0f;
-            float percentComplete;
-            float floatValue;
-            int displayValue;
-
-            if (activateAtStart)
-            {
-                objectWithTextComponent.SetActive(true);
-            }
-
-            // Cache text component
-            if (objectWithTextComponent.GetComponent<Text>() != null)
-            {
-                Text textComponent = objectWithTextComponent.GetComponent<Text>();
-
-                while (counter <= animationTime)
-                {
-                    if (timeUnscaled)
-                    {
-                        counter += Time.unscaledDeltaTime;
-                    }
-                    else
-                    {
-                        counter += Time.deltaTime;
-                    }
-
-                    percentComplete = counter / animationTime;
-
-                    floatValue = Mathf.Round(percentComplete * (endValue - startValue) + startValue);
-                    displayValue = (int)floatValue;
-                    textComponent.text = textInFront + displayValue.ToString() + textAtEnd;
-
-                    yield return null;
-                }
-
-                // guarantee correct end value
-                textComponent.text = textInFront + endValue.ToString() + textAtEnd;
-            }
-            else if (objectWithTextComponent.GetComponent<TextMeshPro>() != null)
-            {
-                TextMeshPro tmpComponent = objectWithTextComponent.GetComponent<TextMeshPro>();
-
-                while (counter <= animationTime)
-                {
-                    if (timeUnscaled)
-                    {
-                        counter += Time.unscaledDeltaTime;
-                    }
-                    else
-                    {
-                        counter += Time.deltaTime;
-                    }
-
-                    percentComplete = counter / animationTime;
-
-                    floatValue = Mathf.Round(percentComplete * (endValue - startValue) + startValue);
-                    displayValue = (int)floatValue;
-                    tmpComponent.text = textInFront + displayValue.ToString() + textAtEnd;
-
-                    yield return null;
-                }
-
-                // guarantee correct end value
-                tmpComponent.text = textInFront + endValue.ToString() + textAtEnd;
-            }
-            else if (objectWithTextComponent.GetComponent<TextMeshProUGUI>() != null)
-            {
-                TextMeshProUGUI tmpComponent = objectWithTextComponent.GetComponent<TextMeshProUGUI>();
-
-                while (counter <= animationTime)
-                {
-                    if (timeUnscaled)
-                    {
-                        counter += Time.unscaledDeltaTime;
-                    }
-                    else
-                    {
-                        counter += Time.deltaTime;
-                    }
-
-                    percentComplete = counter / animationTime;
-
-                    floatValue = Mathf.Round(percentComplete * (endValue - startValue) + startValue);
-                    displayValue = (int)floatValue;
-                    tmpComponent.text = textInFront + displayValue.ToString() + textAtEnd;
-
-                    yield return null;
-                }
-
-                // guarantee correct end value
-                tmpComponent.text = textInFront + endValue.ToString() + textAtEnd;
-            }
-
-            if (deactivateAtEnd)
-            {
-                objectWithTextComponent.SetActive(false);
-            }
-        }
-
-        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
-        {
-            float counter = 0f;
-            float percentComplete;
-
-            // Cache image component
-            Image image;
-
-            if (objectWithImage.GetComponent<Image>() != null)
-                image = objectWithImage.GetComponent<Image>();
-            else
-                yield break;
-
-            if (activateAtStart)
-            {
-                objectWithImage.SetActive(true);
-            }
-
-            while (counter < timeToFill)
-            {
-                if (timeUnscaled)
-                {
-                    counter += Time.unscaledDeltaTime;
-                }
-                else
-                {
-                    counter += Time.deltaTime;
-                }
-
-                percentComplete = counter / timeToFill;
-                image.fillAmount = startFill + percentComplete * (endFill - startFill);
-
-                yield return null;
-            }
-
-            // Guarantee correct end fill amount
-            image.fillAmount = endFill;
-
-            if (deactivateAtEnd)
-            {
-                objectWithImage.SetActive(false);
-            }
-        }
-
-        public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float startVolume, float endVolume, bool timeUnscaled)
-        {
-            float counter = 0f;
-
-            while (counter < timeToFade)
-            {
-                if (timeUnscaled)
-                {
-                    counter += Time.unscaledDeltaTime;
-                }
-                else
-                {
-                    counter += Time.deltaTime;
-                }
-
-                audioSource.volume = Mathf.LerpUnclamped(startVolume, endVolume, counter / timeToFade);
-
-                yield return null;
-            }
-
-            // Guarantee end volume
-            audioSource.volume = endVolume;
-        }
+#endregion
     }
 }
