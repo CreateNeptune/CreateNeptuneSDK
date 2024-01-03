@@ -369,8 +369,8 @@ namespace CreateNeptune
         }
 #endregion
 
-        public static IEnumerator FadeObject(GameObject objectToFade, float timeToFade, float startAlpha, float endAlpha, bool activateAtStart,
-            bool deactivateAtEnd, bool timeUnscaled, CNEase.EasingFunc easingFunc)
+        public static IEnumerator FadeObject(GameObject objectToFade, float timeToFade, float startAlpha, float endAlpha,
+            CNEase.EasingFunc easingFunc, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
         {
             float counter = 0f;
 
@@ -479,83 +479,83 @@ namespace CreateNeptune
 #region FadeObject overloads
         public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float endAlpha) 
         {
-            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade), endAlpha, false, false, false, CNEase.Linear);
+            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade), endAlpha, CNEase.Linear, false, false, false);
         }
 
-        public static IEnumerator FadeObject(Behaviour objectToFade, float timeTofade, float endAlpha) 
+        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeTofade, float endAlpha) 
         {
-            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade.gameObject), endAlpha, false, false, false, CNEase.Linear);
+            yield return FadeObject(behaviorToFade, timeTofade, GetObjectAlpha(behaviorToFade.gameObject), endAlpha, CNEase.Linear, false, false, false);
         }
 
         public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float startAlpha, float endAlpha) 
         {
-            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, false, false, false, CNEase.Linear);
+            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, CNEase.Linear, false, false, false);
         }
 
-        public static IEnumerator FadeObject(Behaviour objectToFade, float timeTofade, float startAlpha, float endAlpha) 
+        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeTofade, float startAlpha, float endAlpha) 
         {
-            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, false, false, false, CNEase.Linear);
+            yield return FadeObject(behaviorToFade, timeTofade, startAlpha, endAlpha, CNEase.Linear, false, false, false);
         }
 
         public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float endAlpha, CNEase.EasingFunc easingFunc) 
         {
-            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade), endAlpha, false, false, false, easingFunc);
+            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade), endAlpha, easingFunc, false, false, false);
         }
 
-        public static IEnumerator FadeObject(Behaviour objectToFade, float timeTofade, float endAlpha, CNEase.EasingFunc easingFunc) 
+        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeTofade, float endAlpha, CNEase.EasingFunc easingFunc) 
         {
-            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade.gameObject), endAlpha, false, false, false, easingFunc);
+            yield return FadeObject(behaviorToFade, timeTofade, GetObjectAlpha(behaviorToFade.gameObject), endAlpha, easingFunc, false, false, false);
         }
 
         public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float startAlpha, float endAlpha, CNEase.EasingFunc easingFunc) 
         {
-            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, false, false, false, easingFunc);
+            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, easingFunc, false, false, false);
         }
 
-        public static IEnumerator FadeObject(Behaviour objectToFade, float timeTofade, float startAlpha, float endAlpha, CNEase.EasingFunc easingFunc) 
+        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeTofade, float startAlpha, float endAlpha, CNEase.EasingFunc easingFunc) 
         {
-            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, false, false, false, easingFunc);
+            yield return FadeObject(behaviorToFade, timeTofade, startAlpha, endAlpha, easingFunc, false, false, false);
         }
 
-        public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float endAlpha, bool timeUnscaled, CNEase.EasingFunc easingFunc) 
+        public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float endAlpha, CNEase.EasingFunc easingFunc, bool timeUnscaled) 
         {
-            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade), endAlpha, false, false, timeUnscaled, easingFunc);
+            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade), endAlpha, easingFunc, false, false, timeUnscaled);
         }
 
-        public static IEnumerator FadeObject(Behaviour objectToFade, float timeTofade, float endAlpha, bool timeUnscaled, CNEase.EasingFunc easingFunc) 
+        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeTofade, float endAlpha, CNEase.EasingFunc easingFunc, bool timeUnscaled) 
         {
-            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade.gameObject), endAlpha, false, false, timeUnscaled, easingFunc);
+            yield return FadeObject(behaviorToFade, timeTofade, GetObjectAlpha(behaviorToFade.gameObject), endAlpha, easingFunc, false, false, timeUnscaled);
         }
 
-        public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float startAlpha, float endAlpha, bool timeUnscaled, CNEase.EasingFunc easingFunc) 
+        public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float startAlpha, float endAlpha, CNEase.EasingFunc easingFunc, bool timeUnscaled) 
         {
-            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, false, false, timeUnscaled, easingFunc);
+            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, easingFunc, false, false, timeUnscaled);
         }
 
-        public static IEnumerator FadeObject(Behaviour objectToFade, float timeTofade, float startAlpha, float endAlpha, bool timeUnscaled, CNEase.EasingFunc easingFunc) 
+        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeTofade, float startAlpha, float endAlpha, CNEase.EasingFunc easingFunc, bool timeUnscaled) 
         {
-            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, false, false, timeUnscaled, easingFunc);
+            yield return FadeObject(behaviorToFade, timeTofade, startAlpha, endAlpha, easingFunc, false, false, timeUnscaled);
         }
 
         public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float startAlpha, float endAlpha, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled) 
         {
-            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, activateAtStart, deactivateAtEnd, timeUnscaled, CNEase.Linear);
+            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, CNEase.Linear, activateAtStart, deactivateAtEnd, timeUnscaled);
         }
 
-        public static IEnumerator FadeObject(Behaviour objectToFade, float timeTofade, float startAlpha, float endAlpha, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled) 
+        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeTofade, float startAlpha, float endAlpha, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled) 
         {
-            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, activateAtStart, deactivateAtEnd, timeUnscaled, CNEase.Linear);
+            yield return FadeObject(behaviorToFade, timeTofade, startAlpha, endAlpha, CNEase.Linear, activateAtStart, deactivateAtEnd, timeUnscaled);
         }
 
-        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeToFade, float startAlpha, float endAlpha, bool activateAtStart,
-           bool deactivateAtEnd, bool timeUnscaled, CNEase.EasingFunc easingFunc)
+        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeToFade, float startAlpha, float endAlpha, CNEase.EasingFunc easingFunc,
+            bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
         {
             if (activateAtStart)
             {
                 behaviorToFade.enabled = true;
             }
 
-            yield return FadeObject(behaviorToFade.gameObject, timeToFade, startAlpha, endAlpha, false, false, timeUnscaled, easingFunc);
+            yield return FadeObject(behaviorToFade.gameObject, timeToFade, startAlpha, endAlpha, easingFunc, false, false, timeUnscaled);
 
             if (deactivateAtEnd)
             {
@@ -564,8 +564,8 @@ namespace CreateNeptune
         }
 #endregion
 
-        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color startColor, Color endColor, bool activateAtStart,
-            bool deactivateAtEnd, bool timeUnscaled, CNEase.EasingFunc easingFunc)
+        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color startColor, Color endColor, CNEase.EasingFunc easingFunc,
+            bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
         {
             float counter = 0f;
 
@@ -644,37 +644,37 @@ namespace CreateNeptune
 #region ColorObject overloads        
         public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color endColor)
         {
-            yield return ColorObject(objectToColor, timeToFade, GetObjectColor(objectToColor), endColor, false, false, false, CNEase.Linear);
+            yield return ColorObject(objectToColor, timeToFade, GetObjectColor(objectToColor), endColor, CNEase.Linear, false, false, false);
         }
 
         public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color startColor, Color endColor)
         {
-            yield return ColorObject(objectToColor, timeToFade, startColor, endColor, false, false, false, CNEase.Linear);
+            yield return ColorObject(objectToColor, timeToFade, startColor, endColor, CNEase.Linear, false, false, false);
         }
 
         public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color endColor, CNEase.EasingFunc easingFunc)
         {
-            yield return ColorObject(objectToColor, timeToFade, GetObjectColor(objectToColor), endColor, false, false, false, easingFunc);
+            yield return ColorObject(objectToColor, timeToFade, GetObjectColor(objectToColor), endColor, easingFunc, false, false, false);
         }
 
         public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color startColor, Color endColor, CNEase.EasingFunc easingFunc)
         {
-            yield return ColorObject(objectToColor, timeToFade, startColor, endColor, false, false, false, easingFunc);
+            yield return ColorObject(objectToColor, timeToFade, startColor, endColor, easingFunc, false, false, false);
         }
 
-        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color endColor, bool timeUnscaled, CNEase.EasingFunc easingFunc)
+        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color endColor, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
-            yield return ColorObject(objectToColor, timeToFade, GetObjectColor(objectToColor), endColor, false, false, timeUnscaled, easingFunc);
+            yield return ColorObject(objectToColor, timeToFade, GetObjectColor(objectToColor), endColor, easingFunc, false, false, timeUnscaled);
         }
 
-        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color startColor, Color endColor, bool timeUnscaled, CNEase.EasingFunc easingFunc)
+        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color startColor, Color endColor, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
-            yield return ColorObject(objectToColor, timeToFade, startColor, endColor, false, false, timeUnscaled, easingFunc);
+            yield return ColorObject(objectToColor, timeToFade, startColor, endColor, easingFunc, false, false, timeUnscaled);
         }
 #endregion
         
         public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval,
-            float totalTime, Color startColor, Color endColor, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled, CNEase.EasingFunc easingFunc)
+            float totalTime, Color startColor, Color endColor, CNEase.EasingFunc easingFunc, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
         {
             int numFlashes = (int)(totalTime / flashInterval);
 
@@ -685,9 +685,9 @@ namespace CreateNeptune
 
             for (int i = 0; i < numFlashes; i++)
             {
-                yield return ColorObject(objectToFlash, flashInterval, startColor, endColor, false, false, timeUnscaled, easingFunc);
+                yield return ColorObject(objectToFlash, flashInterval, startColor, endColor, easingFunc, false, false, timeUnscaled);
 
-                yield return ColorObject(objectToFlash, flashInterval, endColor, startColor, false, false, timeUnscaled, easingFunc);
+                yield return ColorObject(objectToFlash, flashInterval, endColor, startColor, easingFunc, false, false, timeUnscaled);
             }
 
             if (deactivateAtEnd)
@@ -699,47 +699,47 @@ namespace CreateNeptune
 #region FlashAnimation overloads
         public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color endColor)
         {
-            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, GetObjectColor(objectToFlash), endColor, false,
-                false, false, CNEase.InOutSine);   
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, GetObjectColor(objectToFlash), endColor, CNEase.InOutSine,
+                false, false, false);   
         }
 
         public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color startColor, Color endColor)
         {
-            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, false,
-                false, false, CNEase.InOutSine);   
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, CNEase.InOutSine,
+                false, false, false);   
         }
 
         public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color endColor, CNEase.EasingFunc easingFunc)
         {
-            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, GetObjectColor(objectToFlash), endColor, false,
-                false, false, easingFunc);   
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, GetObjectColor(objectToFlash), endColor, easingFunc,
+                false, false, false);   
         }
 
         public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color startColor, Color endColor, CNEase.EasingFunc easingFunc)
         {
-            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, false,
-                false, false, easingFunc);   
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, easingFunc,
+                false, false, false);   
         }
 
         public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color endColor,
-            bool timeUnscaled, CNEase.EasingFunc easingFunc)
+            CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
-            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, GetObjectColor(objectToFlash), endColor, false,
-                false, timeUnscaled, easingFunc);   
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, GetObjectColor(objectToFlash), endColor, easingFunc,
+                false, false, timeUnscaled);   
         }
 
         public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color startColor, Color endColor,
-            bool timeUnscaled, CNEase.EasingFunc easingFunc)
+            CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
-            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, false,
-                false, timeUnscaled, easingFunc);   
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, easingFunc,
+                false, false, timeUnscaled);   
         }
 
         public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color startColor,
             Color endColor, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
         {
-            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, activateAtStart, 
-                deactivateAtEnd, timeUnscaled, CNEase.InOutSine);   
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, CNEase.InOutSine, 
+                activateAtStart, deactivateAtEnd, timeUnscaled);   
         }
 #endregion
 
@@ -817,7 +817,7 @@ namespace CreateNeptune
 #endregion
         
         public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime, string textInFront,
-            string textAtEnd, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled, CNEase.EasingFunc easingFunc)
+            string textAtEnd, CNEase.EasingFunc easingFunc, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
         {
             float counter = 0f;
             float percentComplete;
@@ -881,49 +881,49 @@ namespace CreateNeptune
         public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int endValue, float animationTime)
         {
             yield return CountUpObject(objectWithTextComponent, GetObjectTextInt(objectWithTextComponent), endValue, animationTime, "", "",
-                false, false, false, CNEase.Linear);
+                CNEase.Linear, false, false, false);
         }
 
         public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime)
         {
             yield return CountUpObject(objectWithTextComponent, startValue, endValue, animationTime, "", "",
-                false, false, false, CNEase.Linear);
+                CNEase.Linear, false, false, false);
         }
 
         public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int endValue, float animationTime, CNEase.EasingFunc easingFunc)
         {
             yield return CountUpObject(objectWithTextComponent, GetObjectTextInt(objectWithTextComponent), endValue, animationTime, "", "",
-                false, false, false, easingFunc);
+                easingFunc, false, false, false);
         }
 
         public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime, CNEase.EasingFunc easingFunc)
         {
             yield return CountUpObject(objectWithTextComponent, startValue, endValue, animationTime, "", "",
-                false, false, false, easingFunc);
+                easingFunc, false, false, false);
         }
 
-        public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int endValue, float animationTime, bool timeUnscaled, CNEase.EasingFunc easingFunc)
+        public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int endValue, float animationTime, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return CountUpObject(objectWithTextComponent, GetObjectTextInt(objectWithTextComponent), endValue, animationTime, "", "",
-                false, false, timeUnscaled, easingFunc);
+                easingFunc, false, false, timeUnscaled);
         }
 
-        public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime, bool timeUnscaled, CNEase.EasingFunc easingFunc)
+        public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return CountUpObject(objectWithTextComponent, startValue, endValue, animationTime, "", "",
-                false, false, timeUnscaled, easingFunc);
+                easingFunc, false, false, timeUnscaled);
         }
 
         public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime, string textInFront,
             string textAtEnd, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
         {
             yield return CountUpObject(objectWithTextComponent, startValue, endValue, animationTime, textInFront, textAtEnd, 
-                activateAtStart, deactivateAtEnd, timeUnscaled, CNEase.Linear);
+                CNEase.Linear, activateAtStart, deactivateAtEnd, timeUnscaled);
         }
 #endregion
         
         public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill, 
-            bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled, CNEase.EasingFunc easingFunc)
+            CNEase.EasingFunc easingFunc, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
         {
             float counter = 0f;
             float percentComplete;
@@ -970,42 +970,42 @@ namespace CreateNeptune
 #region FillBar overloads
         public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float endFill)
         {
-            yield return FillBar(objectWithImage, timeToFill, objectWithImage.GetComponent<Image>().fillAmount, endFill, false, false, false, CNEase.Linear);
+            yield return FillBar(objectWithImage, timeToFill, objectWithImage.GetComponent<Image>().fillAmount, endFill, CNEase.Linear, false, false, false);
         }
 
         public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill)
         {
-            yield return FillBar(objectWithImage, timeToFill, startFill, endFill, false, false, false, CNEase.Linear);
+            yield return FillBar(objectWithImage, timeToFill, startFill, endFill, CNEase.Linear, false, false, false);
         }
 
         public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float endFill, CNEase.EasingFunc easingFunc)
         {
-            yield return FillBar(objectWithImage, timeToFill, objectWithImage.GetComponent<Image>().fillAmount, endFill, false, false, false, easingFunc);
+            yield return FillBar(objectWithImage, timeToFill, objectWithImage.GetComponent<Image>().fillAmount, endFill, easingFunc, false, false, false);
         }
 
         public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill, CNEase.EasingFunc easingFunc)
         {
-            yield return FillBar(objectWithImage, timeToFill, startFill, endFill, false, false, false, easingFunc);
+            yield return FillBar(objectWithImage, timeToFill, startFill, endFill, easingFunc, false, false, false);
         }
 
-        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float endFill, bool timeUnscaled, CNEase.EasingFunc easingFunc)
+        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float endFill, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
-            yield return FillBar(objectWithImage, timeToFill, objectWithImage.GetComponent<Image>().fillAmount, endFill, false, false, timeUnscaled, easingFunc);
+            yield return FillBar(objectWithImage, timeToFill, objectWithImage.GetComponent<Image>().fillAmount, endFill, easingFunc, false, false, timeUnscaled);
         }
 
-        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill, bool timeUnscaled, CNEase.EasingFunc easingFunc)
+        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
-            yield return FillBar(objectWithImage, timeToFill, startFill, endFill, false, false, timeUnscaled, easingFunc);
+            yield return FillBar(objectWithImage, timeToFill, startFill, endFill, easingFunc, false, false, timeUnscaled);
         }
 
         public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill, 
             bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
         {
-            yield return FillBar(objectWithImage, timeToFill, startFill, endFill, activateAtStart, deactivateAtEnd, timeUnscaled, CNEase.Linear);
+            yield return FillBar(objectWithImage, timeToFill, startFill, endFill, CNEase.Linear, activateAtStart, deactivateAtEnd, timeUnscaled);
         }
-        #endregion
+#endregion
 
-        public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float startVolume, float endVolume, bool timeUnscaled, CNEase.EasingFunc easingFunc)
+        public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float startVolume, float endVolume, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             float counter = 0f;
 
@@ -1032,32 +1032,32 @@ namespace CreateNeptune
 #region FadeAudioSource overloads
         public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float endVolume)
         {
-            yield return FadeAudioSource(audioSource, timeToFade, audioSource.volume, endVolume, false, CNEase.Linear);
+            yield return FadeAudioSource(audioSource, timeToFade, audioSource.volume, endVolume, CNEase.Linear, false);
         }
 
         public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float startVolume, float endVolume)
         {
-            yield return FadeAudioSource(audioSource, timeToFade, startVolume, endVolume, false, CNEase.Linear);
+            yield return FadeAudioSource(audioSource, timeToFade, startVolume, endVolume, CNEase.Linear, false);
         }
 
         public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float endVolume, CNEase.EasingFunc easingFunc)
         {
-            yield return FadeAudioSource(audioSource, timeToFade, audioSource.volume, endVolume, false, easingFunc);
+            yield return FadeAudioSource(audioSource, timeToFade, audioSource.volume, endVolume, easingFunc, false);
         }
 
         public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float startVolume, float endVolume, CNEase.EasingFunc easingFunc)
         {
-            yield return FadeAudioSource(audioSource, timeToFade, startVolume, endVolume, false, easingFunc);
+            yield return FadeAudioSource(audioSource, timeToFade, startVolume, endVolume, easingFunc, false);
         }
 
         public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float endVolume, bool timeUnscaled, CNEase.EasingFunc easingFunc)
         {
-            yield return FadeAudioSource(audioSource, timeToFade, audioSource.volume, endVolume, timeUnscaled, easingFunc);
+            yield return FadeAudioSource(audioSource, timeToFade, audioSource.volume, endVolume, easingFunc, timeUnscaled);
         }
 
         public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float startVolume, float endVolume, bool timeUnscaled)
         {
-            yield return FadeAudioSource(audioSource, timeToFade, startVolume, endVolume, timeUnscaled, CNEase.Linear);
+            yield return FadeAudioSource(audioSource, timeToFade, startVolume, endVolume, CNEase.Linear, timeUnscaled);
         }
 #endregion
 
