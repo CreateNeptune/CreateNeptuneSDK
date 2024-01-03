@@ -18,6 +18,6 @@ public class EaseFunctionTestScaleCanvasObject : EaseFunctionTest
 
     public override void BeginTween()
     {
-        CNExtensions.SafeStartCoroutine(this, ref tweenRoutine, MPAction.ScaleCanvasObject(gameObject, animationTime, Vector3.one * endScale, easeType));
+        CNExtensions.SafeStartCoroutine(this, ref tweenRoutine, CNAction.ScaleCanvasObject(gameObject, animationTime, Vector3.one * endScale, CNEase.GetEasingFunc(easeType)));
     }
 }

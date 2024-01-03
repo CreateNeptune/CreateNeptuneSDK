@@ -9,6 +9,6 @@ public class EaseFunctionTestCountUpObject : EaseFunctionTest
 
     public override void BeginTween()
     {
-        CNExtensions.SafeStartCoroutine(this, ref tweenRoutine, MPAction.CountUpObject(gameObject, targetValue, animationTime, easeType));
+        CNExtensions.SafeStartCoroutine(this, ref tweenRoutine, CNAction.CountUpObject(gameObject, targetValue, animationTime, CNEase.GetEasingFunc(easeType)));
     }
 }

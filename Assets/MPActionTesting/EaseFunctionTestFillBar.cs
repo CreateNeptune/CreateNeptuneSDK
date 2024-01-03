@@ -9,6 +9,6 @@ public class EaseFunctionTestFillBar : EaseFunctionTest
 
     public override void BeginTween()
     {
-        CNExtensions.SafeStartCoroutine(this, ref tweenRoutine, MPAction.FillBar(gameObject, animationTime, targetFill, easeType));
+        CNExtensions.SafeStartCoroutine(this, ref tweenRoutine, CNAction.FillBar(gameObject, animationTime, targetFill, CNEase.GetEasingFunc(easeType)));
     }
 }

@@ -9,6 +9,6 @@ public class EaseFunctionTestFadeAudio : EaseFunctionTest
 
     public override void BeginTween()
     {
-        CNExtensions.SafeStartCoroutine(this, ref tweenRoutine, MPAction.FadeAudioSource(GetComponent<AudioSource>(), animationTime, targetVolume, easeType));
+        CNExtensions.SafeStartCoroutine(this, ref tweenRoutine, CNAction.FadeAudioSource(GetComponent<AudioSource>(), animationTime, targetVolume, CNEase.GetEasingFunc(easeType)));
     }
 }

@@ -9,6 +9,6 @@ public class EaseFunctionTestColorObject : EaseFunctionTest
 
     public override void BeginTween()
     {
-        CNExtensions.SafeStartCoroutine(this, ref tweenRoutine, MPAction.ColorObject(gameObject, animationTime, targetColor, easeType));
+        CNExtensions.SafeStartCoroutine(this, ref tweenRoutine, CNAction.ColorObject(gameObject, animationTime, targetColor, CNEase.GetEasingFunc(easeType)));
     }
 }

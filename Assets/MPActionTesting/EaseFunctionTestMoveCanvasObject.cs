@@ -18,6 +18,6 @@ public class EaseFunctionTestMoveCanvasObject : EaseFunctionTest
 
     public override void BeginTween()
     {
-        CNExtensions.SafeStartCoroutine(this, ref tweenRoutine, MPAction.MoveCanvasObject(gameObject, animationTime, (Vector2)rectTransform.localPosition + Vector2.right * xDistance, easeType));
+        CNExtensions.SafeStartCoroutine(this, ref tweenRoutine, CNAction.MoveCanvasObject(gameObject, animationTime, (Vector2)rectTransform.localPosition + Vector2.right * xDistance, CNEase.GetEasingFunc(easeType)));
     }
 }

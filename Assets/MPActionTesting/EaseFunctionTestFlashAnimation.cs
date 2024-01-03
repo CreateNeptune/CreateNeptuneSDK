@@ -10,6 +10,6 @@ public class EaseFunctionTestFlashAnimation : EaseFunctionTest
 
     public override void BeginTween()
     {
-        CNExtensions.SafeStartCoroutine(this, ref tweenRoutine, MPAction.FlashAnimation(gameObject, flashInterval, animationTime, flashColor, easeType));
+        CNExtensions.SafeStartCoroutine(this, ref tweenRoutine, CNAction.FlashAnimation(gameObject, flashInterval, animationTime, flashColor, CNEase.GetEasingFunc(easeType)));
     }
 }
