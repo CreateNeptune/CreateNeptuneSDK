@@ -14,7 +14,7 @@ namespace CreateNeptune
         public enum EaseType
         {
             easein, easeout, easeineaseout, linear, elasticeaseout
-        }
+        } 
 
         /// <summary>
         /// This function implements all of the possible easing functions <br></br>
