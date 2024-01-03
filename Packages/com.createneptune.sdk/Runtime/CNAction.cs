@@ -48,7 +48,6 @@ namespace CreateNeptune
                 rotateObjectT.rotation = Quaternion.Euler(endRotation);
         }
 
-        
 #region RotateObject overloads
         public static IEnumerator RotateObject(GameObject rotateObject, float animationTime, Vector3 endRotation)
         {
@@ -1098,7 +1097,7 @@ namespace CreateNeptune
             }
             else
             {
-                Debug.LogWarning("Cound not find an appropriate component to get alpha from");
+                Debug.LogError("Could not find an appropriate component to get alpha");
                 return 0f;
             }
         }
@@ -1135,7 +1134,7 @@ namespace CreateNeptune
             }
             else
             {
-                Debug.LogWarning("Cound not find an appropriate component to get color from");
+                Debug.LogError("Cound not find an appropriate component to get color");
                 return Color.white;
             }
         }
@@ -1165,7 +1164,7 @@ namespace CreateNeptune
                 return int.Parse(tmpUiComponent.text);
             }
 
-            Debug.LogWarning("Could not find an appropriate component on this object");
+            Debug.LogError("Could not find an appropriate component on this object");
             return -1;
         }
 #endregion

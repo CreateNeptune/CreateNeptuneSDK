@@ -18,6 +18,7 @@ public class EaseFunctionTestRotateObject : EaseFunctionTest
     {
         Vector3 endRotation = baseRotation;
         endRotation.z += rotationDistance;
+
         CNExtensions.SafeStartCoroutine(this, ref tweenRoutine, CNAction.RotateObject(gameObject, animationTime, baseRotation, endRotation, CNEase.GetEasingFunc(easeType)));
     }
 }

@@ -98,7 +98,8 @@ namespace CreateNeptune
         public delegate float EasingFunc(float x);
 
         /// <summary>
-        /// Get an easing function using the EaseType enum
+        /// Get an easing function using the EaseType enum. <br></br>
+        /// Use with the EaseType enum if you want to make the easing function selectable in the inspector.
         /// </summary>
         /// <param name="easeType"></param>
         /// <returns></returns>
@@ -109,14 +110,14 @@ namespace CreateNeptune
 
         /// <summary>
         /// Gets the eased timing for the provided value using the specified ease type. <br></br>
-        /// Use this if you want to get the eased time using the EaseType enum rather than directly with a function.
+        /// Use with the EaseType enum if you want to make the easing function selectable in the inspector.
         /// </summary>
-        /// <param name="type">Easing function to use</param>
+        /// <param name="easeType">Th easing function to use</param>
         /// <param name="x">Normalized time value (from 0 to 1)</param>
         /// <returns>The eased timing of x</returns>
-        public static float GetEasedTime(EaseType type, float x)
+        public static float GetEasedTime(EaseType easeType, float x)
         {
-            return easingFuncDictionary[type](x);
+            return easingFuncDictionary[easeType](x);
         }
 
 #region Easing Functions
