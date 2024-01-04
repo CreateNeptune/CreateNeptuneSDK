@@ -14,7 +14,7 @@ In newer versions of Unity, there should be an Update button at the bottom left 
 You must log in since this is a private repo. To do so, use something like the [GitHub CLI](https://docs.github.com/en/get-started/getting-started-with-git/caching-your-github-credentials-in-git).
 
 ## Editing this Repo
-Feel free to make all necessary edits to this repo by branching off and making a pull request if you do. The files to edit are in /Packages/com.createneptune.sdk. All pull requests must be approved by at least two members of Create Neptune.
+Make edits to this repo by branching off of main and making a pull request. The files to edit are in /Packages/com.createneptune.sdk. All pull requests must be approved by at least two members of Create Neptune.
 
 To publish the update, you must edit the version number in package.json and make any necessary additions to changelog.md. Then push your changes to your branch prior to making a pull request.
 
