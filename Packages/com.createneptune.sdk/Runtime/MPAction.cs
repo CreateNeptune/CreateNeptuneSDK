@@ -8,6 +8,7 @@ namespace CreateNeptune
     using UnityEngine.UI;
     using TMPro;
 
+    [System.Obsolete("MPAction is obsolete. Use CNAction instead.")]
     public static class MPAction
     {
         public enum EaseType

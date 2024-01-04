@@ -35,11 +35,11 @@ namespace CreateNeptune
         {
             if (isOn)
             {
-                StartCoroutine(MPAction.FadeObject(canvas, timeToFade, 0, 1, true, false, false));
+                StartCoroutine(CNAction.FadeObject(canvas, timeToFade, 0, 1, true, false, false));
             }
             else
             {
-                StartCoroutine(MPAction.FadeObject(canvas, timeToFade, 1, 0, false, true, false));
+                StartCoroutine(CNAction.FadeObject(canvas, timeToFade, 1, 0, false, true, false));
             }
 
             PostToggle(isOn);
