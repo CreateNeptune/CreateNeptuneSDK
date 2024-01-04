@@ -137,4 +137,4 @@
 
 ### 2.0.0
 
-- Deprecated MPAction and moved its contents to two new classes, CNEase and CNAction, with a bit more flexibility and features
+- Deprecated MPAction and moved its contents to two new classes, CNEase and CNAction, with more ease types and flexibility for methods
