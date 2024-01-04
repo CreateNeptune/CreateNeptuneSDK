@@ -135,6 +135,6 @@
 
 -Changed SaveDataSingleton to explicitly not update a save file if Serialize outputs null
 
-### 1.5.0
+### 2.0.0
 
 - Deprecated MPAction and moved its contents to two new classes, CNEase and CNAction, with a bit more flexibility and features
