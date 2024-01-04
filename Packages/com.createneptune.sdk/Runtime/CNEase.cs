@@ -8,7 +8,7 @@ namespace CreateNeptune
 {
     /// <summary>
     /// Contains all of the common easing functions, as well as an enum to make them accessible in the inspector.
-    /// See https://easings.net/ for more details.
+    /// See this chart for a visualization of each function: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
     /// </summary>
     public static class CNEase
     {
@@ -141,7 +141,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeInSine
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -151,7 +151,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeOutSine
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -161,7 +161,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeInOutSine
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -171,7 +171,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeInQuad
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -181,7 +181,7 @@ namespace CreateNeptune
         }
         
         /// <summary>
-        /// https://easings.net/#easeOutQuad
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -191,7 +191,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeInOutQuad
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -201,17 +201,18 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeInCubic
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
         public static float InCubic(float x)
         {
+            // Note: multiplication is faster than Mathf.Pow here
             return x * x * x;        
         }
 
         /// <summary>
-        /// https://easings.net/#easeOutCubic
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -221,27 +222,29 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeInOutCubic
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
         public static float InOutCubic(float x)
         {
+            // Note: multiplication is faster than Mathf.Pow here
             return x < 0.5 ? 4 * x * x * x : 1 - Mathf.Pow(-2 * x + 2, 3) / 2;    
         }
 
         /// <summary>
-        /// https://easings.net/#easeInQuart
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
         public static float InQuart(float x)
         {
+            // Note: multiplication is faster than Mathf.Pow here
             return x * x * x * x;
         }
 
         /// <summary>
-        /// https://easings.net/#easeOutQuart
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -251,27 +254,29 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeInOutQuart
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
         public static float InOutQuart(float x)
         {
+            // Note: multiplication is faster than Mathf.Pow here
             return x < 0.5 ? 8 * x * x * x * x : 1 - Mathf.Pow(-2 * x + 2, 4) / 2;
         }
 
         /// <summary>
-        /// https://easings.net/#easeInQuint
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
         public static float InQuint(float x)
         {
+            // Note: multiplication is faster than Mathf.Pow here
             return x * x * x * x * x;
         }
 
         /// <summary>
-        /// https://easings.net/#easeOutQuint
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -281,17 +286,18 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeInOutQuint
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
         public static float InOutQuint(float x)
         {
+            // Note: multiplication is faster than Mathf.Pow here
             return x < 0.5 ? 16 * x * x * x * x * x : 1 - Mathf.Pow(-2 * x + 2, 5) / 2;
         }   
 
         /// <summary>
-        /// https://easings.net/#easeInExpo
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -301,7 +307,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeOutExpo
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -311,7 +317,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeInOutExpo
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -326,7 +332,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeInCirc
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -337,7 +343,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeOutCirc
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -348,7 +354,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeInOutCirc
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -361,7 +367,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeInBack
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -371,7 +377,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeOutBack
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -381,7 +387,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeInOutBack
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -393,7 +399,7 @@ namespace CreateNeptune
         }    
         
         /// <summary>
-        /// https://easings.net/#easeInElastic
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -407,7 +413,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeOutElastic
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -421,7 +427,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeInOutElastic
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -437,7 +443,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeInBounce
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -447,7 +453,7 @@ namespace CreateNeptune
         }
 
         /// <summary>
-        /// https://easings.net/#easeOutBounce
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -472,7 +478,7 @@ namespace CreateNeptune
         }
         
         /// <summary>
-        /// https://easings.net/#easeInOutBounce
+        /// See visualization on this chart: https://github.com/CreateNeptune/CreateNeptuneSDK/blob/main/easings.png
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
