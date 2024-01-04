@@ -1,6 +1,6 @@
 {
   "name": "com.createneptune.sdk",
-  "version": "1.4.7",
+  "version": "2.0.0",
   "displayName": "Create Neptune SDK",
   "description": "Create Neptune tweening and animation package.",
   "unity": "2019.1",
