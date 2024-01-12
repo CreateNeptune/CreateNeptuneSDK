@@ -7,7 +7,7 @@ using TMPro;
 namespace CreateNeptune
 {
     /// <summary>
-    /// Contains various coroutines that can be used to create quick animations, eg moving/scaling/rotating an object ect.
+    /// Animation tweens with adjustable timings using coroutines.
     /// </summary>
     public static class CNAction
     {
