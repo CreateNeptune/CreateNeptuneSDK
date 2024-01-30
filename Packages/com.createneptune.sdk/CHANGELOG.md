@@ -138,3 +138,7 @@
 ### 2.0.0
 
 - Deprecated MPAction and moved its contents to two new classes, CNEase and CNAction, with more ease types and flexibility for methods
+
+### 3.1.0
+
+- Added overloads for all MPActions which take only a CNEase.EaseType, for convenience when working in the inspector
