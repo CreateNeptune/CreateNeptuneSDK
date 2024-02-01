@@ -59,9 +59,19 @@ namespace CreateNeptune
             yield return RotateObject(rotateObject, false, animationTime, rotateObject.transform.rotation.eulerAngles, endRotation, easingFunc, false);
         }
 
+        public static IEnumerator RotateObject(GameObject rotateObject, float animationTime, Vector3 endRotation, CNEase.EaseType easingType)
+        {
+            yield return RotateObject(rotateObject, false, animationTime, rotateObject.transform.rotation.eulerAngles, endRotation, CNEase.GetEasingFunc(easingType), false);
+        }
+
         public static IEnumerator RotateObject(GameObject rotateObject, float animationTime, Vector3 endRotation, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return RotateObject(rotateObject, false, animationTime, rotateObject.transform.rotation.eulerAngles, endRotation, easingFunc, timeUnscaled);
+        }
+
+        public static IEnumerator RotateObject(GameObject rotateObject, float animationTime, Vector3 endRotation, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return RotateObject(rotateObject, false, animationTime, rotateObject.transform.rotation.eulerAngles, endRotation, CNEase.GetEasingFunc(easingType), timeUnscaled);
         }
 
         public static IEnumerator RotateObject(GameObject rotateObject, float animationTime, Vector3 startRotation, Vector3 endRotation)
@@ -74,9 +84,19 @@ namespace CreateNeptune
             yield return RotateObject(rotateObject, false, animationTime, startRotation, endRotation, easingFunc, false);
         }
 
+        public static IEnumerator RotateObject(GameObject rotateObject, float animationTime, Vector3 startRotation, Vector3 endRotation, CNEase.EaseType easingType)
+        {
+            yield return RotateObject(rotateObject, false, animationTime, startRotation, endRotation, CNEase.GetEasingFunc(easingType), false);
+        }
+
         public static IEnumerator RotateObject(GameObject rotateObject, float animationTime, Vector3 startRotation, Vector3 endRotation, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return RotateObject(rotateObject, false, animationTime, startRotation, endRotation, easingFunc, timeUnscaled);
+        }
+
+        public static IEnumerator RotateObject(GameObject rotateObject, float animationTime, Vector3 startRotation, Vector3 endRotation, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return RotateObject(rotateObject, false, animationTime, startRotation, endRotation, CNEase.GetEasingFunc(easingType), timeUnscaled);
         }
 
         public static IEnumerator RotateObjectLocal(GameObject rotateObject, float animationTime, Vector3 endRotation)
@@ -89,9 +109,19 @@ namespace CreateNeptune
             yield return RotateObject(rotateObject, true, animationTime, rotateObject.transform.localRotation.eulerAngles, endRotation, easingFunc, false);
         }
 
+        public static IEnumerator RotateObjectLocal(GameObject rotateObject, float animationTime, Vector3 endRotation, CNEase.EaseType easeType)
+        {
+            yield return RotateObject(rotateObject, true, animationTime, rotateObject.transform.localRotation.eulerAngles, endRotation, CNEase.GetEasingFunc(easeType), false);
+        }
+
         public static IEnumerator RotateObjectLocal(GameObject rotateObject, float animationTime, Vector3 endRotation, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return RotateObject(rotateObject, true, animationTime, rotateObject.transform.localRotation.eulerAngles, endRotation, easingFunc, timeUnscaled);
+        }
+
+        public static IEnumerator RotateObjectLocal(GameObject rotateObject, float animationTime, Vector3 endRotation, CNEase.EaseType easeType, bool timeUnscaled)
+        {
+            yield return RotateObject(rotateObject, true, animationTime, rotateObject.transform.localRotation.eulerAngles, endRotation, CNEase.GetEasingFunc(easeType), timeUnscaled);
         }
 
         public static IEnumerator RotateObjectLocal(GameObject rotateObject, float animationTime, Vector3 startRotation, Vector3 endRotation)
@@ -104,9 +134,19 @@ namespace CreateNeptune
             yield return RotateObject(rotateObject, true, animationTime, startRotation, endRotation, easingFunc, false);
         }
 
+        public static IEnumerator RotateObjectLocal(GameObject rotateObject, float animationTime, Vector3 startRotation, Vector3 endRotation, CNEase.EaseType easingType)
+        {
+            yield return RotateObject(rotateObject, true, animationTime, startRotation, endRotation, CNEase.GetEasingFunc(easingType), false);
+        }
+
         public static IEnumerator RotateObjectLocal(GameObject rotateObject, float animationTime, Vector3 startRotation, Vector3 endRotation, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return RotateObject(rotateObject, true, animationTime, startRotation, endRotation, easingFunc, timeUnscaled);
+        }
+        
+        public static IEnumerator RotateObjectLocal(GameObject rotateObject, float animationTime, Vector3 startRotation, Vector3 endRotation, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return RotateObject(rotateObject, true, animationTime, startRotation, endRotation, CNEase.GetEasingFunc(easingType), timeUnscaled);
         }
 #endregion
 
@@ -176,9 +216,19 @@ namespace CreateNeptune
             yield return MoveObject(moveObject, false, animationTime, moveObject.transform.position, endPosition, easingFunc, false, false, false);
         }
 
+        public static IEnumerator MoveObject(GameObject moveObject, float animationTime, Vector3 endPosition, CNEase.EaseType easingType)
+        {
+            yield return MoveObject(moveObject, false, animationTime, moveObject.transform.position, endPosition, CNEase.GetEasingFunc(easingType), false, false, false);
+        }
+
         public static IEnumerator MoveObject(GameObject moveObject, float animationTime, Vector3 endPosition, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return MoveObject(moveObject, false, animationTime, moveObject.transform.position, endPosition, easingFunc, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator MoveObject(GameObject moveObject, float animationTime, Vector3 endPosition, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return MoveObject(moveObject, false, animationTime, moveObject.transform.position, endPosition, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
         }
 
         public static IEnumerator MoveObject(GameObject moveObject, float animationTime, Vector3 startPosition, Vector3 endPosition)
@@ -191,9 +241,19 @@ namespace CreateNeptune
             yield return MoveObject(moveObject, false, animationTime, startPosition, endPosition, easingFunc, false, false, false);
         }
 
+        public static IEnumerator MoveObject(GameObject moveObject, float animationTime, Vector3 startPosition, Vector3 endPosition, CNEase.EaseType easingType)
+        {
+            yield return MoveObject(moveObject, false, animationTime, startPosition, endPosition, CNEase.GetEasingFunc(easingType), false, false, false);
+        }
+
         public static IEnumerator MoveObject(GameObject moveObject, float animationTime, Vector3 startPosition, Vector3 endPosition, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return MoveObject(moveObject, false, animationTime, startPosition, endPosition, easingFunc, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator MoveObject(GameObject moveObject, float animationTime, Vector3 startPosition, Vector3 endPosition, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return MoveObject(moveObject, false, animationTime, startPosition, endPosition, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
         }
 
         public static IEnumerator MoveObjectLocal(GameObject moveObject, float animationTime, Vector3 endPosition)
@@ -206,9 +266,19 @@ namespace CreateNeptune
             yield return MoveObject(moveObject, true, animationTime, moveObject.transform.localPosition, endPosition, easingFunc, false, false, false);
         }
 
+        public static IEnumerator MoveObjectLocal(GameObject moveObject, float animationTime, Vector3 endPosition, CNEase.EaseType easingType)
+        {
+            yield return MoveObject(moveObject, true, animationTime, moveObject.transform.localPosition, endPosition, CNEase.GetEasingFunc(easingType), false, false, false);
+        }
+
         public static IEnumerator MoveObjectLocal(GameObject moveObject, float animationTime, Vector3 endPosition, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return MoveObject(moveObject, true, animationTime, moveObject.transform.localPosition, endPosition, easingFunc, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator MoveObjectLocal(GameObject moveObject, float animationTime, Vector3 endPosition, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return MoveObject(moveObject, true, animationTime, moveObject.transform.localPosition, endPosition, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
         }
 
         public static IEnumerator MoveObjectLocal(GameObject moveObject, float animationTime, Vector3 startPosition, Vector3 endPosition)
@@ -221,9 +291,19 @@ namespace CreateNeptune
             yield return MoveObject(moveObject, true, animationTime, startPosition, endPosition, easingFunc, false, false, false);
         }
 
+        public static IEnumerator MoveObjectLocal(GameObject moveObject, float animationTime, Vector3 startPosition, Vector3 endPosition, CNEase.EaseType easingType)
+        {
+            yield return MoveObject(moveObject, true, animationTime, startPosition, endPosition, CNEase.GetEasingFunc(easingType), false, false, false);
+        }
+
         public static IEnumerator MoveObjectLocal(GameObject moveObject, float animationTime, Vector3 startPosition, Vector3 endPosition, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return MoveObject(moveObject, true, animationTime, startPosition, endPosition, easingFunc, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator MoveObjectLocal(GameObject moveObject, float animationTime, Vector3 startPosition, Vector3 endPosition, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return MoveObject(moveObject, true, animationTime, startPosition, endPosition, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
         }
 #endregion
 
@@ -279,9 +359,19 @@ namespace CreateNeptune
             yield return MoveCanvasObject(moveObject, animationTime, moveObject.GetComponent<RectTransform>().anchoredPosition, endPosition, easingFunc, false, false, false);
         }
 
+        public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 endPosition, CNEase.EaseType easingType)
+        {
+            yield return MoveCanvasObject(moveObject, animationTime, moveObject.GetComponent<RectTransform>().anchoredPosition, endPosition, CNEase.GetEasingFunc(easingType), false, false, false);
+        }
+
         public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 endPosition, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return MoveCanvasObject(moveObject, animationTime, moveObject.GetComponent<RectTransform>().anchoredPosition, endPosition, easingFunc, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 endPosition, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return MoveCanvasObject(moveObject, animationTime, moveObject.GetComponent<RectTransform>().anchoredPosition, endPosition, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
         }
 
         public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 startPosition, Vector2 endPosition)
@@ -294,9 +384,19 @@ namespace CreateNeptune
             yield return MoveCanvasObject(moveObject, animationTime, startPosition, endPosition, easingFunc, false, false, false);
         }
 
+        public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 startPosition, Vector2 endPosition, CNEase.EaseType easingType)
+        {
+            yield return MoveCanvasObject(moveObject, animationTime, startPosition, endPosition, CNEase.GetEasingFunc(easingType), false, false, false);
+        }
+
         public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 startPosition, Vector2 endPosition, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return MoveCanvasObject(moveObject, animationTime, startPosition, endPosition, easingFunc, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator MoveCanvasObject(GameObject moveObject, float animationTime, Vector2 startPosition, Vector2 endPosition, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return MoveCanvasObject(moveObject, animationTime, startPosition, endPosition, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
         }
 #endregion
 
@@ -347,9 +447,19 @@ namespace CreateNeptune
             yield return ScaleCanvasObject(scaleObject, animationTime, scaleObject.GetComponent<RectTransform>().localScale, endScale, easingFunc, false, false, false);
         }
 
+        public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 endScale, CNEase.EaseType easingType)
+        {
+            yield return ScaleCanvasObject(scaleObject, animationTime, scaleObject.GetComponent<RectTransform>().localScale, endScale, CNEase.GetEasingFunc(easingType), false, false, false);
+        }
+
         public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 endScale, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return ScaleCanvasObject(scaleObject, animationTime, scaleObject.GetComponent<RectTransform>().localScale, endScale, easingFunc, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 endScale, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return ScaleCanvasObject(scaleObject, animationTime, scaleObject.GetComponent<RectTransform>().localScale, endScale, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
         }
 
         public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 startScale, Vector3 endScale)
@@ -362,9 +472,19 @@ namespace CreateNeptune
             yield return ScaleCanvasObject(scaleObject, animationTime, startScale, endScale, easingFunc, false, false, false);
         }
 
+        public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 startScale, Vector3 endScale, CNEase.EaseType easingType)
+        {
+            yield return ScaleCanvasObject(scaleObject, animationTime, startScale, endScale, CNEase.GetEasingFunc(easingType), false, false, false);
+        }
+
         public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 startScale, Vector3 endScale, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return ScaleCanvasObject(scaleObject, animationTime, startScale, endScale, easingFunc, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator ScaleCanvasObject(GameObject scaleObject, float animationTime, Vector3 startScale, Vector3 endScale, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return ScaleCanvasObject(scaleObject, animationTime, startScale, endScale, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
         }
 #endregion
 
@@ -501,9 +621,19 @@ namespace CreateNeptune
             yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade), endAlpha, easingFunc, false, false, false);
         }
 
+        public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float endAlpha, CNEase.EaseType easingType) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade), endAlpha, CNEase.GetEasingFunc(easingType), false, false, false);
+        }
+
         public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeTofade, float endAlpha, CNEase.EasingFunc easingFunc) 
         {
             yield return FadeObject(behaviorToFade, timeTofade, GetObjectAlpha(behaviorToFade.gameObject), endAlpha, easingFunc, false, false, false);
+        }
+
+        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeTofade, float endAlpha, CNEase.EaseType easingType) 
+        {
+            yield return FadeObject(behaviorToFade, timeTofade, GetObjectAlpha(behaviorToFade.gameObject), endAlpha, CNEase.GetEasingFunc(easingType), false, false, false);
         }
 
         public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float startAlpha, float endAlpha, CNEase.EasingFunc easingFunc) 
@@ -511,9 +641,19 @@ namespace CreateNeptune
             yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, easingFunc, false, false, false);
         }
 
+        public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float startAlpha, float endAlpha, CNEase.EaseType easingType) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, CNEase.GetEasingFunc(easingType), false, false, false);
+        }
+
         public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeTofade, float startAlpha, float endAlpha, CNEase.EasingFunc easingFunc) 
         {
             yield return FadeObject(behaviorToFade, timeTofade, startAlpha, endAlpha, easingFunc, false, false, false);
+        }
+
+        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeTofade, float startAlpha, float endAlpha, CNEase.EaseType easingType) 
+        {
+            yield return FadeObject(behaviorToFade, timeTofade, startAlpha, endAlpha, CNEase.GetEasingFunc(easingType), false, false, false);
         }
 
         public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float endAlpha, CNEase.EasingFunc easingFunc, bool timeUnscaled) 
@@ -521,9 +661,19 @@ namespace CreateNeptune
             yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade), endAlpha, easingFunc, false, false, timeUnscaled);
         }
 
+        public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float endAlpha, CNEase.EaseType easingType, bool timeUnscaled) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, GetObjectAlpha(objectToFade), endAlpha, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
+        }
+
         public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeTofade, float endAlpha, CNEase.EasingFunc easingFunc, bool timeUnscaled) 
         {
             yield return FadeObject(behaviorToFade, timeTofade, GetObjectAlpha(behaviorToFade.gameObject), endAlpha, easingFunc, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeTofade, float endAlpha, CNEase.EaseType easingType, bool timeUnscaled) 
+        {
+            yield return FadeObject(behaviorToFade, timeTofade, GetObjectAlpha(behaviorToFade.gameObject), endAlpha, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
         }
 
         public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float startAlpha, float endAlpha, CNEase.EasingFunc easingFunc, bool timeUnscaled) 
@@ -531,9 +681,19 @@ namespace CreateNeptune
             yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, easingFunc, false, false, timeUnscaled);
         }
 
+        public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float startAlpha, float endAlpha, CNEase.EaseType easingType, bool timeUnscaled) 
+        {
+            yield return FadeObject(objectToFade, timeTofade, startAlpha, endAlpha, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
+        }
+
         public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeTofade, float startAlpha, float endAlpha, CNEase.EasingFunc easingFunc, bool timeUnscaled) 
         {
             yield return FadeObject(behaviorToFade, timeTofade, startAlpha, endAlpha, easingFunc, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeTofade, float startAlpha, float endAlpha, CNEase.EaseType easingType, bool timeUnscaled) 
+        {
+            yield return FadeObject(behaviorToFade, timeTofade, startAlpha, endAlpha, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
         }
 
         public static IEnumerator FadeObject(GameObject objectToFade, float timeTofade, float startAlpha, float endAlpha, bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled) 
@@ -555,6 +715,22 @@ namespace CreateNeptune
             }
 
             yield return FadeObject(behaviorToFade.gameObject, timeToFade, startAlpha, endAlpha, easingFunc, false, false, timeUnscaled);
+
+            if (deactivateAtEnd)
+            {
+                behaviorToFade.enabled = false;
+            }
+        }
+        
+        public static IEnumerator FadeObject(Behaviour behaviorToFade, float timeToFade, float startAlpha, float endAlpha, CNEase.EaseType easingType,
+            bool activateAtStart, bool deactivateAtEnd, bool timeUnscaled)
+        {
+            if (activateAtStart)
+            {
+                behaviorToFade.enabled = true;
+            }
+
+            yield return FadeObject(behaviorToFade.gameObject, timeToFade, startAlpha, endAlpha, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
 
             if (deactivateAtEnd)
             {
@@ -656,9 +832,19 @@ namespace CreateNeptune
             yield return ColorObject(objectToColor, timeToFade, GetObjectColor(objectToColor), endColor, easingFunc, false, false, false);
         }
 
+        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color endColor, CNEase.EaseType easingType)
+        {
+            yield return ColorObject(objectToColor, timeToFade, GetObjectColor(objectToColor), endColor, CNEase.GetEasingFunc(easingType), false, false, false);
+        }
+
         public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color startColor, Color endColor, CNEase.EasingFunc easingFunc)
         {
             yield return ColorObject(objectToColor, timeToFade, startColor, endColor, easingFunc, false, false, false);
+        }
+
+        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color startColor, Color endColor, CNEase.EaseType easingType)
+        {
+            yield return ColorObject(objectToColor, timeToFade, startColor, endColor, CNEase.GetEasingFunc(easingType), false, false, false);
         }
 
         public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color endColor, CNEase.EasingFunc easingFunc, bool timeUnscaled)
@@ -666,9 +852,19 @@ namespace CreateNeptune
             yield return ColorObject(objectToColor, timeToFade, GetObjectColor(objectToColor), endColor, easingFunc, false, false, timeUnscaled);
         }
 
+        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color endColor, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return ColorObject(objectToColor, timeToFade, GetObjectColor(objectToColor), endColor, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
+        }
+
         public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color startColor, Color endColor, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return ColorObject(objectToColor, timeToFade, startColor, endColor, easingFunc, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator ColorObject(GameObject objectToColor, float timeToFade, Color startColor, Color endColor, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return ColorObject(objectToColor, timeToFade, startColor, endColor, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
         }
 #endregion
         
@@ -711,12 +907,23 @@ namespace CreateNeptune
         public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color endColor, CNEase.EasingFunc easingFunc)
         {
             yield return FlashAnimation(objectToFlash, flashInterval, totalTime, GetObjectColor(objectToFlash), endColor, easingFunc,
+                false, false, false);
+        }
+
+        public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color endColor, CNEase.EaseType easingType)
+        {
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, GetObjectColor(objectToFlash), endColor, CNEase.GetEasingFunc(easingType),
                 false, false, false);   
         }
 
         public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color startColor, Color endColor, CNEase.EasingFunc easingFunc)
         {
             yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, easingFunc,
+                false, false, false);   
+        }
+        public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color startColor, Color endColor, CNEase.EaseType easingType)
+        {
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, CNEase.GetEasingFunc(easingType),
                 false, false, false);   
         }
 
@@ -726,11 +933,25 @@ namespace CreateNeptune
             yield return FlashAnimation(objectToFlash, flashInterval, totalTime, GetObjectColor(objectToFlash), endColor, easingFunc,
                 false, false, timeUnscaled);   
         }
+        
+        public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color endColor,
+            CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, GetObjectColor(objectToFlash), endColor, CNEase.GetEasingFunc(easingType),
+                false, false, timeUnscaled);   
+        }
 
         public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color startColor, Color endColor,
             CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, easingFunc,
+                false, false, timeUnscaled);   
+        }
+
+        public static IEnumerator FlashAnimation(GameObject objectToFlash, float flashInterval, float totalTime, Color startColor, Color endColor,
+            CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return FlashAnimation(objectToFlash, flashInterval, totalTime, startColor, endColor, CNEase.GetEasingFunc(easingType),
                 false, false, timeUnscaled);   
         }
 
@@ -794,9 +1015,19 @@ namespace CreateNeptune
             yield return ScaleObject(objectToScale, objectToScale.transform.localScale, endScale, animationTime, easingFunc, false, false, false);
         }
 
+        public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 endScale, float animationTime, CNEase.EaseType easingType)
+        {
+            yield return ScaleObject(objectToScale, objectToScale.transform.localScale, endScale, animationTime, CNEase.GetEasingFunc(easingType), false, false, false);
+        }
+
         public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 endScale, float animationTime, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return ScaleObject(objectToScale, objectToScale.transform.localScale, endScale, animationTime, easingFunc, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 endScale, float animationTime, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return ScaleObject(objectToScale, objectToScale.transform.localScale, endScale, animationTime, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
         }
 
         public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 startScale, Vector3 endScale, float animationTime)
@@ -809,9 +1040,19 @@ namespace CreateNeptune
             yield return ScaleObject(objectToScale, startScale, endScale, animationTime, easingFunc, false, false, false);
         }
 
+        public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 startScale, Vector3 endScale, float animationTime, CNEase.EaseType easingType)
+        {
+            yield return ScaleObject(objectToScale, startScale, endScale, animationTime, CNEase.GetEasingFunc(easingType), false, false, false);
+        }
+
         public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 startScale, Vector3 endScale, float animationTime, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return ScaleObject(objectToScale, startScale, endScale, animationTime, easingFunc, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator ScaleObject(GameObject objectToScale, Vector3 startScale, Vector3 endScale, float animationTime, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return ScaleObject(objectToScale, startScale, endScale, animationTime, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
         }
 #endregion
         
@@ -895,10 +1136,22 @@ namespace CreateNeptune
                 easingFunc, false, false, false);
         }
 
+        public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int endValue, float animationTime, CNEase.EaseType easingType)
+        {
+            yield return CountUpObject(objectWithTextComponent, GetObjectTextInt(objectWithTextComponent), endValue, animationTime, "", "",
+                CNEase.GetEasingFunc(easingType), false, false, false);
+        }
+
         public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime, CNEase.EasingFunc easingFunc)
         {
             yield return CountUpObject(objectWithTextComponent, startValue, endValue, animationTime, "", "",
                 easingFunc, false, false, false);
+        }
+
+        public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime, CNEase.EaseType easingType)
+        {
+            yield return CountUpObject(objectWithTextComponent, startValue, endValue, animationTime, "", "",
+                CNEase.GetEasingFunc(easingType), false, false, false);
         }
 
         public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int endValue, float animationTime, CNEase.EasingFunc easingFunc, bool timeUnscaled)
@@ -907,10 +1160,22 @@ namespace CreateNeptune
                 easingFunc, false, false, timeUnscaled);
         }
 
+        public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int endValue, float animationTime, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return CountUpObject(objectWithTextComponent, GetObjectTextInt(objectWithTextComponent), endValue, animationTime, "", "",
+                CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
+        }
+
         public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return CountUpObject(objectWithTextComponent, startValue, endValue, animationTime, "", "",
                 easingFunc, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return CountUpObject(objectWithTextComponent, startValue, endValue, animationTime, "", "",
+                CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
         }
 
         public static IEnumerator CountUpObject(GameObject objectWithTextComponent, int startValue, int endValue, float animationTime, string textInFront,
@@ -982,9 +1247,19 @@ namespace CreateNeptune
             yield return FillBar(objectWithImage, timeToFill, objectWithImage.GetComponent<Image>().fillAmount, endFill, easingFunc, false, false, false);
         }
 
+        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float endFill, CNEase.EaseType easingType)
+        {
+            yield return FillBar(objectWithImage, timeToFill, objectWithImage.GetComponent<Image>().fillAmount, endFill, CNEase.GetEasingFunc(easingType), false, false, false);
+        }
+
         public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill, CNEase.EasingFunc easingFunc)
         {
             yield return FillBar(objectWithImage, timeToFill, startFill, endFill, easingFunc, false, false, false);
+        }
+
+        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill, CNEase.EaseType easingType)
+        {
+            yield return FillBar(objectWithImage, timeToFill, startFill, endFill, CNEase.GetEasingFunc(easingType), false, false, false);
         }
 
         public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float endFill, CNEase.EasingFunc easingFunc, bool timeUnscaled)
@@ -992,9 +1267,19 @@ namespace CreateNeptune
             yield return FillBar(objectWithImage, timeToFill, objectWithImage.GetComponent<Image>().fillAmount, endFill, easingFunc, false, false, timeUnscaled);
         }
 
+        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float endFill, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return FillBar(objectWithImage, timeToFill, objectWithImage.GetComponent<Image>().fillAmount, endFill, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
+        }
+
         public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill, CNEase.EasingFunc easingFunc, bool timeUnscaled)
         {
             yield return FillBar(objectWithImage, timeToFill, startFill, endFill, easingFunc, false, false, timeUnscaled);
+        }
+
+        public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill, CNEase.EaseType easingType, bool timeUnscaled)
+        {
+            yield return FillBar(objectWithImage, timeToFill, startFill, endFill, CNEase.GetEasingFunc(easingType), false, false, timeUnscaled);
         }
 
         public static IEnumerator FillBar(GameObject objectWithImage, float timeToFill, float startFill, float endFill, 
@@ -1044,14 +1329,29 @@ namespace CreateNeptune
             yield return FadeAudioSource(audioSource, timeToFade, audioSource.volume, endVolume, easingFunc, false);
         }
 
+        public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float endVolume, CNEase.EaseType easingType)
+        {
+            yield return FadeAudioSource(audioSource, timeToFade, audioSource.volume, endVolume, CNEase.GetEasingFunc(easingType), false);
+        }
+
         public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float startVolume, float endVolume, CNEase.EasingFunc easingFunc)
         {
             yield return FadeAudioSource(audioSource, timeToFade, startVolume, endVolume, easingFunc, false);
         }
 
+        public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float startVolume, float endVolume, CNEase.EaseType easingType)
+        {
+            yield return FadeAudioSource(audioSource, timeToFade, startVolume, endVolume, CNEase.GetEasingFunc(easingType), false);
+        }
+
         public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float endVolume, bool timeUnscaled, CNEase.EasingFunc easingFunc)
         {
             yield return FadeAudioSource(audioSource, timeToFade, audioSource.volume, endVolume, easingFunc, timeUnscaled);
+        }
+
+        public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float endVolume, bool timeUnscaled, CNEase.EaseType easingType)
+        {
+            yield return FadeAudioSource(audioSource, timeToFade, audioSource.volume, endVolume, CNEase.GetEasingFunc(easingType), timeUnscaled);
         }
 
         public static IEnumerator FadeAudioSource(AudioSource audioSource, float timeToFade, float startVolume, float endVolume, bool timeUnscaled)
