@@ -145,4 +145,4 @@
 
 ### 3.2.0
 
-- The LoadGame() in SaveDataSingleton is now Virtual to support functionality such as version control before deserializing the Json Object.
+- The LoadGame() in SaveDataSingleton is now virtual to support functionality such as version control before deserializing the Json Object.
