@@ -59,8 +59,10 @@ namespace CreateNeptune
         /// <summary>
         /// Read json save data, deserialize it into an instance class/struct T, then pass it to 
         /// the processing function
+        /// 
+        /// Can override this function to add functionality like version check.
         /// </summary>
-        public void LoadGame()
+        public virtual void LoadGame()
         {
             string saveLocation = Application.persistentDataPath + "/" + FileName;
 
