@@ -142,3 +142,7 @@
 ### 3.1.0
 
 - Added overloads for all MPActions which take only a CNEase.EaseType, for convenience when working in the inspector
+
+### 3.2.0
+
+- The LoadGame() in SaveDataSingleton is now virtual to support functionality such as version control before deserializing the Json Object.
