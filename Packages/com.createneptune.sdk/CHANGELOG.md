@@ -146,3 +146,7 @@
 ### 3.2.0
 
 - The LoadGame() in SaveDataSingleton is now virtual to support functionality such as version control before deserializing the Json Object.
+
+### 3.2.1
+
+- The "loaded" bool in the SaveDataSingleton is now protected. This allows the function that overrides LoadGame() in SaveDataSingleton to tell the system that the game was loaded.

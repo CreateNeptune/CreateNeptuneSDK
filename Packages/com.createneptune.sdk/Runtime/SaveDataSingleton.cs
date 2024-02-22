@@ -10,7 +10,7 @@ namespace CreateNeptune
     public abstract class SaveDataSingleton<TExtendedClass, TSerializedClass> : Singleton<TExtendedClass>
         where TExtendedClass : class
     {
-        public bool loaded { get; private set; }
+        public bool loaded { get; protected set; }
 
         private string fileName;
         public string FileName
