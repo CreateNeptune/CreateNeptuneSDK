@@ -57,12 +57,11 @@ namespace CreateNeptune
         protected virtual void OnGameSaved() { }
 
         /// <summary>
-        /// Read json save data, deserialize it into an instance class/struct T, then pass it to 
-        /// the processing function
-        /// 
-        /// Can override this function to add functionality like version check.
+        /// Read json save data from persistent path, then pass it to the processing function.
+        /// When operations are successfully completed, set the loaded to TRUE, meaning the
+        /// save data was successfully loaded.
         /// </summary>
-        public virtual void LoadGame()
+        public void LoadGame()
         {
             string saveLocation = Application.persistentDataPath + "/" + FileName;
 
@@ -71,8 +70,7 @@ namespace CreateNeptune
                 if (File.Exists(saveLocation))
                 {
                     string jsonData = File.ReadAllText(saveLocation);
-                    TSerializedClass serializedSaveData = JsonUtility.FromJson<TSerializedClass>(jsonData);
-                    Deserialize(serializedSaveData);
+                    ProcessJSON(jsonData);
 
                     Debug.Log($"Saved game loaded from {saveLocation}");
                 }
@@ -89,6 +87,22 @@ namespace CreateNeptune
             }
 
             SaveDataLoadedEvent.Instance.Invoke();
+        }
+
+        /// <summary>
+        /// Reads the JSON-formatted save data, deserializes it into an instance of the specified class or struct (T), 
+        /// and then passes it to the designated processing function for further handling.
+        /// This method provides a centralized point for managing the deserialization process, allowing customization 
+        /// in child classes. 
+        /// 
+        /// Note: It can be overridden (optional) to implement additional functionality, such as version checking 
+        /// to support seamless transitions of data between different save data formats (TSerializedClass).
+        /// </summary>
+        /// <param name="jsonData">The JSON-formatted string containing serialized save data.</param>
+        public virtual void ProcessJSON(string jsonData)
+        {
+            TSerializedClass serializedSaveData = JsonUtility.FromJson<TSerializedClass>(jsonData);
+            Deserialize(serializedSaveData);
         }
 
         /// <summary>

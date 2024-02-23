@@ -146,3 +146,8 @@
 ### 3.2.0
 
 - The LoadGame() in SaveDataSingleton is now virtual to support functionality such as version control before deserializing the Json Object.
+
+### 3.2.1
+
+- The previous update (3.2.0) was reverted. LoadGame method is not virtual anymore.
+- The ProcessJSON method was added to the SaveDataSingleton class to provide a centralized point for processing and handling deserialized JSON save data. It allows for customization in child classes by overriding it to support smooth transitions when migrating data from older versions to newer ones.
