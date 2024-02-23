@@ -149,4 +149,5 @@
 
 ### 3.2.1
 
-- The "loaded" bool in the SaveDataSingleton is now protected. This allows the function that overrides LoadGame() in SaveDataSingleton to tell the system that the game was loaded.
+- The previous update (3.2.0) was reverted. LoadGame method is not virtual anymore.
+- The ProcessJSON method was added to the SaveDataSingleton class to provide a centralized point for processing and handling deserialized JSON save data. It allows for customization in child classes by overriding it to support smooth transitions when migrating data from older versions to newer ones.
