@@ -99,7 +99,7 @@ namespace CreateNeptune
         /// to support seamless transitions of data between different save data formats (TSerializedClass).
         /// </summary>
         /// <param name="jsonData">The JSON-formatted string containing serialized save data.</param>
-        public virtual void ProcessJSON(string jsonData)
+        protected virtual void ProcessJSON(string jsonData)
         {
             TSerializedClass serializedSaveData = JsonUtility.FromJson<TSerializedClass>(jsonData);
             Deserialize(serializedSaveData);
