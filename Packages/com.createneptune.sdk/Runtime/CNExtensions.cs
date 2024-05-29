@@ -214,7 +214,7 @@ namespace CreateNeptune
         /// <returns>An active object from the requested pool</returns>
         private static GameObject GetPooledObject(List<GameObject> objectPool, GameObject gameObject, Transform parent)
         {
-            return GetPooledObject(objectPool, gameObject, 0, parent, Vector3.zero, Quaternion.identity, Vector3.one, false);
+            return GetPooledObject(objectPool, gameObject, 0, parent, Vector3.zero, Quaternion.identity, gameObject.transform.localScale, false);
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace CreateNeptune
         /// <returns>The component T of an active object from the requested pool</returns>
         private static T GetPooledObject<T>(List<GameObject> objectPool, GameObject gameObject, Transform parent) where T : Component
         {
-            return GetPooledObject(objectPool, gameObject, 0, parent, Vector3.zero, Quaternion.identity, Vector3.one, false).GetComponent<T>();
+            return GetPooledObject(objectPool, gameObject, parent).GetComponent<T>();
         }
         
         /// <summary>
@@ -323,7 +323,7 @@ namespace CreateNeptune
         public static GameObject GetPooledObject(List<GameObject> objectPool, GameObject gameObject,
             int physicsLayer, Transform t, Vector3 positionOffset, Quaternion rotationOffset, bool ignoreParentTransform)
         {
-            return GetPooledObject(objectPool, gameObject, physicsLayer, t, positionOffset, rotationOffset, Vector3.one, ignoreParentTransform);
+            return GetPooledObject(objectPool, gameObject, physicsLayer, t, positionOffset, rotationOffset, gameObject.transform.localScale, ignoreParentTransform);
         }
 
         [Obsolete("Old GetPooledObject function left in for compatability reasons. Use the overloads with more or fewer arguments.", false)]
