@@ -155,3 +155,9 @@
 ### 3.2.2
 
 - The ProcessJSON method was added to the SaveDataSingleton class in the previous version, it is now protected rather than public.
+
+### 3.2.3
+
+- Added simpler overloads for CNExtensions.GetPooledObject and CNExtensions.GetPooledObject<T> 
+- Added scale setting to the base CNExtensions.GetPooledObject function
+- Made the old versions of CNExtensions.GetPooledObject and CNExtensions.GetPooledObject<T> obsolete
