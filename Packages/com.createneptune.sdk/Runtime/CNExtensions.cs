@@ -212,7 +212,7 @@ namespace CreateNeptune
         /// <param name="gameObject">The prefab to be used to create a new object</param>
         /// <param name="parent">The transform under which a new object should be placed</param>
         /// <returns>An active object from the requested pool</returns>
-        private static GameObject GetPooledObject(List<GameObject> objectPool, GameObject gameObject, Transform parent)
+        public static GameObject GetPooledObject(List<GameObject> objectPool, GameObject gameObject, Transform parent)
         {
             return GetPooledObject(objectPool, gameObject, 0, parent, Vector3.zero, Quaternion.identity, gameObject.transform.localScale, false);
         }
@@ -226,7 +226,7 @@ namespace CreateNeptune
         /// <param name="gameObject">The prefab to be used to create a new object</param>
         /// <param name="parent">The transform under which a new object should be placed</param>
         /// <returns>The component T of an active object from the requested pool</returns>
-        private static T GetPooledObject<T>(List<GameObject> objectPool, GameObject gameObject, Transform parent) where T : Component
+        public static T GetPooledObject<T>(List<GameObject> objectPool, GameObject gameObject, Transform parent) where T : Component
         {
             return GetPooledObject(objectPool, gameObject, parent).GetComponent<T>();
         }
@@ -244,7 +244,7 @@ namespace CreateNeptune
         /// <param name="ignoreParentTransform">True if the position and rotation offsets should be in global space. False if they should be relative to the parent transform</param>
         /// <returns>An active object from the requested pool</returns>
         public static GameObject GetPooledObject(List<GameObject> objectPool, GameObject gameObject,
-            int physicsLayer, Transform parent,  Vector3 positionOffset, Quaternion rotationOffset, Vector3 localScale, bool ignoreParentTransform)
+            int physicsLayer, Transform parent, Vector3 positionOffset, Quaternion rotationOffset, Vector3 localScale, bool ignoreParentTransform)
         {
             for (int i = 0; i < objectPool.Count; i++)
             {
@@ -312,9 +312,9 @@ namespace CreateNeptune
         /// <param name="ignoreParentTransform">True if the position and rotation offsets should be in global space. False if they should be relative to the parent transform</param>
         /// <returns>The component T of an active object from the requested pool</returns>
         public static T GetPooledObject<T>(List<GameObject> objectPool, GameObject gameObject,
-            int physicsLayer, Transform parent,  Vector3 positionOffset, Quaternion rotationOffset, Vector3 localScale, bool ignoreParentTransform) where T : Component
+            int physicsLayer, Transform parent, Vector3 positionOffset, Quaternion rotationOffset, Vector3 localScale, bool ignoreParentTransform) where T : Component
         {
-            return GetPooledObject( objectPool,  gameObject, physicsLayer, parent, positionOffset, rotationOffset, localScale, ignoreParentTransform).GetComponent<T>();
+            return GetPooledObject(objectPool,  gameObject, physicsLayer, parent, positionOffset, rotationOffset, localScale, ignoreParentTransform).GetComponent<T>();
         }
 
 #region Obsolete Pooling Functions
