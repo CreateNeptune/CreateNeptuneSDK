@@ -154,7 +154,7 @@
 
 ### 3.2.2
 
-- The ProcessJSON method was added to the SaveDataSingleton class in the previous version, it is now protected rather than public.
+- The ProcessJSON method was added to the SaveDataSingleton class in the previous version. It is now protected rather than public.
 
 ### 3.2.3
 
