@@ -9,7 +9,6 @@ namespace CreateNeptune
 
     public class CNExtensions : MonoBehaviour
     {
-
         public static void SafeStartCoroutine(MonoBehaviour caller, ref IEnumerator currentRoutine, IEnumerator newRoutine)
         {
             if (currentRoutine != null)
@@ -194,7 +193,7 @@ namespace CreateNeptune
         }
 
         // Create a GameObject pool of a certain size.
-        public static void CreateObjectPool(List<GameObject> gameObjectList, GameObject gameObject, int poolSize, Transform parent, int physicsLayer)
+        public static void CreateObjectPool(List<GameObject> gameObjectList, GameObject gameObject, int poolSize, Transform parent, int physicsLayer = 0)
         {
             for (int i = 0; i < poolSize; i++)
             {
@@ -206,15 +205,46 @@ namespace CreateNeptune
             }
         }
 
-        public static T GetPooledObject<T>(List<GameObject> objectPool, GameObject gameObject,
-            int physicsLayer, Transform t, Vector3 positionOffset, Quaternion rotationOffset, bool ignoreParentTransform)
+        /// <summary>
+        /// Returns an object from the specified pool. Creates a new object and adds it to the pool if necessary.
+        /// </summary>
+        /// <param name="objectPool">The active pool</param>
+        /// <param name="gameObject">The prefab to be used to create a new object</param>
+        /// <param name="parent">The transform under which a new object should be placed</param>
+        /// <returns>An active object from the requested pool</returns>
+        public static GameObject GetPooledObject(List<GameObject> objectPool, GameObject gameObject, Transform parent)
         {
-            return GetPooledObject(objectPool, gameObject, physicsLayer, t, positionOffset, rotationOffset, ignoreParentTransform).GetComponent<T>();
+            return GetPooledObject(objectPool, gameObject, 0, parent, Vector3.zero, Quaternion.identity, gameObject.transform.localScale, false);
         }
 
-        // Get a pooled object in a certain orientation (like a bullet being shot).
+        /// <summary>
+        /// Returns a component T from an object from the specified pool. Creates a new object and adds it to the pool if necessary.
+        /// Will throw an error if the component is not found.
+        /// </summary>
+        /// <typeparam name="T">A Unity component</typeparam>
+        /// <param name="objectPool">The active pool</param>
+        /// <param name="gameObject">The prefab to be used to create a new object</param>
+        /// <param name="parent">The transform under which a new object should be placed</param>
+        /// <returns>The component T of an active object from the requested pool</returns>
+        public static T GetPooledObject<T>(List<GameObject> objectPool, GameObject gameObject, Transform parent) where T : Component
+        {
+            return GetPooledObject(objectPool, gameObject, parent).GetComponent<T>();
+        }
+        
+        /// <summary>
+        /// Returns an object from the specified pool. Creates a new object and adds it to the pool if necessary.
+        /// </summary>
+        /// <param name="objectPool">The active pool</param>
+        /// <param name="gameObject">The prefab to be used to create a new object</param>
+        /// <param name="physicsLayer">The desired physics layer for the returned object</param>
+        /// <param name="parent">The transform under which a new object should be placed</param>
+        /// <param name="positionOffset">The position offset for the returned object</param>
+        /// <param name="rotationOffset">The rotation offset for the returned object</param>
+        /// <param name="localScale">The local scale for the returned offset</param>
+        /// <param name="ignoreParentTransform">True if the position and rotation offsets should be in global space. False if they should be relative to the parent transform</param>
+        /// <returns>An active object from the requested pool</returns>
         public static GameObject GetPooledObject(List<GameObject> objectPool, GameObject gameObject,
-            int physicsLayer, Transform t, Vector3 positionOffset, Quaternion rotationOffset, bool ignoreParentTransform)
+            int physicsLayer, Transform parent, Vector3 positionOffset, Quaternion rotationOffset, Vector3 localScale, bool ignoreParentTransform)
         {
             for (int i = 0; i < objectPool.Count; i++)
             {
@@ -230,9 +260,11 @@ namespace CreateNeptune
                     }
                     else
                     {
-                        objectPool[i].transform.position = t.position + positionOffset;
-                        objectPool[i].transform.rotation = t.rotation * rotationOffset;
+                        objectPool[i].transform.position = parent.position + positionOffset;
+                        objectPool[i].transform.rotation = parent.rotation * rotationOffset;
                     }
+
+                    objectPool[i].transform.localScale = localScale;
 
                     return objectPool[i];
                 }
@@ -241,7 +273,7 @@ namespace CreateNeptune
             // Otherwise instantiate a new object.
             GameObject newObject = Instantiate(gameObject);
             newObject.layer = physicsLayer;
-            newObject.transform.SetParent(t);
+            newObject.transform.SetParent(parent);
             newObject.SetActive(false);
             objectPool.Add(newObject);
 
@@ -253,14 +285,55 @@ namespace CreateNeptune
             }
             else
             {
-                newObject.transform.position = t.position + positionOffset;
-                newObject.transform.rotation = t.rotation * rotationOffset;
+                newObject.transform.position = parent.position + positionOffset;
+                newObject.transform.rotation = parent.rotation * rotationOffset;
             }
+
+            newObject.transform.localScale = localScale;
 
             newObject.SetActive(true);
 
             return newObject;
         }
+ 
+  
+        /// <summary>
+        /// Returns a component T from an object from the specified pool. Creates a new object and adds it to the pool if necessary.
+        /// Will throw an error if the component is not found.
+        /// </summary>
+        /// <typeparam name="T">A Unity component</typeparam>
+        /// <param name="objectPool">The active pool</param>
+        /// <param name="gameObject">The prefab to be used to create a new object</param>
+        /// <param name="physicsLayer">The desired physics layer for the returned object</param>
+        /// <param name="parent">The transform under which a new object should be placed</param>
+        /// <param name="positionOffset">The position offset for the returned object</param>
+        /// <param name="rotationOffset">The rotation offset for the returned object</param>
+        /// <param name="localScale">The local scale for the returned offset</param>
+        /// <param name="ignoreParentTransform">True if the position and rotation offsets should be in global space. False if they should be relative to the parent transform</param>
+        /// <returns>The component T of an active object from the requested pool</returns>
+        public static T GetPooledObject<T>(List<GameObject> objectPool, GameObject gameObject,
+            int physicsLayer, Transform parent, Vector3 positionOffset, Quaternion rotationOffset, Vector3 localScale, bool ignoreParentTransform) where T : Component
+        {
+            return GetPooledObject(objectPool,  gameObject, physicsLayer, parent, positionOffset, rotationOffset, localScale, ignoreParentTransform).GetComponent<T>();
+        }
+
+#region Obsolete Pooling Functions
+
+        [Obsolete("Old GetPooledObject function left in for compatability reasons. Use the overloads with more or fewer arguments.", false)]
+        public static GameObject GetPooledObject(List<GameObject> objectPool, GameObject gameObject,
+            int physicsLayer, Transform t, Vector3 positionOffset, Quaternion rotationOffset, bool ignoreParentTransform)
+        {
+            return GetPooledObject(objectPool, gameObject, physicsLayer, t, positionOffset, rotationOffset, gameObject.transform.localScale, ignoreParentTransform);
+        }
+
+        [Obsolete("Old GetPooledObject function left in for compatability reasons. Use the overloads with more or fewer arguments.", false)]
+        public static T GetPooledObject<T>(List<GameObject> objectPool, GameObject gameObject,
+            int physicsLayer, Transform t, Vector3 positionOffset, Quaternion rotationOffset, bool ignoreParentTransform) where T : Component
+        {
+            return GetPooledObject(objectPool, gameObject, physicsLayer, t, positionOffset, rotationOffset, ignoreParentTransform).GetComponent<T>();
+        }
+
+#endregion
 
         // Return a rank from 1st to worst, allowing for ties
         public static int GetRankFromArray(int playerScore, int[] intArray, bool largestToSmallest)
