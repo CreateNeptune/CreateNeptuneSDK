@@ -4,14 +4,14 @@
 1. Open Unity Package Manager
 2. Click the + in the top left.
 3. Select "Add package from git URL..."
-4. Paste the url ``https://github.com/wristshot0/CreateNeptuneSDK.git?path=/Packages/com.createneptune.sdk`` for the main sdk. For the addressables sdk paste, ``https://github.com/wristshot0/CreateNeptuneSDK.git?path=/Packages/com.createneptune.addressablessdk``.
+4. Paste the url ``https://github.com/CreateNeptune/CreateNeptuneSDK.git?path=/Packages/com.createneptune.sdk`` for the main sdk. For the addressables sdk paste, ``https://github.com/CreateNeptune/CreateNeptuneSDK.git?path=/Packages/com.createneptune.addressablessdk``.
 
 ## How to Update
 In newer versions of Unity, there should be an Update button at the bottom left of the package manager when viewing the package. Otherwise, follow the same instructions as installation. Do not remove the old version.
 
 ## Troubleshooting
 ### Not logged in
-You must log in since this is a private repo. To do so, use something like the [GitHub CLI](https://docs.github.com/en/get-started/getting-started-with-git/caching-your-github-credentials-in-git).
+Log in. To do so, use something like the [GitHub CLI](https://docs.github.com/en/get-started/getting-started-with-git/caching-your-github-credentials-in-git).
 
 ## Editing this Repo
 Make edits to this repo by branching off of main and making a pull request. The files to edit are in /Packages/com.createneptune.sdk. All pull requests must be approved by at least two members of Create Neptune.
