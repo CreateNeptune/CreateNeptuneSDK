@@ -161,3 +161,7 @@
 - Added simpler overloads for CNExtensions.GetPooledObject and CNExtensions.GetPooledObject<T> 
 - Added scale setting to the base CNExtensions.GetPooledObject function
 - Made the old versions of CNExtensions.GetPooledObject and CNExtensions.GetPooledObject<T> obsolete
+
+### 3.2.4
+
+- Added a function to the SDK for logging web request related errors, with the option to filter out common, non-critical errors like "Host could not be resolved".
