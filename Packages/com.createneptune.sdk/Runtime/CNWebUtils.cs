@@ -7,25 +7,33 @@ namespace CreateNeptune
     {
         private static readonly HashSet<string> IgnoredErrors = new HashSet<string>
         {
-            "Host could not be resolved",
+			"Cannot resolve destination host",
+			"SSL CA certificate error",
+			"Unable to complete SSL connection",
+			"Unknown error",
+			"Cannot connect to destination host",
+			"Request timeout",
             // Add additional common error messages here to be ignored from logging
         };
 
 		/// <summary>
 		/// Logs web request errors, filtering out specified common errors. 
-		/// Optionally logs ignored errors based on a parameter.
+		/// Optionally logs ignored errors based on a parameter. Allows for additional context to be included in the log message.
 		/// </summary>
 		/// <param name="error">The error message to be logged.</param>
 		/// <param name="logIgnoredErrors">If true, logs errors that are normally ignored due to being common and non-critical. Defaults to false.</param>
-        public static void LogWebRequestError(string error, bool logIgnoredErrors = false)
+		/// <param name="context">Optional context information to be included in the log message. Defaults to null.</param>
+        public static void LogWebRequestError(string error, bool logIgnoredErrors = false, string context = null)
         {
+			string logMessage = context != null ? $"{error}. Context: {context}" : error;
+			
             if (!IgnoredErrors.Contains(error))
             {
-                Debug.LogError($"Web Request Error: {error}");
+                Debug.LogError($"Web Request Error: {logMessage}");
             }
             else if (logIgnoredErrors)
             {
-                Debug.Log($"Ignored Web Request Error: {error}");
+                Debug.Log($"Ignored Web Request Error: {logMessage}");
             }
         }
     }
