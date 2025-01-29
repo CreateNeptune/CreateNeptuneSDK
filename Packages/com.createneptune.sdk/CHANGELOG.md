@@ -165,3 +165,9 @@
 ### 3.2.4
 
 - Added a function to the SDK for logging web request related errors, with the option to filter out common, non-critical errors like "Host could not be resolved".
+
+### 3.3.0
+
+- Added the CNTime class that can be used instead of DateTime to offset the current time for testing
+- Added a custom editor for this to add easy shorthand time offsets
+- Slightly adjusted package description
