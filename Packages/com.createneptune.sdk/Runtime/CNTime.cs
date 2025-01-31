@@ -1,15 +1,29 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace CreateNeptune
 {
+    /// <summary>
+    /// Singleton class that allows for the adjustment of the current time with an offset for testing purposes
+    /// </summary>
     public class CNTime : Singleton<CNTime>
     {
         [SerializeField] private bool useAdjustedTimeInEditor = false;
         [SerializeField] private bool useAdjustedTimeInBuild = false;
-        public double timeOffsetInSeconds = 0;
+
+        // The custom editor will display these fields, so they are hidden from the inspector
+        [HideInInspector] public double weeks = 0;
+        [HideInInspector] public double days = 0;
+        [HideInInspector] public double hours = 0;
+        [HideInInspector] public double minutes = 0;
+
+        public double timeOffsetInSeconds
+        {
+            get
+            {
+                return (weeks * 604800) + (days * 86400) + (hours * 3600) + (minutes * 60);
+            }
+        }
 
         public static DateTime Now
         {
