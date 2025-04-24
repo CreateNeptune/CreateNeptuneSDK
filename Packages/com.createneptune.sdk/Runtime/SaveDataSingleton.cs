@@ -54,8 +54,10 @@ namespace CreateNeptune
             {
                 gameObject.SetActive(false);
                 Destroy(gameObject);
+                
                 return;
             }
+            
             hasBeenInstantiated = true;
 
             // Ensures that our save data is using the intended default values for its fields.
