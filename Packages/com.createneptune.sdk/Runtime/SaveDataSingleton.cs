@@ -33,10 +33,35 @@ namespace CreateNeptune
         }
 
         /// <summary>
+        /// This bool is used to prevent the SaveDataSingleton from ever being reinstantiated,
+        /// even if this GameObject is destroyed.
+        /// 
+        /// This fixes a bug that can occur if we exit playmode in the middle of a scene load 
+        /// (which can clear save data).
+        /// </summary>
+        private static bool hasBeenInstantiated = false;
+
+        /// <summary>
         /// child classes should override this to have some some initial data before anything gets loaded. 
         /// </summary>
         protected override void OnSuccessfulAwake()
         {
+            // This checks if this singleton has ever been instantiated before.
+            // If it has, we destroy this instance and set the game object to inactive.
+            // This is to prevent the singleton from being instantiated again if it has already been instantiated.
+            // This is a bug that can occur if we exit playmode in the middle of a scene load (which can clear save data).
+            if (hasBeenInstantiated)
+            {
+                gameObject.SetActive(false);
+                Destroy(gameObject);
+                
+                return;
+            }
+            
+            hasBeenInstantiated = true;
+
+            // Ensures that our save data is using the intended default values for its fields.
+            // (This way, you only need to manage default values in one place, SetDefaultValues).
             SetDefaultValues();
         }
 

@@ -171,3 +171,7 @@
 - Added the CNTime class that can be used instead of DateTime to offset the current time for testing
 - Added a custom editor for this to add easy shorthand time offsets
 - Slightly adjusted package description
+
+### 3.3.1
+
+- Fixed a bug where a SaveDataSingleton can be reinstantiated if you exit playmode in the middle of loading another scene
